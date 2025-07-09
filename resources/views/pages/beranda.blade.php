@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="relative z-10 h-[500px] flex flex-col justify-center items-center bg-[#3B3B1A]/60 text-white text-center px-4">
-            <h1 class="text-4xl font-bold mb-4">Magang Berkualitas di PT Tiga Serangkai</h1>
+            <h1 class="text-4xl font-bold mb-4">Magang Mahasiswa Profesional di PT Tiga Serangkai</h1>
             <p class="text-lg">Raih pengalaman kerja nyata dan bimbingan langsung dari profesional berpengalaman.</p>
         </div>
     </section>
@@ -223,7 +223,7 @@
         <div class="space-y-4">
             @foreach([
                 'Siapa saja yang bisa mendaftar program magang ini?' => 'Program magang kami terbuka untuk mahasiswa aktif dari berbagai jurusan yang sesuai dengan bidang yang kami tawarkan. Minimal semester 4 untuk program magang reguler.',
-                'Apakah program magang ini berbayar atau gratis?' => 'Program magang kami tidak berbayar (gratis) dan peserta bahkan akan mendapatkan uang saku selama mengikuti program magang.',
+                'Apakah program magang ini berbayar atau gratis?' => 'Program magang kami tidak berbayar (gratis).',
                 'Apakah semua posisi magang tersedia secara online?' => 'Sebagian besar posisi magang kami bersifat offline di kantor kami, namun beberapa posisi tertentu memungkinkan untuk bekerja hybrid (kombinasi online dan offline).',
                 'Apakah peserta magang akan mendapat sertifikat?' => 'Ya, peserta yang menyelesaikan program magang dengan baik akan mendapatkan sertifikat magang resmi dari PT Tiga Serangkai.',
                 'Bagaimana jika saya belum punya pengalaman kerja sebelumnya?' => 'Tidak masalah. Program magang kami dirancang untuk membantu peserta mendapatkan pengalaman kerja pertama mereka. Yang penting adalah motivasi dan keseriusan untuk belajar.'
@@ -281,7 +281,6 @@
             window.addEventListener('resize', updateCarousel);
             updateCarousel();
 
-            // Optional: Auto-slide every 5 seconds
             let autoSlide = setInterval(() => {
                 currentIndex = (currentIndex + 1) % items.length;
                 updateCarousel();
