@@ -3,6 +3,15 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminDashboardController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\GaleriController;
+
+Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
+Route::get('/berita/create', [BeritaController::class, 'create'])->name('berita.create');
+Route::post('/berita', [BeritaController::class, 'store'])->name('berita.store');
+Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('berita.show');
+
 
 Route::get('/', function () {
     return view('pages.beranda');
@@ -12,13 +21,11 @@ Route::get('/beranda', function () {
     return view('pages.beranda');
 })->name('beranda');
 
-Route::get('/galeri', function () {
-    return view('pages.galeri');
-})->name('galeri');
 
-Route::get('/berita', function () {
-    return view('pages.berita');
-})->name('berita');
+Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri');
+Route::get('/galeri/create', [GaleriController::class, 'create'])->name('galeri.create');
+Route::post('/galeri', [GaleriController::class, 'store'])->name('galeri.store');
+
 
 
 
