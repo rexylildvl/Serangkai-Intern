@@ -40,6 +40,13 @@
 
             <!-- Kanan: Login / User -->
             <div class="hidden sm:flex items-center space-x-4">
+                @auth
+                    @if(Auth::user()->role === 'admin')
+                        <a href="{{ route('admin.dashboard') }}" class="bg-yellow-300 text-black px-4 py-2 rounded-full font-semibold shadow hover:bg-yellow-400 transition">
+                            Dashboard Admin
+                        </a>
+                    @endif
+                @endauth
                 @guest
                     <a href="{{ route('login') }}" class="bg-white text-[#4B6043] px-4 py-2 rounded-full shadow hover:bg-gray-100 font-semibold transition">
                         Login
@@ -121,6 +128,12 @@
             @auth
                 <div class="font-medium text-white">{{ Auth::user()->name }}</div>
                 <div class="text-sm text-gray-200">{{ Auth::user()->email }}</div>
+
+                @if(Auth::user()->role === 'admin')
+                    <x-responsive-nav-link :href="route('admin.dashboard')">
+                        {{ __('Dashboard Admin') }}
+                    </x-responsive-nav-link>
+                @endif
 
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
