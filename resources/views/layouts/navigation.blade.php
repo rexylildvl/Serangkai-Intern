@@ -6,7 +6,8 @@
                 <!-- Logo -->
                 <a href="{{ route('beranda') }}" class="flex items-center space-x-3">
                     <img src="{{ asset('images/logo-ts.png') }}" alt="Logo" class="h-11 w-auto">
-                    <span class="text-2xl font-bold text-white tracking-wide">Serangkai Intern</span>
+                    <span class="text-1xl font-bold text-white tracking-wide">Magang<br>
+                        Tiga Serangkai</span>
                 </a>
 
                 <!-- Navigasi -->
@@ -21,13 +22,13 @@
                         {{ __('Center of Excellence') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('berita')" :active="request()->routeIs('berita')" class="hover:underline hover:underline-offset-8 hover:decoration-white hover:text-white"
-                        :class="request()->routeIs('berita') ? 'border-b-4 border-white pb-1' : ''">
+                    <x-nav-link :href="route('berita.index')" :active="request()->routeIs('berita.index')" class="hover:underline hover:underline-offset-8 hover:decoration-white hover:text-white"
+                        :class="request()->routeIs('berita.index') ? 'border-b-4 border-white pb-1' : ''">
                         {{ __('Berita') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('beranda')" :active="request()->routeIs('magang')" class="hover:underline hover:underline-offset-8 hover:decoration-white hover:text-white"
-                        :class="request()->routeIs('magang') ? 'border-b-4 border-white pb-1' : ''">
+                    <x-nav-link :href="route('lowongan.index')" :active="request()->routeIs('lowongan.index')" class="hover:underline hover:underline-offset-8 hover:decoration-white hover:text-white"
+                        :class="request()->routeIs('lowongan.index') ? 'border-b-4 border-white pb-1' : ''">
                         {{ __('Lowongan Magang') }}
                     </x-nav-link>
 
@@ -108,7 +109,7 @@
         <x-responsive-nav-link :href="route('beranda')" :active="request()->routeIs('coe')">
             {{ __('Center of Excellence') }}
         </x-responsive-nav-link>
-        <x-responsive-nav-link :href="route('berita')" :active="request()->routeIs('berita')">
+        <x-responsive-nav-link :href="route('berita.index')" :active="request()->routeIs('berita.index')">
             {{ __('Berita') }}
         </x-responsive-nav-link>
         <x-responsive-nav-link :href="route('beranda')" :active="request()->routeIs('magang')">

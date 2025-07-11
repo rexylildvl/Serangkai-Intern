@@ -4,16 +4,14 @@
         <div class="flex items-start space-x-4">
             <img src="{{ asset('images/logo-ts.png') }}" alt="Logo" class="h-10 w-10 object-cover" />
             <div>
-                <h2 class="font-bold text-base mb-2">Serangkai Intern</h2>
+                <h2 class="font-bold text-base mb-2">Magang<br>Tiga Serangkai</h2>
                 <p class="text-white/80 leading-relaxed mb-3">
                     Program ini dikelola langsung oleh unit Center of Excellent, yang berfokus pada pelatihan, pembelajaran,
                     dan peningkatan kompetensi mahasiswa melalui pengalaman kerja nyata di dunia industri.
                 </p>
                 <p class="flex items-start gap-2 text-white/90">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13 21.314V3a9 9 0 11-8.485 5.857"/>
-                    </svg>
-                    Jl. Prof. DR. Supomo No.23, Sriwedari, Kec. Laweyan, Kota Surakarta, Jawa Tengah 57141
+                    <i class="fas fa-map-marker-alt mt-1 w-4"></i>
+                    <span>Jl. Prof. DR. Supomo No.23, Sriwedari, Kec. Laweyan, Kota Surakarta, Jawa Tengah 57141</span>
                 </p>
             </div>
         </div>
@@ -42,15 +40,10 @@
                 <span><span class="font-semibold">Email</span>: tsi-recruitment@tigaserangkai.co.id</span>
             </p>
             <div class="flex space-x-4 mt-4">
-                <a href="#" class="hover:opacity-80" aria-label="LinkedIn">
-                    <i class="fab fa-linkedin fa-lg"></i>
-                </a>
-                <a href="#" class="hover:opacity-80" aria-label="Instagram">
-                    <i class="fab fa-instagram fa-lg"></i>
-                </a>
-                <a href="#" class="hover:opacity-80" aria-label="Website">
-                    <i class="fas fa-globe fa-lg"></i>
-                </a>
+                <a href="#" class="hover:opacity-80" aria-label="LinkedIn"><i class="fab fa-linkedin fa-lg"></i></a>
+                <a href="#" class="hover:opacity-80" aria-label="Instagram"><i class="fab fa-instagram fa-lg"></i></a>
+                <a href="#" class="hover:opacity-80" aria-label="Website"><i class="fas fa-globe fa-lg"></i></a>
+                <a href="#" class="hover:opacity-80" aria-label="TikTok"><i class="fab fa-tiktok fa-lg"></i></a>
             </div>
         </div>
     </div>
