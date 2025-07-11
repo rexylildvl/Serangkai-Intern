@@ -6,11 +6,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\GaleriController;
+use App\Http\Controllers\LowonganController;
 
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
 Route::get('/berita/create', [BeritaController::class, 'create'])->name('berita.create');
 Route::post('/berita', [BeritaController::class, 'store'])->name('berita.store');
 Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('berita.show');
+
+Route::get('/lowongan', [LowonganController::class, 'index'])->name('lowongan.index');
+Route::get('/lowongan/{id}', [LowonganController::class, 'show'])->name('lowongan.show');
+Route::get('/lowongan/create', [LowonganController::class, 'create'])->name('lowongan.create');
+Route::post('/lowongan', [LowonganController::class, 'store'])->name('lowongan.store');
 
 
 Route::get('/', function () {

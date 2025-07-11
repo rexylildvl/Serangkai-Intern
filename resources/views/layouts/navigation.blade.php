@@ -27,8 +27,8 @@
                         {{ __('Berita') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('beranda')" :active="request()->routeIs('magang')" class="hover:underline hover:underline-offset-8 hover:decoration-white hover:text-white"
-                        :class="request()->routeIs('magang') ? 'border-b-4 border-white pb-1' : ''">
+                    <x-nav-link :href="route('lowongan.index')" :active="request()->routeIs('lowongan.index')" class="hover:underline hover:underline-offset-8 hover:decoration-white hover:text-white"
+                        :class="request()->routeIs('lowongan.index') ? 'border-b-4 border-white pb-1' : ''">
                         {{ __('Lowongan Magang') }}
                     </x-nav-link>
 

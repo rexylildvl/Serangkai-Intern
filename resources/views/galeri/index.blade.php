@@ -1,6 +1,6 @@
 <x-app-layout>
     <!-- Galeri Kegiatan Full Page -->
-    <section class="bg-[#E7EFC7] py-24">
+    <section class="bg-[#E7EFC7] py-10">
         <div class="max-w-7xl mx-auto px-4">
             <h1 class="text-4xl font-bold text-center text-[#3B3B1A] mb-12">Galeri Kegiatan Magang di Tiga Serangkai</h1>
 

@@ -7,8 +7,11 @@
                     <div class="carousel-item w-full flex-shrink-0">
                         <img src="{{ asset('images/ts.jpg') }}" alt="Slide 1" class="object-cover w-full h-full">
                     </div>
-                    <div class="carousel-item w-full flex-shrink-0">
+                    <!-- <div class="carousel-item w-full flex-shrink-0">
                         <img src="{{ asset('images/ts-org.jpg') }}" alt="Slide 2" class="object-cover w-full h-full">
+                    </div> -->
+                    <div class="carousel-item w-full flex-shrink-0">
+                        <img src="{{ asset('images/magang.jpg') }}" alt="Slide 2" class="object-cover w-full h-full">
                     </div>
                 </div>
                 <!-- Carousel Indicators -->
@@ -28,16 +31,17 @@
     <section class="bg-[#E7EFC7] py-20">
         <div class="max-w-6xl mx-auto px-4 md:flex items-center gap-10">
             <div class="md:w-1/2 bg-[#AEC8A4] h-64 rounded-lg flex items-center justify-center">
-                <p class="text-[#3B3B1A] font-medium">Gambar ilustrasi program magang</p>
+                <img src="{{ asset('images/magang.jpg') }}" alt="Program Magang" class="object-cover w-full h-full rounded-lg">
+                <!-- <p class="text-[#3B3B1A] font-medium">Gambar ilustrasi program magang</p> -->
             </div>
             <div class="md:w-1/2 mt-8 md:mt-0">
                 <h2 class="text-3xl font-bold mb-4 text-[#3B3B1A]">Tentang Program Magang Kami</h2>
                 <p class="text-[#626F47] mb-6 leading-relaxed">
-                    Program magang di PT Tiga Serangkai merupakan wadah pembelajaran bagi mahasiswa untuk merasakan pengalaman kerja nyata di dunia industri.
+                    Program Magang Mahasiswa Profesional di PT Tiga Serangkai merupakan wadah pembelajaran bagi mahasiswa untuk merasakan pengalaman kerja nyata di dunia industri.
                     Dikelola oleh Center of Excellent, program ini dirancang untuk mengembangkan keterampilan, kreativitas, dan profesionalisme peserta
                     dengan bimbingan mentor berpengalaman.
                 </p>
-                <a href="#" class="inline-block bg-[#626F47] hover:bg-[#3B3B1A] text-white px-6 py-3 rounded-full transition duration-300">
+                <a href="{{ route('lowongan.index') }}" class="inline-block bg-[#626F47] hover:bg-[#3B3B1A] text-white px-6 py-3 rounded-full transition duration-300">
                     Daftar Sekarang
                 </a>
             </div>
@@ -78,7 +82,7 @@
         <div class="max-w-6xl mx-auto px-4">
             <div class="flex justify-between items-center mb-8">
                 <h2 class="text-3xl font-bold text-[#3B3B1A]">Lowongan Magang Terbaru</h2>
-                <a href="#" class="text-[#626F47] hover:text-[#3B3B1A] font-medium flex items-center">
+                <a href="{{ route('lowongan.index') }}" class="text-[#626F47] hover:text-[#3B3B1A] font-medium flex items-center">
                     Semua Lowongan
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
