@@ -12,6 +12,6 @@ class AdminDashboardController extends Controller
             abort(403);
         }
 
-        return view('admin.dashboard'); // atau beranda.blade.php kalau kamu pakai itu
+        return view('admin.dashboard'); 
     }
 }
