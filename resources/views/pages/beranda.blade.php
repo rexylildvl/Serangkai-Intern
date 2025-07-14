@@ -212,53 +212,52 @@
                 @endfor
             </div>
             <div class="text-center mt-10">
-                <a href="#" class="inline-block bg-[#626F47] hover:bg-[#3B3B1A] text-white px-6 py-3 rounded-full transition duration-300 shadow-md">
+                <a href="{{ route('galeri.index') }}" class="inline-block bg-[#626F47] hover:bg-[#3B3B1A] text-white px-6 py-3 rounded-full transition duration-300 shadow-md">
                     Lihat Semua Foto
                 </a>
             </div>
         </div>
     </section>
 
-<!-- FAQ -->
-<section class="bg-[#AEC8A4] py-20">
-    <div class="max-w-4xl mx-auto px-4">
-        <h2 class="text-3xl font-bold mb-10 text-center text-[#3B3B1A]">Pertanyaan yang Sering Ditanyakan</h2>
+    <!-- FAQ -->
+    <section class="bg-[#AEC8A4] py-20">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-10 text-center text-[#3B3B1A]">Pertanyaan yang Sering Ditanyakan</h2>
 
-        <div class="space-y-4">
-            @foreach([
-                'Siapa saja yang bisa mendaftar program magang ini?' => 'Program magang kami terbuka untuk mahasiswa aktif dari berbagai jurusan yang sesuai dengan bidang yang kami tawarkan. Minimal semester 4 untuk program magang reguler.',
-                'Apakah program magang ini berbayar atau gratis?' => 'Program magang kami tidak berbayar (gratis).',
-                'Apakah semua posisi magang tersedia secara online?' => 'Sebagian besar posisi magang kami bersifat offline di kantor kami, namun beberapa posisi tertentu memungkinkan untuk bekerja hybrid (kombinasi online dan offline).',
-                'Apakah peserta magang akan mendapat sertifikat?' => 'Ya, peserta yang menyelesaikan program magang dengan baik akan mendapatkan sertifikat magang resmi dari PT Tiga Serangkai.',
-                'Bagaimana jika saya belum punya pengalaman kerja sebelumnya?' => 'Tidak masalah. Program magang kami dirancang untuk membantu peserta mendapatkan pengalaman kerja pertama mereka. Yang penting adalah motivasi dan keseriusan untuk belajar.'
-            ] as $question => $answer)
-            <div x-data="{ open: {{ $loop->first ? 'true' : 'false' }} }" class="border border-[#8A784E] rounded-xl overflow-hidden bg-[#E7EFC7]">
-                <button
-                    @click="open = !open"
-                    class="w-full px-6 py-4 text-left font-semibold text-[#3B3B1A] hover:bg-[#DDEBC7] focus:outline-none focus:ring-2 focus:ring-[#626F47] focus:ring-offset-2 transition duration-150 flex justify-between items-center"
-                >
-                    <span>{{ $question }}</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#626F47] transition-transform duration-200" :class="{ 'transform rotate-180': open }" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                </button>
-                <div x-show="open" x-collapse class="px-6 pb-4 text-[#626F47] bg-[#F5FBE7]">
-                    {{ $answer }}
+            <div class="space-y-4">
+                @foreach([
+                    'Siapa saja yang bisa mendaftar program magang ini?' => 'Program magang kami terbuka untuk mahasiswa aktif dari berbagai jurusan yang sesuai dengan bidang yang kami tawarkan. Minimal semester 4 untuk program magang reguler.',
+                    'Apakah program magang ini berbayar atau gratis?' => 'Program magang kami tidak berbayar (gratis).',
+                    'Apakah semua posisi magang tersedia secara online?' => 'Sebagian besar posisi magang kami bersifat offline di kantor kami, namun beberapa posisi tertentu memungkinkan untuk bekerja hybrid (kombinasi online dan offline).',
+                    'Apakah peserta magang akan mendapat sertifikat?' => 'Ya, peserta yang menyelesaikan program magang dengan baik akan mendapatkan sertifikat magang resmi dari PT Tiga Serangkai.',
+                    'Bagaimana jika saya belum punya pengalaman kerja sebelumnya?' => 'Tidak masalah. Program magang kami dirancang untuk membantu peserta mendapatkan pengalaman kerja pertama mereka. Yang penting adalah motivasi dan keseriusan untuk belajar.'
+                ] as $question => $answer)
+                <div x-data="{ open: {{ $loop->first ? 'true' : 'false' }} }" class="border border-[#8A784E] rounded-xl overflow-hidden bg-[#E7EFC7]">
+                    <button
+                        @click="open = !open"
+                        class="w-full px-6 py-4 text-left font-semibold text-[#3B3B1A] hover:bg-[#DDEBC7] focus:outline-none focus:ring-2 focus:ring-[#626F47] focus:ring-offset-2 transition duration-150 flex justify-between items-center"
+                    >
+                        <span>{{ $question }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#626F47] transition-transform duration-200" :class="{ 'transform rotate-180': open }" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <div x-show="open" x-collapse class="px-6 pb-4 text-[#626F47] bg-[#F5FBE7]">
+                        {{ $answer }}
+                    </div>
                 </div>
+                @endforeach
             </div>
-            @endforeach
-        </div>
 
-        <div class="text-center mt-10">
-            <p class="text-[#626F47] mb-4">Masih ada pertanyaan lain?</p>
-            <a href="#" class="inline-block bg-[#626F47] hover:bg-[#3B3B1A] text-white px-6 py-3 rounded-full transition duration-300 shadow-md">
-                Hubungi Kami
-            </a>
+            <div class="text-center mt-10">
+                <p class="text-[#626F47] mb-4">Masih ada pertanyaan lain?</p>
+                <a href="#" class="inline-block bg-[#626F47] hover:bg-[#3B3B1A] text-white px-6 py-3 rounded-full transition duration-300 shadow-md">
+                    Hubungi Kami
+                </a>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-    <!-- Carousel Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const inner = document.querySelector('.carousel-inner');

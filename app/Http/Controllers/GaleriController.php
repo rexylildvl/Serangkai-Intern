@@ -15,14 +15,13 @@ public function index()
     return view('galeri.index', compact('galeris'));
 }
 
-
-    // Menampilkan form tambah galeri
+    // Form tambah galeri
     public function create()
     {
-        return view('galeri.create'); // buat view ini nanti
+        return view('galeri.create');
     }
 
-    // Menyimpan data galeri
+    // Simpan data galeri
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -31,7 +30,6 @@ public function index()
             'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        // Upload foto
         $path = null;
         if ($request->hasFile('foto')) {
             $file = $request->file('foto');
@@ -39,14 +37,13 @@ public function index()
             $path = $file->storeAs('uploads/galeri', $filename, 'public');
         }
 
-        // Simpan ke database
         Galeri::create([
             'judul' => $validated['judul'],
             'deskripsi' => $validated['deskripsi'] ?? '',
             'foto' => $path,
-            'tanggal_upload' => now(),
+            'tanggal_upload' => now(), // Pastikan kolom ini ada di migration
         ]);
 
-        return redirect()->route('galeri')->with('success', 'Galeri berhasil ditambahkan.');
+        return redirect()->route('galeri.index')->with('success', 'Galeri berhasil ditambahkan.');
     }
 }

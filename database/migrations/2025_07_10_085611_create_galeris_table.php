@@ -15,6 +15,7 @@ class CreateGalerisTable extends Migration
             $table->text('deskripsi')->nullable();
             $table->string('foto');
             $table->date('tanggal_upload')->default(DB::raw('CURRENT_DATE'));
+            $table->timestamps();
         });
     }
 

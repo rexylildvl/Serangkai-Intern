@@ -24,6 +24,11 @@ Route::get('/lowongan/create', [LowonganController::class, 'create'])->name('low
 Route::post('/lowongan', [LowonganController::class, 'store'])->name('lowongan.store');
 
 
+Route::get('/center-of-excellence', function () {
+    return view('coe.index');
+})->name('coe.index');
+
+
 Route::get('/', function () {
     return view('pages.beranda');
 });
@@ -32,11 +37,10 @@ Route::get('/beranda', function () {
     return view('pages.beranda');
 })->name('beranda');
 
-
-Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri');
+Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');
 Route::get('/galeri/create', [GaleriController::class, 'create'])->name('galeri.create');
 Route::post('/galeri', [GaleriController::class, 'store'])->name('galeri.store');
-
+Route::get('/galeri/{id}', [GaleriController::class, 'show'])->name('galeri.show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -50,6 +54,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/berita', [AdminBeritaController::class, 'index'])->name('admin.berita');
     Route::get('/admin/berita/create', [AdminBeritaController::class, 'create'])->name('admin.berita.create');
     Route::get('/admin/galeri', [AdminGaleriController::class, 'index'])->name('admin.galeri');
+    Route::get('/admin/galeri/create', [AdminGaleriController::class, 'create'])->name('admin.galeri.create');
+    Route::post('/admin/galeri', [AdminGaleriController::class, 'store'])->name('admin.galeri.store');
+    Route::get('/admin/galeri/{id}', [AdminGaleriController::class, 'show'])->name('admin.galeri.show');
+    Route::get('/admin/galeri/{id}/edit', [AdminGaleriController::class, 'edit'])->name('admin.galeri.edit');
+    Route::put('/admin/galeri/{id}', [AdminGaleriController::class, 'update'])->name('admin.galeri.update');
+    Route::delete('/admin/galeri/{id}', [AdminGaleriController::class, 'destroy'])->name('admin.galeri.destroy');
     Route::get('/admin/faq', [AdminFaqController::class, 'index'])->name('admin.faq');
 });
 

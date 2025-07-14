@@ -17,8 +17,8 @@
                         {{ __('Beranda') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('beranda')" :active="request()->routeIs('coe')" class="hover:underline hover:underline-offset-8 hover:decoration-white hover:text-white"
-                        :class="request()->routeIs('coe') ? 'border-b-4 border-white pb-1' : ''">
+                    <x-nav-link :href="route('coe.index')" :active="request()->routeIs('coe.index')" class="hover:underline hover:underline-offset-8 hover:decoration-white hover:text-white"
+                        :class="request()->routeIs('coe.index') ? 'border-b-4 border-white pb-1' : ''">
                         {{ __('Center of Excellence') }}
                     </x-nav-link>
 
@@ -32,8 +32,8 @@
                         {{ __('Lowongan Magang') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('galeri')" :active="request()->routeIs('galeri')" class="hover:underline hover:underline-offset-8 hover:decoration-white hover:text-white"
-                        :class="request()->routeIs('galeri') ? 'border-b-4 border-white pb-1' : ''">
+                    <x-nav-link :href="route('galeri.index')" :active="request()->routeIs('galeri.index')" class="hover:underline hover:underline-offset-8 hover:decoration-white hover:text-white"
+                        :class="request()->routeIs('galeri.index') ? 'border-b-4 border-white pb-1' : ''">
                         {{ __('Galeri') }}
                     </x-nav-link>
                 </div>
@@ -115,7 +115,7 @@
         <x-responsive-nav-link :href="route('beranda')" :active="request()->routeIs('magang')">
             {{ __('Lowongan Magang') }}
         </x-responsive-nav-link>
-        <x-responsive-nav-link :href="route('galeri')" :active="request()->routeIs('galeri')">
+        <x-responsive-nav-link :href="route('galeri.index')" :active="request()->routeIs('galeri.index')">
             {{ __('Galeri') }}
         </x-responsive-nav-link>
 
