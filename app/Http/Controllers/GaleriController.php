@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Storage;
 class GaleriController extends Controller
 {
     // Menampilkan semua galeri
-public function index()
-{
-    $galeris = Galeri::orderBy('tanggal_upload', 'desc')->get();
-    return view('galeri.index', compact('galeris'));
-}
+    public function index()
+    {
+        $galeris = Galeri::orderBy('tanggal_upload', 'desc')->get();
+        return view('galeri.index', compact('galeris'));
+    }
 
 
     // Menampilkan form tambah galeri

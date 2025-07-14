@@ -50,6 +50,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/berita', [AdminBeritaController::class, 'index'])->name('admin.berita');
     Route::get('/admin/berita/create', [AdminBeritaController::class, 'create'])->name('admin.berita.create');
     Route::get('/admin/galeri', [AdminGaleriController::class, 'index'])->name('admin.galeri');
+    Route::get('/admin/galeri/create', [AdminGaleriController::class, 'create'])->name('admin.galeri.create');
+    Route::post('/admin/galeri', [AdminGaleriController::class, 'store'])->name('admin.galeri.store');
+    Route::get('/admin/galeri/{id}', [AdminGaleriController::class, 'show'])->name('admin.galeri.show');
+    Route::get('/admin/galeri/{id}/edit', [AdminGaleriController::class, 'edit'])->name('admin.galeri.edit');
+    Route::put('/admin/galeri/{id}', [AdminGaleriController::class, 'update'])->name('admin.galeri.update');
+    Route::delete('/admin/galeri/{id}', [AdminGaleriController::class, 'destroy'])->name('admin.galeri.destroy');
     Route::get('/admin/faq', [AdminFaqController::class, 'index'])->name('admin.faq');
 });
 
