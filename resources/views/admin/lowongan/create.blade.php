@@ -14,6 +14,4 @@
         <label class="block font-medium">Deskripsi</label>
         <textarea name="deskripsi" class="w-full border px-4 py-2 rounded"></textarea>
     </div>
-    <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">Simpan</button>
-</form>
 @endsection
