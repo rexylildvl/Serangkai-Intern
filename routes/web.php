@@ -51,6 +51,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/pendaftar', [AdminPendaftarController::class, 'index'])->name('admin.pendaftar');
     Route::get('/admin/lowongan', [AdminLowonganController::class, 'index'])->name('admin.lowongan');
     Route::get('/admin/lowongan/create', [AdminLowonganController::class, 'create'])->name('admin.lowongan.create');
+    Route::get('/admin/lowongan/{id}', [AdminLowonganController::class, 'show'])->name('admin.lowongan.show');
+    Route::get('/admin/lowongan/{id}/edit', [AdminLowonganController::class, 'edit'])->name('admin.lowongan.edit');
+    Route::put('/admin/lowongan/{id}', [AdminLowonganController::class, 'update'])->name('admin.lowongan.update');
+    Route::delete('/admin/lowongan/{id}', [AdminLowonganController::class, 'destroy'])->name('admin.lowongan.destroy');
+    Route::post('/admin/lowongan', [AdminLowonganController::class, 'store'])->name('admin.lowongan.store');
     Route::get('/admin/berita', [AdminBeritaController::class, 'index'])->name('admin.berita.index');
     Route::get('/admin/berita/create', [AdminBeritaController::class, 'create'])->name('admin.berita.create');
     Route::post('/admin/berita', [AdminBeritaController::class, 'store'])->name('admin.berita.store');

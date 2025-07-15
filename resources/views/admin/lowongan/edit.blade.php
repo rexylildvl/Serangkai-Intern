@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
-@section('title', 'Tambah Lowongan Magang')
+@section('title', 'Edit Lowongan')
 
 @section('content')
 <div class="max-w-4xl mx-auto bg-white p-6 rounded shadow">
-    <h2 class="text-2xl font-bold mb-4 text-gray-700">Tambah Lowongan</h2>
+    <h2 class="text-2xl font-bold mb-4 text-gray-700">Edit Lowongan</h2>
 
     @if ($errors->any())
         <div class="mb-4 bg-red-100 text-red-700 p-3 rounded">
@@ -16,44 +16,47 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.lowongan.store') }}" method="POST">
+    <form action="{{ route('admin.lowongan.update', $lowongan->id) }}" method="POST">
         @csrf
+        @method('PUT')
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-                <label class="block text-sm font-medium text-gray-600">Judul</label>
-                <input type="text" name="judul" value="{{ old('judul') }}" class="w-full mt-1 p-2 border rounded" required>
-            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-600">Judul</label>
+                    <input type="text" name="judul" value="{{ old('judul', $lowongan->judul) }}" class="w-full mt-1 p-2 border rounded" required>
+                </div>
 
-            <div>
-                <label class="block text-sm font-medium text-gray-600">Divisi</label>
-                <input type="text" name="divisi" value="{{ old('divisi') }}" class="w-full mt-1 p-2 border rounded" required>
-            </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-600">Divisi</label>
+                    <input type="text" name="divisi" value="{{ old('divisi', $lowongan->divisi) }}" class="w-full mt-1 p-2 border rounded" required>
+                </div>
 
-            <div>
-                <label class="block text-sm font-medium text-gray-600">Lokasi</label>
-                <input type="text" name="lokasi" value="{{ old('lokasi') }}" class="w-full mt-1 p-2 border rounded" required>
-            </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-600">Lokasi</label>
+                    <input type="text" name="lokasi" value="{{ old('lokasi', $lowongan->lokasi) }}" class="w-full mt-1 p-2 border rounded" required>
+                </div>
 
-            <div>
-                <label class="block text-sm font-medium text-gray-600">Deadline</label>
-                <input type="date" name="deadline" value="{{ old('deadline') }}" class="w-full mt-1 p-2 border rounded" required>
-            </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-600">Deadline</label>
+                    <input type="date" name="deadline" value="{{ old('deadline', $lowongan->deadline) }}" class="w-full mt-1 p-2 border rounded" required>
+                </div>
 
-            <div>
-                <label class="block text-sm font-medium text-gray-600">Durasi</label>
-                <input type="text" name="durasi" value="{{ old('durasi') }}" class="w-full mt-1 p-2 border rounded">
-            </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-600">Durasi</label>
+                    <input type="text" name="durasi" value="{{ old('durasi', $lowongan->durasi) }}" class="w-full mt-1 p-2 border rounded">
+                </div>
 
-            <div>
-                <label class="block text-sm font-medium text-gray-600">Pendidikan</label>
-                <input type="text" name="pendidikan" value="{{ old('pendidikan') }}" class="w-full mt-1 p-2 border rounded">
+                <div>
+                    <label class="block text-sm font-medium text-gray-600">Pendidikan</label>
+                    <input type="text" name="pendidikan" value="{{ old('pendidikan', $lowongan->pendidikan) }}" class="w-full mt-1 p-2 border rounded">
+                </div>
             </div>
         </div>
 
         <div class="mt-6">
             <label class="block text-sm font-medium text-gray-600">Deskripsi</label>
-            <textarea name="deskripsi" rows="4" class="w-full mt-1 p-2 border rounded">{{ old('deskripsi') }}</textarea>
+            <textarea name="deskripsi" rows="4" class="w-full mt-1 p-2 border rounded">{{ old('deskripsi', $lowongan->deskripsi) }}</textarea>
         </div>
 
         @php
@@ -71,8 +74,8 @@
                 <label class="block text-sm font-medium text-gray-600">{{ $label }}</label>
                 <div id="{{ $field }}-wrapper" class="space-y-2 mt-2">
                     @php
-                        $items = old($field, []);
-                        if (!is_array($items)) $items = [$items];
+                        $items = old($field, $lowongan->$field ?? []);
+                        if (!is_array($items)) $items = [];
                     @endphp
                     @forelse ($items as $item)
                         <div class="flex gap-2">
@@ -95,7 +98,7 @@
 
         <div class="mt-6">
             <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition">
-                Simpan
+                Simpan Perubahan
             </button>
             <a href="{{ route('admin.lowongan') }}"
                class="ml-2 text-sm text-gray-600 hover:underline">Kembali</a>

@@ -103,7 +103,7 @@
 
     {{-- Chart Section --}}
     <div class="bg-white p-6 rounded-xl shadow border border-gray-200 mt-10">
-        <h3 class="text-lg font-semibold text-gray-800 mb-4">Statistik Pendaftar Minggu Ini</h3>
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">Statistik Pendaftar Setiap Divisi</h3>
         <canvas id="pendaftarChart" height="100"></canvas>
     </div>
 @endsection
@@ -115,7 +115,7 @@
     const pendaftarChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
+            labels: ['UI/UX', 'Marketing', 'Testing', 'Web Developement', 'HRD', 'Admin', 'Content Writer'],
             datasets: [{
                 label: 'Pendaftar',
                 data: [5, 8, 12, 6, 10, 7, 14],

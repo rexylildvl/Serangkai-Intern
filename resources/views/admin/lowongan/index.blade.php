@@ -1,49 +1,51 @@
 @extends('layouts.admin')
 
-@section('title', 'Data Lowongan')
+@section('title', 'Daftar Lowongan Magang')
 
 @section('content')
-<div class="flex items-center justify-between mb-6">
-    <h1 class="text-2xl font-bold text-gray-800">Data Lowongan</h1>
-    <a href="{{ route('admin.lowongan.create') }}" class="bg-blue-600 text-white px-5 py-2 rounded-lg shadow hover:bg-blue-700 transition duration-200">
-        + Tambah Lowongan
-    </a>
-</div>
+<div class="max-w-6xl mx-auto px-4">
+    @if(session('success'))
+        <div class="bg-green-100 border border-green-400 text-green-800 px-4 py-3 rounded mb-6">
+            {{ session('success') }}
+        </div>
+    @endif
 
-<!-- Tabel Data Lowongan -->
-<div class="overflow-x-auto bg-white rounded-lg shadow">
-    <table class="min-w-full text-sm text-left text-gray-700">
-        <thead class="bg-gray-100 text-gray-600 uppercase text-xs">
-            <tr>
-                <th class="px-6 py-4">#</th>
-                <th class="px-6 py-4">Judul</th>
-                <th class="px-6 py-4">Departemen</th>
-                <th class="px-6 py-4">Status</th>
-                <th class="px-6 py-4">Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{-- Contoh Data Dummy --}}
-            <tr class="border-b hover:bg-gray-50">
-                <td class="px-6 py-4">1</td>
-                <td class="px-6 py-4">Web Developer Intern</td>
-                <td class="px-6 py-4">IT Department</td>
-                <td class="px-6 py-4">
-                    <span class="px-2 py-1 rounded-full text-xs bg-green-100 text-green-700">Aktif</span>
-                </td>
-                <td class="px-6 py-4">
-                    <div class="flex items-center space-x-2">
-                        <a href="#" class="text-blue-500 hover:underline text-sm">Edit</a>
-                        <form action="#" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6">Daftar Lowongan Magang</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        @forelse($lowongans as $lowongan)
+            <div class="bg-white border border-gray-200 shadow-sm rounded-xl p-5 flex flex-col justify-between hover:shadow-md transition">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-1">
+                        {{ $lowongan->judul }}
+                    </h3>
+                    <p class="text-sm text-gray-500">{{ $lowongan->divisi }} — {{ $lowongan->lokasi }}</p>
+                    <p class="text-sm text-gray-400 mt-2">📅 Deadline: {{ \Carbon\Carbon::parse($lowongan->deadline)->format('d M Y') }}</p>
+                </div>
+
+                <div class="mt-4 flex justify-between items-center">
+                    <a href="{{ route('admin.lowongan.show', $lowongan->id) }}"
+                       class="text-sm text-blue-600 hover:underline">Detail</a>
+
+                    <div class="flex gap-2">
+                        <a href="{{ route('admin.lowongan.edit', $lowongan->id) }}"
+                           class="inline-flex items-center px-3 py-1.5 text-sm bg-yellow-100 text-yellow-700 rounded hover:bg-yellow-200">
+                            Edit
+                        </a>
+                        <form action="{{ route('admin.lowongan.destroy', $lowongan->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus lowongan ini?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="text-red-500 hover:underline text-sm">Hapus</button>
+                            <button type="submit"
+                                    class="inline-flex items-center px-3 py-1.5 text-sm bg-red-100 text-red-600 rounded hover:bg-red-200">
+                                Hapus
+                            </button>
                         </form>
                     </div>
-                </td>
-            </tr>
-            {{-- Tambahkan data dinamis dari controller di sini --}}
-        </tbody>
-    </table>
+                </div>
+            </div>
+        @empty
+            <p class="text-gray-500 col-span-full">Belum ada lowongan magang yang ditambahkan.</p>
+        @endforelse
+    </div>
 </div>
 @endsection
