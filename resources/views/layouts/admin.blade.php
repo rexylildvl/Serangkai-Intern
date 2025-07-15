@@ -54,8 +54,8 @@
                         </svg>
                         Data Lowongan
                     </a>
-                    <a href="{{ route('admin.berita') }}"
-                        class="flex items-center gap-2 py-2.5 px-6 hover:bg-[#6c7d5f] {{ request()->routeIs('admin.berita') ? 'bg-[#6c7d5f]' : '' }}">
+                    <a href="{{ route('admin.berita.index') }}"
+                        class="flex items-center gap-2 py-2.5 px-6 hover:bg-[#6c7d5f] {{ request()->routeIs('admin.berita.index') ? 'bg-[#6c7d5f]' : '' }}">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V7a2 2 0 012-2h3l2-2h4l2 2h3a2 2 0 012 2v11a2 2 0 01-2 2z" />
@@ -65,7 +65,7 @@
                     </a>
                     <a href="{{ route('admin.galeri') }}"
                         class="flex items-center gap-2 py-2.5 px-6 hover:bg-[#6c7d5f] {{ request()->routeIs('admin.galeri') ? 'bg-[#6c7d5f]' : '' }}">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" 
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M4 6h16M4 12h16M4 18h16" />

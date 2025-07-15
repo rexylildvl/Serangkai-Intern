@@ -8,10 +8,10 @@ class AdminLowonganController extends Controller
 {
     public function index()
     {
-        return view('admin.lowongan');
+        return view('admin.lowongan.index');
     }
     public function create()
     {
-        return view('admin.lowongan-create'); 
+        return view('admin.lowongan.create'); 
     }
 }

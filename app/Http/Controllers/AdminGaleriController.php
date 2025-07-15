@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Galeri;
+use Illuminate\Support\Facades\Storage;
 
 class AdminGaleriController extends Controller
 {

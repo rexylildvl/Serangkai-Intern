@@ -15,9 +15,9 @@ class Berita extends Model
         'judul',
         'foto',
         'berita',
-        'hari',
-        'tanggal',
+        'hari_posting',
+        'tanggal_posting',
     ];
 
-    protected $dates = ['tanggal']; // biar bisa pakai Carbon untuk format tanggal
+    protected $dates = ['tanggal_posting']; // biar bisa pakai Carbon untuk format tanggal
 }

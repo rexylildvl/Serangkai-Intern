@@ -51,8 +51,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/pendaftar', [AdminPendaftarController::class, 'index'])->name('admin.pendaftar');
     Route::get('/admin/lowongan', [AdminLowonganController::class, 'index'])->name('admin.lowongan');
     Route::get('/admin/lowongan/create', [AdminLowonganController::class, 'create'])->name('admin.lowongan.create');
-    Route::get('/admin/berita', [AdminBeritaController::class, 'index'])->name('admin.berita');
+    Route::get('/admin/berita', [AdminBeritaController::class, 'index'])->name('admin.berita.index');
     Route::get('/admin/berita/create', [AdminBeritaController::class, 'create'])->name('admin.berita.create');
+    Route::post('/admin/berita', [AdminBeritaController::class, 'store'])->name('admin.berita.store');
+    Route::get('/admin/berita/{id}', [AdminBeritaController::class, 'show'])->name('admin.berita.show');
+    Route::get('/admin/berita/{id}/edit', [AdminBeritaController::class, 'edit'])->name('admin.berita.edit');
+    Route::put('/admin/berita/{id}', [AdminBeritaController::class, 'update'])->name('admin.berita.update');
+    Route::delete('/admin/berita/{id}', [AdminBeritaController::class, 'destroy'])->name('admin.berita.destroy');
     Route::get('/admin/galeri', [AdminGaleriController::class, 'index'])->name('admin.galeri');
     Route::get('/admin/galeri/create', [AdminGaleriController::class, 'create'])->name('admin.galeri.create');
     Route::post('/admin/galeri', [AdminGaleriController::class, 'store'])->name('admin.galeri.store');

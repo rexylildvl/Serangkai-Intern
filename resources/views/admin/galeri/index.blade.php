@@ -34,13 +34,13 @@
                         <!-- Tombol Lihat Detail -->
                         <a href="{{ route('admin.galeri.show', $item->id) }}"
                         class="px-4 py-1 rounded-full text-white bg-yellow-500/80 hover:bg-yellow-600/90 text-sm font-medium shadow-md transition">
-                            🔍 Lihat Detail
+                            Lihat Detail
                         </a>
 
                         <!-- Tombol Edit -->
                         <a href="{{ route('admin.galeri.edit', $item->id) }}"
                         class="px-4 py-1 rounded-full text-white bg-blue-500/80 hover:bg-blue-600/90 text-sm font-medium shadow-md transition">
-                            ✏️ Edit
+                            Edit
                         </a>
 
                         <!-- Tombol Hapus -->
@@ -50,7 +50,7 @@
                             @method('DELETE')
                             <button type="submit"
                                     class="px-4 py-1 rounded-full text-white bg-red-500/80 hover:bg-red-600/90 text-sm font-medium shadow-md transition">
-                                🗑️ Hapus
+                                Hapus
                             </button>
                         </form>
                     </div>

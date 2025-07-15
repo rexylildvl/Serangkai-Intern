@@ -30,7 +30,7 @@
                 </svg>
                 <span class="text-sm font-medium">Data Lowongan</span>
             </a>
-            <a href="{{ route('admin.berita') }}" class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-[#f3f4f6] hover:text-[#4B6043] transition">
+            <a href="{{ route('admin.berita.index') }}" class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-[#f3f4f6] hover:text-[#4B6043] transition">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#4B6043]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V7a2 2 0 012-2h3l2-2h4l2 2h3a2 2 0 012 2v11a2 2 0 01-2 2z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11h8M8 15h6" />
