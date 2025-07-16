@@ -23,7 +23,7 @@
         </div>
         <div class="relative z-10 h-[500px] flex flex-col justify-center items-center bg-[#3B3B1A]/60 text-white text-center px-4">
             <h1 class="text-4xl font-bold mb-4">Magang Mahasiswa Profesional di PT Tiga Serangkai</h1>
-            <p class="text-lg">Raih pengalaman kerja nyata dan bimbingan langsung dari profesional berpengalaman.</p>
+            <p class="text-lg">Raih pengalaman kerja nyata dan bimbingan langsung dari mentor profesional.</p>
         </div>
     </section>
 

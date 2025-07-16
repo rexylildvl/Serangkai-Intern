@@ -7,12 +7,23 @@
             <p class="text-center text-lg text-[#626F47] mb-10 italic">Kolaboratif, Inovatif, Kontributif</p>
 
             <!-- Video -->
-            <div class="rounded-xl overflow-hidden shadow-lg mb-12 max-w-3xl mx-auto">
-                <video class="w-full rounded-lg" controls>
-                    <source src="{{ asset('videos/coe-profile.mp4') }}" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
+            @if (isset($video) && $video)
+                <div class="rounded-xl overflow-hidden shadow-lg mb-12 max-w-3xl mx-auto">
+                    <video class="w-full rounded-lg" controls>
+                        <source src="{{ asset('storage/' . $video->video_path) }}" type="video/mp4">
+                        Browser Anda tidak mendukung tag video.
+                    </video>
+                    <div class="mt-4 text-center">
+                        <h2 class="text-xl font-semibold">{{ $video->judul }}</h2>
+                        @if ($video->deskripsi)
+                            <p class="text-[#626F47] mt-2 italic">{{ $video->deskripsi }}</p>
+                        @endif
+                    </div>
+                </div>
+            @else
+                <p class="text-center text-gray-600">Belum ada video tersedia.</p>
+            @endif
+
 
             <!-- Narasi -->
             <div class="bg-white rounded-xl shadow-md p-8 border border-[#AEC8A4] text-justify space-y-5 leading-relaxed text-[#3B3B1A]">
