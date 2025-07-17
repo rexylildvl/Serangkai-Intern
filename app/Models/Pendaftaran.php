@@ -29,4 +29,10 @@ class Pendaftaran extends Model
         'tujuan',
         'keahlian',
     ];
+
+    public function lowongan()
+{
+    return $this->belongsTo(LowonganMagang::class, 'id_lowongan');
+}
+
 }

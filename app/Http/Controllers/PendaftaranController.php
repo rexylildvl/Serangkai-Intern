@@ -7,9 +7,10 @@ use App\Models\Pendaftaran;
 
 class PendaftaranController extends Controller
 {
-    public function step1()
+    public function step1(Request $request)
     {
-        return view('pendaftaran.step1');
+        $id_lowongan = $request->query('id_lowongan');
+        return view('pendaftaran.step1', compact('id_lowongan'));
     }
 
     public function postStep1(Request $request)
@@ -24,7 +25,9 @@ class PendaftaranController extends Controller
             'email' => 'required|email',
             'cv' => 'required|file|mimes:pdf|max:2048',
             'portofolio' => 'nullable|file|mimes:pdf|max:2048',
+            'id_lowongan' => 'required|integer|exists:lowongan_magang,id',
         ]);
+
 
         // Simpan file
         $data['cv'] = $request->file('cv')->store('cv', 'public');

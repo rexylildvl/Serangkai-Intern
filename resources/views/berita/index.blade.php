@@ -1,5 +1,5 @@
 <x-app-layout>
-    <section class="bg-[#E7EFC7] py-10">
+    <section class="bg-[#E7EFC7] min-h-screen py-12" x-data="{ open: false, selected: {} }">
         <div class="max-w-6xl mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="text-3xl font-bold text-[#3B3B1A] mb-4">Berita Magang Terbaru</h2>

@@ -22,7 +22,6 @@
             <div class="bg-[#F8FAF3] rounded-lg p-6 border border-[#D9E4CC]">
                 <form method="POST" action="{{ route('pendaftaran.submit') }}">
                     @csrf
-
                     <div class="grid grid-cols-1 gap-6">
                         <!-- Bidang -->
                         <div class="space-y-2">

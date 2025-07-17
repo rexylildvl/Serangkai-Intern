@@ -1,5 +1,5 @@
 <x-app-layout>
-    <section class="bg-[#E7EFC7] py-12 min-h-screen flex items-center justify-center" x-data="{ step: 1 }">
+    <section class="bg-[#E7EFC7] py-12 min-h-screen flex items-center justify-center">
         <!-- Widened container (90% of viewport on large screens) -->
         <div class="w-full max-w-4xl mx-4 lg:mx-auto bg-white rounded-xl shadow-md p-6 sm:p-8 border border-[#AEC8A4]">
             <!-- Progress Steps -->
@@ -20,9 +20,8 @@
 
             <!-- Form Container -->
             <div class="bg-[#F8FAF3] rounded-lg p-6 border border-[#D9E4CC]">
-                <form id="step1Form" action="{{ route('pendaftaran.step2') }}" method="POST" enctype="multipart/form-data">
+                <form id="step1Form" action="{{ route('pendaftaran.step1') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Form Fields -->
                         <div class="space-y-2">
@@ -94,7 +93,7 @@
                         <button type="button" onclick="window.location.href='{{ route('pendaftaran.step1') }}'" class="px-6 py-2.5 rounded-lg border border-[#AEC8A4] text-[#3B3B1A] hover:bg-[#E7EFC7] transition">
                             Kembali
                         </button>
-                        <button type="button" onclick="validateAndProceed()" class="bg-[#626F47] hover:bg-[#3B3B1A] text-white px-6 py-2.5 rounded-lg shadow transition flex items-center">
+                        <button type="submit" class="bg-[#626F47] hover:bg-[#3B3B1A] text-white px-6 py-2.5 rounded-lg shadow transition flex items-center">
                             Selanjutnya
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
@@ -104,20 +103,64 @@
                 </form>
             </div>
         </div>
+    </section>
 
     <script>
-        // Fungsi untuk menampilkan nama file yang dipilih
-        function displayFileName(inputElement) {
-            const fileInput = inputElement;
-            const fileDisplay = fileInput.nextElementSibling.querySelector('span:first-child');
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize file input displays
+            const cvInput = document.getElementById('cvInput');
+            const portofolioInput = document.getElementById('portofolioInput');
             
-            if (fileInput.files.length > 0) {
-                const fileName = fileInput.files[0].name;
+            // Display selected file names
+            cvInput.addEventListener('change', function() {
+                displayFileName(this);
+            });
+            
+            portofolioInput.addEventListener('change', function() {
+                displayFileName(this);
+            });
+            
+            // Load saved form data from localStorage
+            const savedData = localStorage.getItem('step1FormData');
+            if (savedData) {
+                const formObject = JSON.parse(savedData);
+                const form = document.getElementById('step1Form');
+                
+                Object.entries(formObject).forEach(([key, value]) => {
+                    const field = form.querySelector(`[name="${key}"]`);
+                    if (field && field.type !== 'file') {
+                        field.value = value;
+                    }
+                });
+            }
+            
+            // Form submission handler
+            const form = document.getElementById('step1Form');
+            form.addEventListener('submit', function(event) {
+                if (!validateForm()) {
+                    event.preventDefault();
+                } else {
+                    // Save form data to localStorage before submitting
+                    const formData = new FormData(form);
+                    const formObject = {};
+                    formData.forEach((value, key) => {
+                        formObject[key] = value;
+                    });
+                    localStorage.setItem('step1FormData', JSON.stringify(formObject));
+                }
+            });
+        });
+        
+        function displayFileName(inputElement) {
+            const fileDisplay = inputElement.nextElementSibling.querySelector('span:first-child');
+            
+            if (inputElement.files.length > 0) {
+                const fileName = inputElement.files[0].name;
                 fileDisplay.textContent = fileName;
                 fileDisplay.classList.remove('text-gray-500');
                 fileDisplay.classList.add('text-[#3B3B1A]', 'font-medium');
                 
-                // Tambahkan icon PDF
+                // Add PDF icon
                 const fileIcon = document.createElement('span');
                 fileIcon.innerHTML = '📄 ';
                 fileDisplay.parentNode.insertBefore(fileIcon, fileDisplay);
@@ -126,98 +169,67 @@
                 fileDisplay.classList.add('text-gray-500');
                 fileDisplay.classList.remove('text-[#3B3B1A]', 'font-medium');
                 
-                // Hapus icon jika ada
+                // Remove icon if exists
                 const existingIcon = fileDisplay.previousSibling;
                 if (existingIcon && existingIcon.nodeType === Node.ELEMENT_NODE && existingIcon.innerHTML.includes('📄')) {
                     fileDisplay.parentNode.removeChild(existingIcon);
                 }
             }
         }
-
-        // Inisialisasi event listener untuk file inputs
-        document.addEventListener('DOMContentLoaded', function() {
-            const cvInput = document.getElementById('cvInput');
-            const portofolioInput = document.getElementById('portofolioInput');
-            
-            cvInput.addEventListener('change', function() {
-                displayFileName(this);
-                this.classList.remove('border-red-500', 'bg-red-50');
-            });
-            
-            portofolioInput.addEventListener('change', function() {
-                displayFileName(this);
-            });
-        });
-
-        function validateAndProceed() {
+        
+        function validateForm() {
             const form = document.getElementById('step1Form');
             let isValid = true;
             
-            // Validasi field required
+            // Clear previous error states
+            form.querySelectorAll('.border-red-500').forEach(el => {
+                el.classList.remove('border-red-500', 'bg-red-50');
+            });
+            
+            // Validate required fields
             const requiredFields = form.querySelectorAll('[required]');
             requiredFields.forEach(field => {
                 if (!field.value.trim()) {
                     field.classList.add('border-red-500', 'bg-red-50');
-                    isValid = false;
-                    
-                    // Jika field file, beri style pada wrapper-nya
                     if (field.type === 'file') {
                         field.nextElementSibling.classList.add('border-red-500', 'bg-red-50');
                     }
-                } else {
-                    field.classList.remove('border-red-500', 'bg-red-50');
-                    if (field.type === 'file') {
-                        field.nextElementSibling.classList.remove('border-red-500', 'bg-red-50');
-                    }
+                    isValid = false;
                 }
             });
             
-            // Validasi format email
+            // Validate email format
             const emailField = form.querySelector('input[type="email"]');
             if (emailField && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value)) {
                 emailField.classList.add('border-red-500', 'bg-red-50');
                 isValid = false;
             }
             
-            // Validasi file CV (harus PDF)
+            // Validate CV file type
             const cvInput = document.getElementById('cvInput');
             if (cvInput.files.length > 0) {
                 const file = cvInput.files[0];
                 if (file.type !== 'application/pdf') {
                     cvInput.nextElementSibling.classList.add('border-red-500', 'bg-red-50');
-                    isValid = false;
-                    
-                    // Tampilkan pesan error khusus
                     showAlert('Format File Salah', 'File CV harus dalam format PDF.');
+                    isValid = false;
                 }
             }
             
-            if (isValid) {
-                // Simpan data ke localStorage
-                const formData = new FormData(form);
-                const formObject = {};
-                formData.forEach((value, key) => {
-                    formObject[key] = value;
-                });
-                localStorage.setItem('step1FormData', JSON.stringify(formObject));
-                
-                // Lanjut ke step 2
-                window.location.href = "{{ route('pendaftaran.step2') }}";
-            } else {
+            if (!isValid) {
                 showAlert('Validasi Gagal', 'Harap periksa kembali data yang Anda masukkan.');
-                
-                // Scroll ke error pertama
                 const firstError = form.querySelector('.border-red-500');
                 if (firstError) {
                     firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     firstError.focus();
                 }
             }
+            
+            return isValid;
         }
         
-        // Fungsi untuk menampilkan alert yang lebih baik
         function showAlert(title, message) {
-            // Hapus alert sebelumnya jika ada
+            // Remove existing alert if any
             const existingAlert = document.querySelector('.custom-alert');
             if (existingAlert) {
                 existingAlert.remove();
@@ -244,13 +256,11 @@
             
             document.body.appendChild(alertDiv);
             
-            // Auto remove setelah 5 detik
+            // Auto remove after 5 seconds
             setTimeout(() => {
                 alertDiv.classList.add('opacity-0', 'transition-opacity', 'duration-300');
                 setTimeout(() => alertDiv.remove(), 300);
             }, 5000);
         }
     </script>
-        </div>
-    </section>
 </x-app-layout>

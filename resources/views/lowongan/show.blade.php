@@ -1,5 +1,5 @@
 <x-app-layout>
-    <section class="bg-[#E7EFC7] py-10">
+    <section class="bg-[#E7EFC7] min-h-screen py-12" x-data="{ open: false, selected: {} }">
         <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-6 items-start">
 
         <!-- Sidebar -->
@@ -40,9 +40,10 @@
                 @endforeach
             </ul>
 
-            <a href="#" class="inline-block w-full text-center bg-[#626F47] hover:bg-[#3B3B1A] text-white font-semibold py-2 rounded-md transition">
+            <a href="{{ route('pendaftaran.step1', ['id' => $lowongan->id]) }}" class="inline-block w-full text-center bg-[#626F47] hover:bg-[#3B3B1A] text-white font-semibold py-2 rounded-md transition">
                 Daftar Sekarang
             </a>
+
         </div>
 
             <!-- Konten Utama -->

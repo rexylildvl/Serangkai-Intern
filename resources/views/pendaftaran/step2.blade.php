@@ -22,7 +22,6 @@
             <div class="bg-[#F8FAF3] rounded-lg p-6 border border-[#D9E4CC]">
                 <form id="step2Form" action="{{ route('pendaftaran.step2') }}" method="POST">
                     @csrf
-
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Universitas -->
                         <div class="space-y-2">
