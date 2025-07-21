@@ -1,29 +1,34 @@
+@php
+use Illuminate\Support\Facades\Storage;
+@endphp
+
 <x-app-layout>
     <!-- Hero Section with Carousel -->
     <section class="relative overflow-hidden">
-        <div class="absolute inset-0 z-0">
-            <div class="carousel relative w-full h-[500px] overflow-hidden">
-                <div class="carousel-inner flex transition-transform duration-700 ease-in-out w-full h-full">
-                    <div class="carousel-item w-full flex-shrink-0">
-                        <img src="{{ asset('images/ts.jpg') }}" alt="Slide 1" class="object-cover w-full h-full">
+        <div class="carousel relative w-full h-[500px] overflow-hidden">
+            <div class="carousel-inner flex transition-transform duration-700 ease-in-out w-full h-full">
+                @foreach ($banners as $banner)
+                    <div class="carousel-item w-full flex-shrink-0 relative">
+                        <!-- Gambar -->
+                        <img src="{{ Storage::url($banner->gambar) }}" alt="Banner" class="object-cover w-full h-full">
+                        
+                        <!-- Overlay teks judul dan deskripsi -->
+                        <div class="absolute inset-0 flex flex-col justify-center items-center text-center text-white bg-black/40 px-4">
+                            <h1 class="text-4xl font-bold mb-4">{{ $banner->judul }}</h1>
+                            @if ($banner->deskripsi)
+                                <p class="text-lg">{{ $banner->deskripsi }}</p>
+                            @endif
+                        </div>
                     </div>
-                    <!-- <div class="carousel-item w-full flex-shrink-0">
-                        <img src="{{ asset('images/ts-org.jpg') }}" alt="Slide 2" class="object-cover w-full h-full">
-                    </div> -->
-                    <div class="carousel-item w-full flex-shrink-0">
-                        <img src="{{ asset('images/magang.jpg') }}" alt="Slide 2" class="object-cover w-full h-full">
-                    </div>
-                </div>
-                <!-- Carousel Indicators -->
-                <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
-                    <button class="carousel-indicator w-3 h-3 rounded-full bg-white/70 hover:bg-white" data-index="0"></button>
-                    <button class="carousel-indicator w-3 h-3 rounded-full bg-white/70 hover:bg-white" data-index="1"></button>
-                </div>
+                @endforeach
             </div>
-        </div>
-        <div class="relative z-10 h-[500px] flex flex-col justify-center items-center bg-[#3B3B1A]/60 text-white text-center px-4">
-            <h1 class="text-4xl font-bold mb-4">Magang Mahasiswa Profesional di PT Tiga Serangkai</h1>
-            <p class="text-lg">Raih pengalaman kerja nyata dan bimbingan langsung dari mentor profesional.</p>
+
+            <!-- Carousel Indicators -->
+            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+                @foreach ($banners as $index => $banner)
+                    <button class="carousel-indicator w-3 h-3 rounded-full bg-white/70 hover:bg-white" data-index="{{ $index }}"></button>
+                @endforeach
+            </div>
         </div>
     </section>
 

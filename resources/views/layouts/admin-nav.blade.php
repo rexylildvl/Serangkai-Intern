@@ -11,25 +11,30 @@
         </div>
 
         <!-- Navigation -->
+        <!-- Navigation -->
         <nav class="mt-6 space-y-1 px-4">
             <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-[#f3f4f6] hover:text-[#4B6043] transition">
+                <!-- icon -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#4B6043]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h4l3 8 4-16 3 8h4" />
                 </svg>
                 <span class="text-sm font-medium">Dashboard</span>
             </a>
+
             <a href="{{ route('admin.pendaftar') }}" class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-[#f3f4f6] hover:text-[#4B6043] transition">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#4B6043]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                 </svg>
                 <span class="text-sm font-medium">Data Pendaftar</span>
             </a>
+
             <a href="{{ route('admin.lowongan') }}" class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-[#f3f4f6] hover:text-[#4B6043] transition">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#4B6043]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6h13V7H9V1L1 9l8 8z" />
                 </svg>
                 <span class="text-sm font-medium">Data Lowongan</span>
             </a>
+
             <a href="{{ route('admin.berita.index') }}" class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-[#f3f4f6] hover:text-[#4B6043] transition">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#4B6043]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V7a2 2 0 012-2h3l2-2h4l2 2h3a2 2 0 012 2v11a2 2 0 01-2 2z" />
@@ -37,19 +42,33 @@
                 </svg>
                 <span class="text-sm font-medium">Berita</span>
             </a>
+
             <a href="{{ route('admin.galeri') }}" class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-[#f3f4f6] hover:text-[#4B6043] transition">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#4B6043]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h18M3 10h18M3 15h18M3 20h18" />
                 </svg>
                 <span class="text-sm font-medium">Galeri</span>
             </a>
-            <a href="{{ route('admin.faq') }}" class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-[#f3f4f6] hover:text-[#4B6043] transition">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#4B6043]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                </svg>
-                <span class="text-sm font-medium">Pusat Informasi</span>
-            </a>
+
+            <!-- Pusat Informasi Group -->
+            <div class="mt-4">
+                <div class="flex items-center gap-3 px-4 py-2 text-gray-500 font-semibold uppercase text-xs">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-[#4B6043]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                    <span>Pusat Informasi</span>
+                </div>
+
+                <a href="{{ route('admin.banner.index') }}" class="ml-6 flex items-center gap-2 px-4 py-2 rounded-lg text-gray-700 hover:bg-[#f3f4f6] hover:text-[#4B6043] text-sm transition">
+                    📢 Banner
+                </a>
+
+                <a href="{{ route('admin.faq.index') }}" class="ml-6 flex items-center gap-2 px-4 py-2 rounded-lg text-gray-700 hover:bg-[#f3f4f6] hover:text-[#4B6043] text-sm transition">
+                    ❓ FAQ
+                </a>
+            </div>
         </nav>
+
     </div>
 
     <!-- Footer -->

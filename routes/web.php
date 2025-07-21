@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminPendaftarController;
 use App\Http\Controllers\AdminLowonganController;
 use App\Http\Controllers\AdminBeritaController;
 use App\Http\Controllers\AdminGaleriController;
 use App\Http\Controllers\AdminFaqController;
+use App\Http\Controllers\AdminBannerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\BeritaController;
@@ -45,13 +47,8 @@ Route::get('/center-of-excellence', function () {
 })->name('coe.index');
 
 
-Route::get('/', function () {
-    return view('pages.beranda');
-});
-
-Route::get('/beranda', function () {
-    return view('pages.beranda');
-})->name('beranda');
+Route::get('/', [LandingController::class, 'beranda']);
+Route::get('/beranda', [LandingController::class, 'beranda'])->name('beranda'); 
 
 Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');
 Route::get('/galeri/create', [GaleriController::class, 'create'])->name('galeri.create');
@@ -86,7 +83,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/galeri/{id}/edit', [AdminGaleriController::class, 'edit'])->name('admin.galeri.edit');
     Route::put('/admin/galeri/{id}', [AdminGaleriController::class, 'update'])->name('admin.galeri.update');
     Route::delete('/admin/galeri/{id}', [AdminGaleriController::class, 'destroy'])->name('admin.galeri.destroy');
-    Route::get('/admin/faq', [AdminFaqController::class, 'index'])->name('admin.faq');
+    Route::get('/admin/banner', [AdminBannerController::class, 'index'])->name('admin.banner.index');
+    Route::get('/admin/banner/create', [AdminBannerController::class, 'create'])->name('admin.banner.create');
+    Route::post('/admin/banner', [AdminBannerController::class, 'store'])->name('admin.banner.store');
+    Route::get('/admin/banner/{id}/edit', [AdminBannerController::class, 'edit'])->name('admin.banner.edit');
+    Route::put('/admin/banner/{id}', [AdminBannerController::class, 'update'])->name('admin.banner.update');
+    Route::delete('/admin/banner/{id}', [AdminBannerController::class, 'destroy'])->name('admin.banner.destroy');
+    Route::patch('/admin/banner/{id}/toggle', [AdminBannerController::class, 'toggle'])->name('admin.banner.toggle');
+
+    Route::get('/admin/faq', [AdminFaqController::class, 'index'])->name('admin.faq.index');
 });
 
 require __DIR__.'/auth.php';

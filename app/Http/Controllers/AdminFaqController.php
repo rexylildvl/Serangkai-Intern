@@ -8,6 +8,6 @@ class AdminFaqController extends Controller
 {
     public function index()
     {
-        return view('admin.faq');
+        return view('admin.faq.index');
     }
 }

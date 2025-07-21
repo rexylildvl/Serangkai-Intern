@@ -72,14 +72,18 @@
                         </svg>
                         Galeri
                     </a>
-                    <a href="{{ route('admin.faq') }}"
-                        class="flex items-center gap-2 py-2.5 px-6 hover:bg-[#6c7d5f] {{ request()->routeIs('admin.faq') ? 'bg-[#6c7d5f]' : '' }}">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M12 4v16m8-8H4" />
-                        </svg>
+                    <div class="px-6 pt-4 pb-1 text-xs font-semibold uppercase text-white/60 tracking-wider">
                         Pusat Informasi
+                    </div>
+
+                    <a href="{{ route('admin.banner.index') }}"
+                        class="flex items-center gap-2 py-2.5 px-8 hover:bg-[#6c7d5f] {{ request()->routeIs('admin.banner.index') ? 'bg-[#6c7d5f]' : '' }}">
+                        📢 Banner
+                    </a>
+
+                    <a href="{{ route('admin.faq.index') }}"
+                        class="flex items-center gap-2 py-2.5 px-8 hover:bg-[#6c7d5f] {{ request()->routeIs('admin.faq.index') ? 'bg-[#6c7d5f]' : '' }}">
+                        ❓ FAQ
                     </a>
                 </nav>
             </div>

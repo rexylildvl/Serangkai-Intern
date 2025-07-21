@@ -10,7 +10,13 @@
         </div>
     @endif
 
-    <h2 class="text-3xl font-bold text-gray-800 mb-6">Daftar Lowongan Magang</h2>
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6">Daftar Lowongan Magang</h2>
+        <a href="{{ route('admin.banner.create') }}"
+            class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
+            + Tambah Lowongan
+        </a>
+    </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         @forelse($lowongans as $lowongan)
