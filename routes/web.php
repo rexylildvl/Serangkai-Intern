@@ -82,7 +82,6 @@ Route::middleware('auth')->group(function () {
     Route::put('/admin/banner/{id}', [AdminBannerController::class, 'update'])->name('admin.banner.update');
     Route::delete('/admin/banner/{id}', [AdminBannerController::class, 'destroy'])->name('admin.banner.destroy');
     Route::patch('/admin/banner/{id}/toggle', [AdminBannerController::class, 'toggle'])->name('admin.banner.toggle');
-
     Route::get('/admin/faq', [AdminFaqController::class, 'index'])->name('admin.faq.index');
     Route::get('/admin/faq', [AdminFaqController::class, 'index'])->name('admin.faq');
     Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran.index');
