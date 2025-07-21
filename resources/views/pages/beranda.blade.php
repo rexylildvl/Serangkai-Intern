@@ -91,68 +91,48 @@
             </div>
 
             <div class="grid md:grid-cols-3 gap-6">
-                @foreach([
-                    [
-                        'title' => 'Magang Umum (All Divisi)',
-                        'location' => 'Onsite/Offline',
-                        'deadline' => 'Tidak terbatas',
-                        'duration' => '3-6 Bulan',
-                        'qualification' => ['Mahasiswa Aktif', 'Semangat belajar tinggi']
-                    ],
-                    [
-                        'title' => 'UI/UX DESIGNER INTERN',
-                        'location' => 'Solo',
-                        'deadline' => '31 Agustus 2025',
-                        'duration' => '3 Bulan',
-                        'qualification' => ['Mahasiswa DKV / Informatika', 'Bisa Figma']
-                    ],
-                    [
-                        'title' => 'Content Creator Intern (Hybrid)',
-                        'location' => 'WFH',
-                        'deadline' => '25 Juli 2025',
-                        'duration' => '3 Bulan',
-                        'qualification' => ['Aktif di media sosial', 'Siap kerja dengan deadline']
-                    ]
-                ] as $job)
-                <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition duration-300 p-6 border border-[#AEC8A4]">
-                    <h3 class="text-lg font-bold text-[#3B3B1A] mb-1">{{ $job['title'] }}</h3>
-                    <p class="text-sm text-[#8A784E] mb-4">Terbuka untuk semua jurusan</p>
-                    <ul class="text-sm text-[#626F47] space-y-1 mb-4">
-                        <li class="flex items-start gap-2">
-                            <svg class="w-4 h-4 mt-[3px] text-[#3B3B1A]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 12.414M6 18V6a2 2 0 012-2h8a2 2 0 012 2v12l-5-5-5 5z"/>
-                            </svg>
-                            {{ $job['location'] }}
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <svg class="w-4 h-4 mt-[3px] text-[#3B3B1A]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 4h10a2 2 0 012 2v10a2 2 0 01-2 2H7a2 2 0 01-2-2V9a2 2 0 012-2zm2 4h6"/>
-                            </svg>
-                            Deadline: {{ $job['deadline'] }}
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <svg class="w-4 h-4 mt-[3px] text-[#3B3B1A]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            Durasi: {{ $job['duration'] }}
-                        </li>
-                    </ul>
-                    <div class="text-sm text-[#3B3B1A] font-semibold mb-1">Kualifikasi</div>
-                    <ul class="text-sm text-[#626F47] space-y-1 mb-4">
-                        @foreach($job['qualification'] as $q)
-                        <li class="flex items-start gap-2">
-                            <svg class="w-4 h-4 mt-[3px] text-[#3B3B1A]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            {{ $q }}
-                        </li>
-                        @endforeach
-                    </ul>
-                    <a href="#" class="inline-block w-full text-center bg-[#626F47] hover:bg-[#3B3B1A] text-white font-semibold py-2 rounded-md transition">
-                        Lihat Detail
-                    </a>
-                </div>
-                @endforeach
+                @forelse($lowongans as $lowongan)
+                    <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition duration-300 p-6 border border-[#AEC8A4]">
+                        <h3 class="text-lg font-bold text-[#3B3B1A] mb-1">{{ $lowongan->judul }}</h3>
+                        <p class="text-sm text-[#8A784E] mb-4">{{ $lowongan->divisi ?? '-' }}</p>
+                        <ul class="text-sm text-[#626F47] space-y-1 mb-4">
+                            <li class="flex items-start gap-2">
+                                <svg class="w-4 h-4 mt-[3px] text-[#3B3B1A]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 12.414M6 18V6a2 2 0 012-2h8a2 2 0 012 2v12l-5-5-5 5z"/>
+                                </svg>
+                                {{ $lowongan->lokasi ?? '-' }}
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-4 h-4 mt-[3px] text-[#3B3B1A]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 4h10a2 2 0 012 2v10a2 2 0 01-2 2H7a2 2 0 01-2-2V9a2 2 0 012-2zm2 4h6"/>
+                                </svg>
+                                Deadline: {{ \Carbon\Carbon::parse($lowongan->deadline)->translatedFormat('d F Y') }}
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <svg class="w-4 h-4 mt-[3px] text-[#3B3B1A]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                Durasi: {{ $lowongan->durasi ?? '-' }}
+                            </li>
+                        </ul>
+                        <div class="text-sm text-[#3B3B1A] font-semibold mb-1">Kualifikasi</div>
+                        <ul class="text-sm text-[#626F47] space-y-1 mb-4">
+                            @foreach(($lowongan->kualifikasi ?? []) as $q)
+                            <li class="flex items-start gap-2">
+                                <svg class="w-4 h-4 mt-[3px] text-[#3B3B1A]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                                </svg>
+                                {{ $q }}
+                            </li>
+                            @endforeach
+                        </ul>
+                        <a href="{{ route('lowongan.show', $lowongan->id) }}" class="inline-block w-full text-center bg-[#626F47] hover:bg-[#3B3B1A] text-white font-semibold py-2 rounded-md transition">
+                            Lihat Detail
+                        </a>
+                    </div>
+                @empty
+                    <div class="col-span-3 text-center text-[#8A784E]">Belum ada lowongan magang.</div>
+                @endforelse
             </div>
         </div>
     </div>
@@ -160,7 +140,7 @@
 
 
     <!-- Berita -->
-    <section class="bg-[#E7EFC7] py-20">
+    <section class="bg-[#E7EFC7] py-10">
         <div class="max-w-6xl mx-auto px-4">
             <div class="flex justify-between items-center mb-8">
                 <h2 class="text-3xl font-bold text-[#3B3B1A]">Berita Terkini</h2>
@@ -173,43 +153,51 @@
             </div>
             
             <div class="grid md:grid-cols-3 gap-6">
-                @foreach([
-                    ['title' => 'Pembukaan Program Magang 2025', 'date' => now()->subDays(2)],
-                    ['title' => 'Wawancara Eksklusif dengan Mentor', 'date' => now()->subDays(5)],
-                    ['title' => 'Kenalan dengan Divisi Penerbitan', 'date' => now()->subDays(7)],
-                    ['title' => 'Testimoni Alumni Magang 2024', 'date' => now()->subDays(9)],
-                    ['title' => 'Cerita Hari Pertama Magang', 'date' => now()->subDays(12)],
-                    ['title' => 'Karya Terbaik Divisi Desain', 'date' => now()->subDays(15)]
-                ] as $news)
-                <div class="bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition duration-300 border border-[#AEC8A4]">
-                    <div class="h-48 bg-[#AEC8A4] flex items-center justify-center text-[#3B3B1A] font-medium">
-                        <span>Gambar Berita</span>
+                @forelse($news as $item)
+                    <div class="bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition duration-300 border border-[#AEC8A4]">
+                        <div class="h-48 bg-[#AEC8A4] flex items-center justify-center text-[#3B3B1A] font-medium">
+                            @if($item->foto)
+                                <img src="{{ asset('storage/'.$item->foto) }}" alt="Berita" class="object-cover w-full h-full">
+                            @else
+                                <span>Gambar Berita</span>
+                            @endif
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-semibold text-lg mb-2 text-[#3B3B1A]">{{ $item->judul }}</h3>
+                            <p class="text-sm text-[#8A784E] mb-4">
+                                {{ \Carbon\Carbon::parse($item->tanggal_posting)->translatedFormat('l, d F Y') }}
+                            </p>
+                            <a href="{{ route('berita.show', $item->id) }}" class="text-[#626F47] hover:text-[#3B3B1A] text-sm font-medium">
+                                Baca Selengkapnya →
+                            </a>
+                        </div>
                     </div>
-                    <div class="p-6">
-                        <h3 class="font-semibold text-lg mb-2 text-[#3B3B1A]">{{ $news['title'] }}</h3>
-                        <p class="text-sm text-[#8A784E] mb-4">
-                            {{ $news['date']->translatedFormat('l, d F Y') }}
-                        </p>
-                        <a href="#" class="text-[#626F47] hover:text-[#3B3B1A] text-sm font-medium">
-                            Baca Selengkapnya →
-                        </a>
-                    </div>
-                </div>
-                @endforeach
+                @empty
+                    <div class="col-span-3 text-center text-[#8A784E]">Belum ada berita.</div>
+                @endforelse
             </div>
         </div>
     </section>
 
     <!-- Galeri -->
-    <section class="bg-[#E7EFC7] py-20">
+    <section class="bg-[#E7EFC7] py-10">
         <div class="max-w-6xl mx-auto px-4">
             <h2 class="text-3xl font-bold mb-8 text-[#3B3B1A] text-center">Galeri Kegiatan</h2>
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-5">
-                @for($i = 1; $i <= 10; $i++)
-                    <div class="aspect-square bg-[#AEC8A4] rounded-xl overflow-hidden hover:shadow-xl transition duration-300 flex items-center justify-center text-[#3B3B1A] font-semibold">
-                        Foto {{ $i }}
+                @forelse($galeris as $galeri)
+                    <div class="aspect-square bg-[#AEC8A4] rounded-xl overflow-hidden hover:shadow-xl transition duration-300 flex items-center justify-center text-[#3B3B1A] font-semibold relative group">
+                        @if($galeri->foto)
+                            <img src="{{ asset('storage/'.$galeri->foto) }}" alt="{{ $galeri->judul }}" class="object-cover w-full h-full group-hover:scale-105 transition duration-300">
+                        @else
+                            Foto
+                        @endif
+                        <div class="absolute bottom-0 left-0 right-0 bg-[#3B3B1A]/60 text-white text-xs py-1 px-2 text-center opacity-0 group-hover:opacity-100 transition">
+                            {{ $galeri->judul }}
+                        </div>
                     </div>
-                @endfor
+                @empty
+                    <div class="col-span-5 text-center text-[#8A784E]">Belum ada foto galeri.</div>
+                @endforelse
             </div>
             <div class="text-center mt-10">
                 <a href="{{ route('galeri.index') }}" class="inline-block bg-[#626F47] hover:bg-[#3B3B1A] text-white px-6 py-3 rounded-full transition duration-300 shadow-md">

@@ -14,12 +14,12 @@ class Pendaftaran extends Model
         'jenis_kelamin',
         'tempat_lahir',
         'tanggal_lahir',
-        'alamat_domisili',
+        'alamat',
         'no_hp',
         'email',
         'cv',
         'portofolio',
-        'asal_universitas',
+        'universitas',
         'jurusan',
         'jenjang',
         'semester',
@@ -28,11 +28,12 @@ class Pendaftaran extends Model
         'status',
         'tujuan',
         'keahlian',
+        'lowongan_id',
     ];
 
     public function lowongan()
 {
-    return $this->belongsTo(LowonganMagang::class, 'id_lowongan');
+    return $this->belongsTo(Lowongan::class, 'id_lowongan');
 }
 
 }

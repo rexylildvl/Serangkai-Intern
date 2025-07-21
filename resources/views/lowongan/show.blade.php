@@ -1,4 +1,27 @@
 <x-app-layout>
+    @if(session('success'))
+    <div id="successPopup" class="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 bg-green-100 border border-green-400 text-green-700 px-6 py-4 rounded-lg shadow-lg flex items-center space-x-3 animate-fade-in-down">
+        <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+        </svg>
+        <span class="font-semibold">{{ session('success') }}</span>
+    </div>
+    <script>
+        setTimeout(function() {
+            const popup = document.getElementById('successPopup');
+            if (popup) popup.style.display = 'none';
+        }, 3500);
+    </script>
+    <style>
+        @keyframes fade-in-down {
+            0% { opacity: 0; transform: translateY(-20px) scale(0.95);}
+            100% { opacity: 1; transform: translateY(0) scale(1);}
+        }
+        .animate-fade-in-down {
+            animation: fade-in-down 0.5s cubic-bezier(.4,0,.2,1);
+        }
+    </style>
+@endif
     <section class="bg-[#E7EFC7] min-h-screen py-12" x-data="{ open: false, selected: {} }">
         <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-6 items-start">
 
@@ -40,7 +63,7 @@
                 @endforeach
             </ul>
 
-            <a href="{{ route('pendaftaran.step1', ['id' => $lowongan->id]) }}" class="inline-block w-full text-center bg-[#626F47] hover:bg-[#3B3B1A] text-white font-semibold py-2 rounded-md transition">
+            <a href="{{ route('pendaftaran.index', ['id_lowongan' => $lowongan->id]) }}" class="inline-block w-full text-center bg-[#626F47] hover:bg-[#3B3B1A] text-white font-semibold py-2 rounded-md transition">
                 Daftar Sekarang
             </a>
 

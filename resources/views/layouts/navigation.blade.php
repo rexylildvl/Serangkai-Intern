@@ -1,39 +1,32 @@
-<nav x-data="{ open: false }" class="bg-gradient-to-r from-[#4B6043] to-[#73815D] shadow-lg py-4">
+<nav x-data="{ open: false }" class="bg-gradient-to-r from-[#4B6043] to-[#73815D] shadow-lg py-3">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-15">
+        <div class="flex justify-between items-center h-16">
             <!-- Kiri: Logo dan Navigasi -->
             <div class="flex items-center space-x-8">
                 <!-- Logo -->
-                <a href="{{ route('beranda') }}" class="flex items-center space-x-3">
-                    <img src="{{ asset('images/logo-ts.png') }}" alt="Logo" class="h-11 w-auto">
-                    <span class="text-1xl font-bold text-white tracking-wide">Magang<br>
-                        Tiga Serangkai</span>
+                <a href="{{ route('beranda') }}" class="flex items-center space-x-3 group">
+                    <img src="{{ asset('images/logo-ts.png') }}" alt="Logo" class="h-11 w-auto drop-shadow-lg transition-transform group-hover:scale-105">
+                    <span class="text-xl font-extrabold text-white tracking-wide leading-tight drop-shadow-sm">
+                        Magang<br>
+                        <span class="text-[#F7E06B]">Tiga Serangkai</span>
+                    </span>
                 </a>
 
-                <!-- Navigasi -->
-                <div class="hidden sm:flex space-x-6 ms-10 text-white text-[16px] font-medium">
-                    <x-nav-link :href="route('beranda')" :active="request()->routeIs('beranda')" class="hover:underline hover:underline-offset-8 hover:decoration-white hover:text-white"
-                        :class="request()->routeIs('beranda') ? 'border-b-4 border-white pb-1' : ''">
+                <!-- Navigasi Desktop -->
+                <div class="hidden sm:flex space-x-8 ms-10 text-white text-base font-semibold">
+                    <x-nav-link :href="route('beranda')" :active="request()->routeIs('beranda')" class="nav-link">
                         {{ __('Beranda') }}
                     </x-nav-link>
-
-                    <x-nav-link :href="route('coe.index')" :active="request()->routeIs('coe.index')" class="hover:underline hover:underline-offset-8 hover:decoration-white hover:text-white"
-                        :class="request()->routeIs('coe.index') ? 'border-b-4 border-white pb-1' : ''">
+                    <x-nav-link :href="route('coe.index')" :active="request()->routeIs('coe.index')" class="nav-link">
                         {{ __('Center of Excellence') }}
                     </x-nav-link>
-
-                    <x-nav-link :href="route('berita.index')" :active="request()->routeIs('berita.index')" class="hover:underline hover:underline-offset-8 hover:decoration-white hover:text-white"
-                        :class="request()->routeIs('berita.index') ? 'border-b-4 border-white pb-1' : ''">
+                    <x-nav-link :href="route('berita.index')" :active="request()->routeIs('berita.index')" class="nav-link">
                         {{ __('Berita') }}
                     </x-nav-link>
-
-                    <x-nav-link :href="route('lowongan.index')" :active="request()->routeIs('lowongan.index')" class="hover:underline hover:underline-offset-8 hover:decoration-white hover:text-white"
-                        :class="request()->routeIs('lowongan.index') ? 'border-b-4 border-white pb-1' : ''">
+                    <x-nav-link :href="route('lowongan.index')" :active="request()->routeIs('lowongan.index')" class="nav-link">
                         {{ __('Lowongan Magang') }}
                     </x-nav-link>
-
-                    <x-nav-link :href="route('galeri.index')" :active="request()->routeIs('galeri.index')" class="hover:underline hover:underline-offset-8 hover:decoration-white hover:text-white"
-                        :class="request()->routeIs('galeri.index') ? 'border-b-4 border-white pb-1' : ''">
+                    <x-nav-link :href="route('galeri.index')" :active="request()->routeIs('galeri.index')" class="nav-link">
                         {{ __('Galeri') }}
                     </x-nav-link>
                 </div>
@@ -49,7 +42,7 @@
                     @endif
                 @endauth
                 @guest
-                    <a href="{{ route('login') }}" class="bg-white text-[#4B6043] px-4 py-2 rounded-full shadow hover:bg-gray-100 font-semibold transition">
+                    <a href="{{ route('login') }}" class="bg-white text-[#4B6043] px-5 py-2 rounded-full shadow font-semibold hover:bg-[#F7E06B] hover:text-[#4B6043] transition">
                         Login
                     </a>
                 @endguest
@@ -58,7 +51,7 @@
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button class="flex items-center space-x-2 bg-white text-gray-700 px-3 py-2 rounded-full shadow hover:bg-gray-100 transition">
-                                <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}" alt="Avatar" class="w-8 h-8 rounded-full">
+                                <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}" alt="Avatar" class="w-8 h-8 rounded-full border-2 border-[#4B6043] shadow">
                                 <span class="font-semibold">{{ Auth::user()->name }}</span>
                                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 
@@ -69,7 +62,6 @@
                                 </svg>
                             </button>
                         </x-slot>
-
                         <x-slot name="content">
                             <x-dropdown-link :href="route('profile.edit')">
                                 {{ __('Profile') }}
@@ -87,8 +79,8 @@
 
             <!-- Hamburger Icon -->
             <div class="sm:hidden">
-                <button @click="open = !open" class="p-2 rounded-md text-white hover:bg-white hover:text-[#4B6043] transition">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                <button @click="open = !open" class="p-2 rounded-md text-white hover:bg-white hover:text-[#4B6043] transition focus:outline-none">
+                    <svg class="h-7 w-7" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16M4 18h16" />
@@ -102,33 +94,33 @@
     </div>
 
     <!-- Mobile Navigation -->
-    <div :class="{ 'block': open, 'hidden': !open }" class="sm:hidden bg-[#73815D] text-white px-4 pb-6 pt-4 space-y-1">
+    <div :class="{ 'block': open, 'hidden': !open }" class="sm:hidden bg-[#73815D] text-white px-4 pb-6 pt-4 space-y-1 shadow-lg rounded-b-lg transition-all duration-300">
         <x-responsive-nav-link :href="route('beranda')" :active="request()->routeIs('beranda')">
             {{ __('Beranda') }}
         </x-responsive-nav-link>
-        <x-responsive-nav-link :href="route('beranda')" :active="request()->routeIs('coe')">
+        <x-responsive-nav-link :href="route('coe.index')" :active="request()->routeIs('coe.index')">
             {{ __('Center of Excellence') }}
         </x-responsive-nav-link>
         <x-responsive-nav-link :href="route('berita.index')" :active="request()->routeIs('berita.index')">
             {{ __('Berita') }}
         </x-responsive-nav-link>
-        <x-responsive-nav-link :href="route('beranda')" :active="request()->routeIs('magang')">
+        <x-responsive-nav-link :href="route('lowongan.index')" :active="request()->routeIs('lowongan.index')">
             {{ __('Lowongan Magang') }}
         </x-responsive-nav-link>
         <x-responsive-nav-link :href="route('galeri.index')" :active="request()->routeIs('galeri.index')">
             {{ __('Galeri') }}
         </x-responsive-nav-link>
 
-        <div class="border-t border-white/30 pt-4">
+        <div class="border-t border-white/30 pt-4 mt-2">
             @guest
-                <a href="{{ route('login') }}" class="block text-white font-semibold">
+                <a href="{{ route('login') }}" class="block text-white font-semibold hover:text-[#F7E06B]">
                     Login
                 </a>
             @endguest
 
             @auth
                 <div class="font-medium text-white">{{ Auth::user()->name }}</div>
-                <div class="text-sm text-gray-200">{{ Auth::user()->email }}</div>
+                <div class="text-sm text-gray-200 mb-2">{{ Auth::user()->email }}</div>
 
                 @if(Auth::user()->role === 'admin')
                     <x-responsive-nav-link :href="route('admin.dashboard')">
@@ -148,4 +140,14 @@
             @endauth
         </div>
     </div>
+
+    <style>
+        .nav-link {
+            @apply hover:underline hover:underline-offset-8 hover:decoration-[#F7E06B] hover:text-[#F7E06B] transition;
+        }
+        .nav-link.border-b-4 {
+            border-color: #F7E06B !important;
+            color: #F7E06B !important;
+        }
+    </style>
 </nav>

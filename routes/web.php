@@ -14,6 +14,7 @@ use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\LowonganController;
 use App\Http\Controllers\CoeVideoController;
 use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\BerandaController;
 
 
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
@@ -26,17 +27,6 @@ Route::get('/lowongan/{id}', [LowonganController::class, 'show'])->name('lowonga
 Route::get('/lowongan/create', [LowonganController::class, 'create'])->name('lowongan.create');
 Route::post('/lowongan', [LowonganController::class, 'store'])->name('lowongan.store');
 
-Route::get('/pendaftaran/step1', [PendaftaranController::class, 'step1'])->name('pendaftaran.step1');
-Route::post('/pendaftaran/step1', [PendaftaranController::class, 'postStep1']);
-
-
-Route::get('/pendaftaran/step2', [PendaftaranController::class, 'step2'])->name('pendaftaran.step2');
-Route::post('/pendaftaran/step2', [PendaftaranController::class, 'postStep2']);
-
-Route::get('/pendaftaran/step3', [PendaftaranController::class, 'step3'])->name('pendaftaran.step3');
-Route::post('/pendaftaran/step3', [PendaftaranController::class, 'postStep3']);
-
-
 Route::get('/coe', [CoeVideoController::class, 'index'])->name('coe.index');
 Route::get('/coe/create', [CoeVideoController::class, 'create'])->name('coe.create');
 Route::post('/coe', [CoeVideoController::class, 'store'])->name('coe.store');
@@ -46,13 +36,7 @@ Route::get('/center-of-excellence', function () {
 })->name('coe.index');
 
 
-Route::get('/', function () {
-    return view('pages.beranda');
-});
-
-Route::get('/beranda', function () {
-    return view('pages.beranda');
-})->name('beranda');
+Route::get('/', [BerandaController::class, 'index'])->name('beranda');
 
 Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');
 Route::get('/galeri/create', [GaleriController::class, 'create'])->name('galeri.create');
@@ -88,6 +72,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/admin/galeri/{id}', [AdminGaleriController::class, 'update'])->name('admin.galeri.update');
     Route::delete('/admin/galeri/{id}', [AdminGaleriController::class, 'destroy'])->name('admin.galeri.destroy');
     Route::get('/admin/faq', [AdminFaqController::class, 'index'])->name('admin.faq');
+    Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran.index');
+    Route::post('/pendaftaran/submit', [PendaftaranController::class, 'submit'])->name('pendaftaran.submit');
 });
 
 require __DIR__.'/auth.php';
