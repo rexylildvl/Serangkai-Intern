@@ -1,5 +1,5 @@
 <x-app-layout>
-    <section class="bg-[#E7EFC7] py-12" x-data="{ open: false, selected: {} }">
+    <section class="bg-[#E7EFC7] min-h-screen py-12" x-data="{ open: false, selected: {} }">
         <div class="max-w-7xl mx-auto px-4">
             <h1 class="text-3xl md:text-4xl font-bold text-center text-[#3B3B1A] mb-10">
                 Galeri Kegiatan Magang di Tiga Serangkai

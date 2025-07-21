@@ -36,4 +36,10 @@ class Lowongan extends Model
         'tanggung_jawab' => 'array',
         'benefit' => 'array',
     ];
+
+    public function pendaftarans()
+{
+    return $this->hasMany(Pendaftaran::class, 'id_lowongan');
+}
+
 }
