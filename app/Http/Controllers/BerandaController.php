@@ -6,15 +6,18 @@ use Illuminate\Http\Request;
 use App\Models\Lowongan;
 use App\Models\News;
 use App\Models\Galeri;
+use App\Models\Banner;
 
 class BerandaController extends Controller
 {
-    public function index()
-    {
-        $lowongans = Lowongan::latest()->take(6)->get();
-        $news = News::latest()->take(6)->get();
-        $galeris = Galeri::latest()->take(10)->get();
+ 
+        public function index()
+        {
+            $lowongans = Lowongan::latest()->take(6)->get();
+            $news = News::latest()->take(6)->get();
+            $galeris = Galeri::latest()->take(10)->get();
+            $banners = Banner::where('is_active', true)->latest()->get();
 
-        return view('pages.beranda', compact('lowongans', 'news', 'galeris'));
-    }
+            return view('pages.beranda', compact('lowongans', 'news', 'galeris', 'banners'));
+        }  
 }

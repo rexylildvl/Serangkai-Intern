@@ -38,8 +38,6 @@ Route::get('/center-of-excellence', function () {
 })->name('coe.index');
 
 
-Route::get('/', [LandingController::class, 'beranda']);
-Route::get('/beranda', [LandingController::class, 'beranda'])->name('beranda'); 
 Route::get('/', [BerandaController::class, 'index'])->name('beranda');
 
 Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');
@@ -82,10 +80,13 @@ Route::middleware('auth')->group(function () {
     Route::put('/admin/banner/{id}', [AdminBannerController::class, 'update'])->name('admin.banner.update');
     Route::delete('/admin/banner/{id}', [AdminBannerController::class, 'destroy'])->name('admin.banner.destroy');
     Route::patch('/admin/banner/{id}/toggle', [AdminBannerController::class, 'toggle'])->name('admin.banner.toggle');
+
     Route::get('/admin/faq', [AdminFaqController::class, 'index'])->name('admin.faq.index');
-    Route::get('/admin/faq', [AdminFaqController::class, 'index'])->name('admin.faq');
+    
     Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran.index');
     Route::post('/pendaftaran/submit', [PendaftaranController::class, 'submit'])->name('pendaftaran.submit');
 });
 
 require __DIR__.'/auth.php';
+
+
