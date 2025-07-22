@@ -97,14 +97,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran.index');
     Route::post('/pendaftaran/submit', [PendaftaranController::class, 'submit'])->name('pendaftaran.submit');
-
-    Route::get('/admin/pendaftar', [AdminPendaftarController::class, 'index'])->name('admin.pendaftar.index');
-    Route::get('/admin/pendaftar/{id}', [AdminPendaftarController::class, 'show'])->name('admin.pendaftar.show');
-    Route::get('/admin/pendaftar/{id}/edit', [AdminPendaftarController::class, 'edit'])->name('admin.pendaftar.edit');
-    Route::put('/admin/pendaftar/{id}', [AdminPendaftarController::class, 'update'])->name('admin.pendaftar.update');
-    Route::delete('/admin/pendaftar/{id}', [AdminPendaftarController::class, 'destroy'])->name('admin.pendaftar.destroy');
-    Route::patch('/admin/pendaftar/{id}/status', [AdminPendaftarController::class, 'updateStatus'])->name('admin.pendaftar.updateStatus');
-
+    Route::get('/pendaftaran/{id}', [PendaftaranController::class, 'show'])->name('pendaftaran.show');
+    
 });
 
 require __DIR__.'/auth.php';

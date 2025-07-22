@@ -49,4 +49,11 @@ class PendaftaranController extends Controller
 
         return redirect()->route('lowongan.show', $data['lowongan_id'])->with('success', 'Pendaftaran berhasil!');
     }
+
+    public function show($id)
+    {
+        $pendaftaran = \App\Models\Pendaftaran::with('lowongan')->findOrFail($id);
+        return view('pendaftaran.detail', compact('pendaftaran'));
+    }
+
 }

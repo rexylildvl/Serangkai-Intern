@@ -1,10 +1,10 @@
 <x-app-layout>
     @if(session('success'))
-    <div id="successPopup" class="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 bg-green-100 border border-green-400 text-green-700 px-6 py-4 rounded-lg shadow-lg flex items-center space-x-3 animate-fade-in-down">
-        <svg class="w-6 h-6 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+    <div id="successPopup" class="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 bg-green-100 border border-green-400 text-green-700 px-6 py-3 rounded-lg shadow-lg flex items-center space-x-3 animate-fade-in-down">
+        <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
         </svg>
-        <span class="font-semibold">{{ session('success') }}</span>
+        <span class="font-medium">{{ session('success') }}</span>
     </div>
     <script>
         setTimeout(function() {
@@ -12,158 +12,255 @@
             if (popup) popup.style.display = 'none';
         }, 3500);
     </script>
-    <style>
-        @keyframes fade-in-down {
-            0% { opacity: 0; transform: translateY(-20px) scale(0.95);}
-            100% { opacity: 1; transform: translateY(0) scale(1);}
-        }
-        .animate-fade-in-down {
-            animation: fade-in-down 0.5s cubic-bezier(.4,0,.2,1);
-        }
-    </style>
-@endif
-    <section class="bg-[#E7EFC7] min-h-screen py-12" x-data="{ open: false, selected: {} }">
-        <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-6 items-start">
+    @endif
 
-        <!-- Sidebar -->
-        <div class="bg-white border border-[#AEC8A4] rounded-xl shadow-md p-6 h-fit">
-            <h3 class="text-lg font-bold text-[#3B3B1A] mb-1">{{ $lowongan->judul }}</h3>
-            <p class="text-sm text-[#8A784E] mb-4">{{ $lowongan->jurusan ?? 'Terbuka untuk semua jurusan' }}</p>
+    <section class="bg-[#E7EFC7] min-h-screen py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-4 gap-8 items-start">
+            <!-- Sidebar -->
+            <div class="md:col-span-1 bg-white border border-[#E7EFC7] rounded-xl shadow-sm p-6 top-6">
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold text-[#3B3B1A] mb-2 font-serif">{{ $lowongan->judul }}</h3>
+                    <span class="inline-block px-3 py-1 text-xs font-semibold text-[#8A784E] bg-[#F0F5E6] rounded-full mb-4">
+                        {{ $lowongan->jurusan ?? 'Semua Jurusan' }}
+                    </span>
+                </div>
 
-            <ul class="text-sm text-[#626F47] space-y-1 mb-4">
-                <li class="flex items-start gap-2">
-                    <svg class="w-4 h-4 mt-[3px] text-[#3B3B1A]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 12.414M6 18V6a2 2 0 012-2h8a2 2 0 012 2v12l-5-5-5 5z"/>
-                    </svg>
-                    {{ $lowongan->lokasi }}
-                </li>
-                <li class="flex items-start gap-2">
-                    <svg class="w-4 h-4 mt-[3px] text-[#3B3B1A]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 4h10a2 2 0 012 2v10a2 2 0 01-2 2H7a2 2 0 01-2-2V9a2 2 0 012-2zm2 4h6"/>
-                    </svg>
-                    Deadline: {{ \Carbon\Carbon::parse($lowongan->deadline)->translatedFormat('d F Y') ?? 'Tidak terbatas' }}
-                </li>
-                <li class="flex items-start gap-2">
-                    <svg class="w-4 h-4 mt-[3px] text-[#3B3B1A]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                    Durasi: {{ $lowongan->durasi }}
-                </li>
-            </ul>
-
-            <div class="text-sm text-[#3B3B1A] font-semibold mb-1">Kualifikasi</div>
-            <ul class="text-sm text-[#626F47] space-y-1 mb-4">
-                @foreach($lowongan->kualifikasi as $kualif)
-                    <li class="flex items-start gap-2">
-                        <svg class="w-4 h-4 mt-[3px] text-[#3B3B1A]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                <ul class="space-y-4 mb-6">
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 mr-3 mt-0.5 text-[#8A784E] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                         </svg>
-                        {{ $kualif }}
+                        <div>
+                            <div class="text-xs font-medium text-[#626F47]">Lokasi</div>
+                            <div class="text-sm text-[#3B3B1A]">{{ $lowongan->lokasi }}</div>
+                        </div>
                     </li>
-                @endforeach
-            </ul>
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 mr-3 mt-0.5 text-[#8A784E] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                        </svg>
+                        <div>
+                            <div class="text-xs font-medium text-[#626F47]">Deadline</div>
+                            <div class="text-sm text-[#3B3B1A]">{{ $lowongan->deadline ? \Carbon\Carbon::parse($lowongan->deadline)->translatedFormat('d F Y') : 'Tidak terbatas' }}</div>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-5 h-5 mr-3 mt-0.5 text-[#8A784E] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <div>
+                            <div class="text-xs font-medium text-[#626F47]">Durasi</div>
+                            <div class="text-sm text-[#3B3B1A]">{{ $lowongan->durasi }}</div>
+                        </div>
+                    </li>
+                </ul>
 
-            <a href="{{ route('pendaftaran.index', ['id_lowongan' => $lowongan->id]) }}" class="inline-block w-full text-center bg-[#626F47] hover:bg-[#3B3B1A] text-white font-semibold py-2 rounded-md transition">
-                Daftar Sekarang
-            </a>
+                <div class="mb-6">
+                    <h4 class="text-sm font-semibold text-[#3B3B1A] mb-3 flex items-center">
+                        <svg class="w-4 h-4 mr-2 text-[#8A784E]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Kualifikasi
+                    </h4>
+                    <ul class="space-y-2 text-sm text-[#626F47]">
+                        @foreach($lowongan->kualifikasi as $kualif)
+                        <li class="flex items-start">
+                            <svg class="w-4 h-4 mr-2 mt-0.5 text-[#8A784E] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                            </svg>
+                            {{ $kualif }}
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
 
-        </div>
+                <a href="{{ route('pendaftaran.index', ['id_lowongan' => $lowongan->id]) }}" class="block w-full text-center bg-[#AEC8A4] hover:bg-[#8A9E7F] text-[#3B3B1A] font-medium py-2.5 px-4 rounded-lg transition-colors duration-300">
+                    Daftar Sekarang
+                </a>
+            </div>
 
-            <!-- Konten Utama -->
-            <div class="md:col-span-2 bg-white border border-[#AEC8A4] rounded-xl shadow-md p-6">
-                <div class="flex justify-between items-start mb-6">
-                    <div>
-                        <h1 class="text-2xl font-bold text-[#3B3B1A]">{{ $lowongan->judul }}</h1>
-                        <p class="text-sm text-[#8A784E]">
+            <!-- Main Content -->
+            <div class="md:col-span-3 bg-white border border-[#E7EFC7] rounded-xl shadow-sm p-8">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
+                    <div class="mb-4 sm:mb-0">
+                        <h1 class="text-2xl sm:text-3xl font-bold text-[#3B3B1A] font-serif">{{ $lowongan->judul }}</h1>
+                        <p class="text-sm text-[#8A784E] mt-1">
                             {{ $lowongan->lokasi }} &middot; Deadline: {{ \Carbon\Carbon::parse($lowongan->deadline)->translatedFormat('d F Y') }}
                         </p>
                     </div>
-                    <span class="bg-[#AEC8A4] text-[#3B3B1A] text-xs font-semibold px-3 py-1 rounded-full">
+                    <span class="bg-[#F0F5E6] text-[#8A784E] text-xs font-semibold px-3 py-1.5 rounded-full">
                         {{ $lowongan->durasi }}
                     </span>
                 </div>
 
-                <!-- Tabs -->
-                <div x-data="{ tab: 'deskripsi' }">
-                    <div class="flex border-b border-[#AEC8A4] mb-6 space-x-4">
-                        <button @click="tab = 'deskripsi'" :class="tab === 'deskripsi' ? 'border-b-2 border-[#3B3B1A] text-[#3B3B1A]' : 'text-[#626F47]'" class="pb-2 text-sm font-medium">
+                <!-- Tabs dengan Vanilla JS -->
+                <div class="tabs-container mb-8">
+                    <div class="flex border-b border-[#E7EFC7] space-x-6">
+                        <button data-tab="deskripsi" class="tab-button active pb-3 font-medium text-sm text-[#3B3B1A] border-b-2 border-[#3B3B1A]">
                             Deskripsi Lowongan
                         </button>
-                        <button @click="tab = 'benefit'" :class="tab === 'benefit' ? 'border-b-2 border-[#3B3B1A] text-[#3B3B1A]' : 'text-[#626F47]'" class="pb-2 text-sm font-medium">
+                        <button data-tab="benefit" class="tab-button pb-3 font-medium text-sm text-[#626F47] hover:text-[#3B3B1A]">
                             Benefit & Tanggung Jawab
                         </button>
                     </div>
 
-                    <!-- Deskripsi -->
-                    <div x-show="tab === 'deskripsi'" class="space-y-6 text-sm text-[#626F47] leading-relaxed">
+
+                <!-- Deskripsi Content -->
+                   <div class="tab-content active" id="deskripsi-content">
                         @if($lowongan->deskripsi)
-                        <div>
-                            <h2 class="font-semibold text-[#3B3B1A] mb-1">Deskripsi</h2>
-                            <p>{{ $lowongan->deskripsi }}</p>
+                        <div class="mb-8"><br>
+                            <h2 class="text-s font-semibold text-[#3B3B1A] mb-3">Deskripsi Pekerjaan</h2>
+                            <p class="leading-relaxed">{{ $lowongan->deskripsi }}</p>
                         </div>
                         @endif
 
-                        @if($lowongan->persyaratan_dokumen)
-                        <div>
-                            <h2 class="font-semibold text-[#3B3B1A] mb-1">Persyaratan Dokumen</h2>
-                            @php
-                                $dokumen = is_array($lowongan->persyaratan_dokumen) ? $lowongan->persyaratan_dokumen : explode(';', $lowongan->persyaratan_dokumen);
-                            @endphp
-                            <ul class="list-disc list-inside space-y-1">
-                                @foreach($dokumen as $item)
-                                <li>{{ $item }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        @endif
-
-                        @if($lowongan->skill)
-                        <div>
-                            <h2 class="font-semibold text-[#3B3B1A] mb-1">Skill yang Diutamakan</h2>
-                            @php
-                                $skills = is_array($lowongan->skill) ? $lowongan->skill : explode(';', $lowongan->skill);
-                            @endphp
-                            <ul class="list-disc list-inside space-y-1">
-                                @foreach($skills as $skill)
-                                <li>{{ $skill }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        @endif
+                    @if($lowongan->persyaratan_dokumen)
+                    <div class="mb-8">
+                        <h2 class="text-s font-semibold text-[#3B3B1A] mb-3">Persyaratan Dokumen</h2>
+                        @php
+                            $documents = is_array($lowongan->persyaratan_dokumen) 
+                                ? $lowongan->persyaratan_dokumen 
+                                : explode(';', $lowongan->persyaratan_dokumen);
+                        @endphp
+                        <ul class="space-y-2">
+                            @foreach($documents as $item)
+                            <li class="flex items-start">
+                                <svg class="w-4 h-4 mr-2 mt-0.5 text-[#8A784E]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                                </svg>
+                                <span>{{ $item }}</span>
+                            </li>
+                            @endforeach
+                        </ul>
                     </div>
+                    @endif
 
-                    <!-- Benefit & Tanggung Jawab -->
-                    <div x-show="tab === 'benefit'" class="space-y-6 text-sm text-[#626F47] leading-relaxed mt-6">
-                        @if($lowongan->benefit)
-                        <div>
-                            <h2 class="font-semibold text-[#3B3B1A] mb-1">Benefit</h2>
-                            @php
-                                $benefit = is_array($lowongan->benefit) ? $lowongan->benefit : explode(';', $lowongan->benefit);
-                            @endphp
-                            <ul class="list-disc list-inside space-y-1">
-                                @foreach($benefit as $item)
-                                <li>{{ $item }}</li>
-                                @endforeach
-                            </ul>
+                    @if($lowongan->skill)
+                    <div class="mb-8">
+                        <h2 class="text-s font-semibold text-[#3B3B1A] mb-3">Skill yang Diutamakan</h2>
+                        @php
+                            $skills = is_array($lowongan->skill) ? $lowongan->skill : explode(';', $lowongan->skill);
+                        @endphp
+                        <div class="flex flex-wrap gap-2">
+                            @foreach($skills as $skill)
+                            <span class="bg-[#F0F5E6] text-[#8A784E] text-xs font-medium px-3 py-1 rounded-full">
+                                {{ $skill }}
+                            </span>
+                            @endforeach
                         </div>
-                        @endif
-
-                        @if($lowongan->tanggung_jawab)
-                        <div>
-                            <h2 class="font-semibold text-[#3B3B1A] mb-1">Tanggung Jawab</h2>
-                            @php
-                                $tanggungJawab = is_array($lowongan->tanggung_jawab) ? $lowongan->tanggung_jawab : explode(';', $lowongan->tanggung_jawab);
-                            @endphp
-                            <ul class="list-disc list-inside space-y-1">
-                                @foreach($tanggungJawab as $item)
-                                <li>{{ $item }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        @endif
                     </div>
+                    @endif
+                </div>
+
+                <div class="tab-content hidden" id="benefit-content">
+                    @if($lowongan->benefit)
+                    <div class="mb-8"><br>
+                        <h2 class="text-s font-semibold text-[#3B3B1A] mb-3">Benefit Magang</h2>
+                        <ul class="space-y-2">
+                            @php
+                                // Handle both array and string cases
+                                $benefits = is_array($lowongan->benefit) ? $lowongan->benefit : explode(';', $lowongan->benefit);
+                            @endphp
+                            @foreach($benefits as $item)
+                            <li class="flex items-start">
+                                <svg class="w-4 h-4 mr-2 mt-0.5 text-[#8A784E]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                                </svg>
+                                <span>{{ $item }}</span>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+
+                    @if($lowongan->tanggung_jawab)
+                    <div class="mb-8">
+                        <h2 class="text-s font-semibold text-[#3B3B1A] mb-3">Tanggung Jawab</h2>
+                        @php
+                            $tanggungJawab = is_array($lowongan->tanggung_jawab) ? $lowongan->tanggung_jawab : explode(';', $lowongan->tanggung_jawab);
+                        @endphp
+                        <ul class="space-y-2">
+                            @foreach($tanggungJawab as $item)
+                            <li class="flex items-start">
+                                <svg class="w-4 h-4 mr-2 mt-0.5 text-[#8A784E] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                </svg>
+                                <span>{{ $item }}</span>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>
     </section>
+        <style>
+        /* Style untuk tabs */
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+        }
+        .tab-button {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            color: #3B3B1A;
+            border-bottom: 2px solid #3B3B1A;
+        }
+    </style>
+
+    <script>
+        // Inisialisasi tabs
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tangani success popup
+            const successPopup = document.getElementById('successPopup');
+            if (successPopup) {
+                setTimeout(() => {
+                    successPopup.style.display = 'none';
+                }, 3500);
+            }
+
+            // Fungsi untuk tabs
+            const tabButtons = document.querySelectorAll('.tab-button');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Hapus class active dari semua button dan content
+                    document.querySelectorAll('.tab-button').forEach(btn => {
+                        btn.classList.remove('active');
+                        btn.classList.add('text-[#626F47]');
+                        btn.classList.remove('text-[#3B3B1A]');
+                        btn.classList.remove('border-b-2');
+                        btn.classList.remove('border-[#3B3B1A]');
+                    });
+                    
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                        content.classList.add('hidden');
+                    });
+
+                    // Tambah class active ke button yang diklik
+                    this.classList.add('active');
+                    this.classList.remove('text-[#626F47]');
+                    this.classList.add('text-[#3B3B1A]');
+                    this.classList.add('border-b-2');
+                    this.classList.add('border-[#3B3B1A]');
+
+                    // Tampilkan content yang sesuai
+                    const tabId = this.getAttribute('data-tab');
+                    const content = document.getElementById(`${tabId}-content`);
+                    content.classList.remove('hidden');
+                    content.classList.add('active');
+                });
+            });
+        });
+    </script>
 </x-app-layout>
