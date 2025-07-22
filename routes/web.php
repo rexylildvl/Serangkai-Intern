@@ -97,6 +97,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran.index');
     Route::post('/pendaftaran/submit', [PendaftaranController::class, 'submit'])->name('pendaftaran.submit');
+    Route::get('/pendaftaran/{id}', [PendaftaranController::class, 'show'])->name('pendaftaran.show');
+
 });
 
 require __DIR__.'/auth.php';

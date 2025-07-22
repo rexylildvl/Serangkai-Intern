@@ -25,6 +25,12 @@
     <section class="bg-[#E7EFC7] py-12 min-h-screen flex items-center justify-center">
         <!-- Widened container (90% of viewport on large screens) -->
         <div class="w-full max-w-4xl mx-4 lg:mx-auto bg-white rounded-xl shadow-md p-6 sm:p-8 border border-[#AEC8A4]">
+                <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-[#3B3B1A] mb-3 font-serif">
+                    Pendaftaran
+                    <span class="text-[#626F47]">Lowongan Magang</span>
+                </h2>
+        </div>
             <!-- Progress Steps -->
             <div class="flex justify-center mb-10">
                 @foreach([1 => 'Data Diri', 2 => 'Data Pendidikan', 3 => 'Data Magang'] as $index => $label)
@@ -82,10 +88,16 @@
                             <label class="block text-[#3B3B1A] font-medium mb-1">No HP/WA Aktif</label>
                             <input type="text" name="no_hp" class="w-full border border-[#AEC8A4] rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-[#626F47] focus:border-transparent transition" required>
                         </div>
-
                         <div class="space-y-2">
                             <label class="block text-[#3B3B1A] font-medium mb-1">Email Aktif</label>
-                            <input type="email" name="email" class="w-full border border-[#AEC8A4] rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-[#626F47] focus:border-transparent transition" required>
+                            <input 
+                                type="email" 
+                                name="email" 
+                                value="{{ auth()->user()->email }}" 
+                                readonly 
+                                class="w-full border border-[#AEC8A4] rounded-lg px-4 py-2.5 bg-gray-100 cursor-not-allowed focus:ring-2 focus:ring-[#626F47] focus:border-transparent transition" 
+                                required
+                            >
                         </div>
 
                         <!-- CV -->
@@ -251,20 +263,32 @@
             document.getElementById('step' + step).classList.remove('hidden');
             updateProgressIndicators(step);
         }
+
         function prevStep(step) {
             document.getElementById('step' + (step + 1)).classList.add('hidden');
             document.getElementById('step' + step).classList.remove('hidden');
             updateProgressIndicators(step);
         }
+
         function updateProgressIndicators(activeStep) {
             document.querySelectorAll('.step-indicator').forEach(function(el) {
-                if (parseInt(el.dataset.step) === activeStep) {
+                const stepNumber = parseInt(el.dataset.step);
+                if (stepNumber <= activeStep) {
+                    el.classList.remove('bg-[#AEC8A4]');
                     el.classList.add('bg-[#3B3B1A]');
                 } else {
                     el.classList.remove('bg-[#3B3B1A]');
+                    el.classList.add('bg-[#AEC8A4]');
                 }
             });
         }
+
+        // Inisialisasi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set step pertama sebagai aktif
+            updateProgressIndicators(1);
+        });
+        
 
         // Validasi sebelum submit (optional, bisa tambahkan sesuai kebutuhan)
         document.getElementById('pendaftaranForm').addEventListener('submit', function(event) {

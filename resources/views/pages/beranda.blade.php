@@ -95,49 +95,81 @@ use Illuminate\Support\Facades\Storage;
                 </a>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-6">
-                @forelse($lowongans as $lowongan)
-                    <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition duration-300 p-6 border border-[#AEC8A4]">
-                        <h3 class="text-lg font-bold text-[#3B3B1A] mb-1">{{ $lowongan->judul }}</h3>
-                        <p class="text-sm text-[#8A784E] mb-4">{{ $lowongan->divisi ?? '-' }}</p>
-                        <ul class="text-sm text-[#626F47] space-y-1 mb-4">
-                            <li class="flex items-start gap-2">
-                                <svg class="w-4 h-4 mt-[3px] text-[#3B3B1A]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 12.414M6 18V6a2 2 0 012-2h8a2 2 0 012 2v12l-5-5-5 5z"/>
-                                </svg>
-                                {{ $lowongan->lokasi ?? '-' }}
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <svg class="w-4 h-4 mt-[3px] text-[#3B3B1A]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 4h10a2 2 0 012 2v10a2 2 0 01-2 2H7a2 2 0 01-2-2V9a2 2 0 012-2zm2 4h6"/>
-                                </svg>
-                                Deadline: {{ \Carbon\Carbon::parse($lowongan->deadline)->translatedFormat('d F Y') }}
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <svg class="w-4 h-4 mt-[3px] text-[#3B3B1A]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                </svg>
-                                Durasi: {{ $lowongan->durasi ?? '-' }}
-                            </li>
-                        </ul>
-                        <div class="text-sm text-[#3B3B1A] font-semibold mb-1">Kualifikasi</div>
-                        <ul class="text-sm text-[#626F47] space-y-1 mb-4">
-                            @foreach(($lowongan->kualifikasi ?? []) as $q)
-                            <li class="flex items-start gap-2">
-                                <svg class="w-4 h-4 mt-[3px] text-[#3B3B1A]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-                                </svg>
-                                {{ $q }}
-                            </li>
-                            @endforeach
-                        </ul>
-                        <a href="{{ route('lowongan.show', $lowongan->id) }}" class="inline-block w-full text-center bg-[#626F47] hover:bg-[#3B3B1A] text-white font-semibold py-2 rounded-md transition">
-                            Lihat Detail
-                        </a>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach($lowongans as $job)
+                    <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-[#E7EFC7] overflow-hidden group h-full flex flex-col">
+                        <!-- Job Header -->
+                        <div class="p-4 sm:p-5 border-b border-[#E7EFC7]">
+                            <h3 class="text-lg font-bold text-[#3B3B1A] mb-2 font-serif group-hover:text-[#626F47] transition-colors duration-300 line-clamp-2">
+                                {{ $job->judul }}
+                            </h3>
+                            <span class="inline-block px-2.5 py-0.5 text-xs font-medium text-[#8A784E] bg-[#F0F5E6] rounded-full">
+                                {{ $job->jurusan ?? 'Semua Jurusan' }}
+                            </span>
+                        </div>
+
+                        <!-- Job Details -->
+                        <div class="p-4 sm:p-5 flex-grow">
+                            <ul class="space-y-2 mb-4">
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 mr-2 mt-0.5 text-[#8A784E] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                                    </svg>
+                                    <div>
+                                        <div class="text-xs font-medium text-[#626F47]">Lokasi</div>
+                                        <div class="text-sm text-[#3B3B1A]">{{ $job->lokasi }}</div>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 mr-2 mt-0.5 text-[#8A784E] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                                    </svg>
+                                    <div>
+                                        <div class="text-xs font-medium text-[#626F47]">Deadline</div>
+                                        <div class="text-sm text-[#3B3B1A]">{{ $job->deadline ? \Carbon\Carbon::parse($job->deadline)->translatedFormat('d F Y') : 'Tidak terbatas' }}</div>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 mr-2 mt-0.5 text-[#8A784E] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <div>
+                                        <div class="text-xs font-medium text-[#626F47]">Durasi</div>
+                                        <div class="text-sm text-[#3B3B1A]">{{ $job->durasi }}</div>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <!-- Qualifications -->
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-[#3B3B1A] mb-2 flex items-center">
+                                    <svg class="w-3.5 h-3.5 mr-1.5 text-[#8A784E]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    Kualifikasi
+                                </h4>
+                                <ul class="space-y-1.5 text-xs text-[#626F47]">
+                                    @foreach($job->kualifikasi as $kualif)
+                                    <li class="flex items-start">
+                                        <svg class="w-3.5 h-3.5 mr-1.5 mt-0.5 text-[#8A784E] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                        </svg>
+                                        <span class="flex-1">{{ $kualif }}</span>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Apply Button -->
+                        <div class="p-4 sm:p-5 pt-0">
+                            <a href="{{ route('lowongan.show', $job->id) }}" class="block w-full text-center bg-[#AEC8A4] hover:bg-[#8A9E7F] text-[#3B3B1A] font-medium py-2 px-4 rounded-md transition-colors duration-300 text-sm">
+                                Lihat Detail
+                            </a>
+                        </div>
                     </div>
-                @empty
-                    <div class="col-span-3 text-center text-[#8A784E]">Belum ada lowongan magang.</div>
-                @endforelse
+                @endforeach
             </div>
         </div>
     </div>
@@ -157,29 +189,29 @@ use Illuminate\Support\Facades\Storage;
                 </a>
             </div>
             
-            <div class="grid md:grid-cols-3 gap-6">
-                @forelse($news as $item)
-                    <div class="bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition duration-300 border border-[#AEC8A4]">
-                        <div class="h-48 bg-[#AEC8A4] flex items-center justify-center text-[#3B3B1A] font-medium">
-                            @if($item->foto)
-                                <img src="{{ asset('storage/'.$item->foto) }}" alt="Berita" class="object-cover w-full h-full">
-                            @else
-                                <span>Gambar Berita</span>
-                            @endif
+            <div class="grid md:grid-cols-3 gap-8">
+                @foreach ($news as $item)
+                    <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-[#AEC8A4]/30 hover:border-[#AEC8A4]/60 group">
+                        <div class="h-48 overflow-hidden">
+                            <img src="{{ asset('storage/' . $item->foto) }}" alt="{{ $item->judul }}" 
+                                class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105">
                         </div>
                         <div class="p-6">
-                            <h3 class="font-semibold text-lg mb-2 text-[#3B3B1A]">{{ $item->judul }}</h3>
-                            <p class="text-sm text-[#8A784E] mb-4">
-                                {{ \Carbon\Carbon::parse($item->tanggal_posting)->translatedFormat('l, d F Y') }}
-                            </p>
-                            <a href="{{ route('berita.show', $item->id) }}" class="text-[#626F47] hover:text-[#3B3B1A] text-sm font-medium">
-                                Baca Selengkapnya →
+                            <div class="flex items-center text-xs text-[#8A784E] mb-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                {{ \Carbon\Carbon::parse($item->tanggal)->locale('id')->translatedFormat('l, d F Y') }}
+                            </div>
+                            <h3 class="font-semibold text-lg mb-3 text-[#3B3B1A] leading-tight font-serif">
+                                {{ $item->judul }}
+                            </h3>
+                            <a href="{{ route('berita.show', $item->id) }}" class="inline-flex items-center text-sm font-medium text-[#626F47] hover:text-[#3B3B1A] transition-colors duration-300 group-hover:underline">
+                                Baca Selengkapnya
                             </a>
                         </div>
                     </div>
-                @empty
-                    <div class="col-span-3 text-center text-[#8A784E]">Belum ada berita.</div>
-                @endforelse
+                @endforeach
             </div>
         </div>
     </section>
@@ -213,16 +245,22 @@ use Illuminate\Support\Facades\Storage;
     </section>
 
     <!-- FAQ -->
-    <section class="bg-[#AEC8A4] py-20">
-        <div class="max-w-4xl mx-auto px-4">
-            <h2 class="text-3xl font-bold mb-10 text-center text-[#3B3B1A]">Pertanyaan yang Sering Ditanyakan</h2>
+<!-- FAQ Section -->
+<section class="py-16 md:py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Header -->
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-[#3B3B1A] font-serif mb-4">Pertanyaan yang Sering Ditanyakan</h2>
+            <div class="w-20 h-1 bg-[#AEC8A4] mx-auto rounded-full"></div>
+        </div>
 
+        <!-- FAQ Items -->
             <div class="space-y-4">
                 @forelse($faqs as $faq)
                 <div x-data="{ open: {{ $loop->first ? 'true' : 'false' }} }" class="border border-[#8A784E] rounded-xl overflow-hidden bg-[#E7EFC7]">
                     <button
                         @click="open = !open"
-                        class="w-full px-6 py-4 text-left font-semibold text-[#3B3B1A] hover:bg-[#DDEBC7] focus:outline-none focus:ring-2 focus:ring-[#626F47] focus:ring-offset-2 transition duration-150 flex justify-between items-center"
+                        class="w-full px-6 py-5 text-left font-medium text-lg text-[#3B3B1A] hover:bg-[#F5F9E8] focus:outline-none transition duration-200 flex justify-between items-center"
                     >
                         <span>{{ $faq->pertanyaan }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#626F47] transition-transform duration-200" :class="{ 'transform rotate-180': open }" viewBox="0 0 20 20" fill="currentColor">

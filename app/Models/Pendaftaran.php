@@ -33,7 +33,7 @@ class Pendaftaran extends Model
 
     public function lowongan()
 {
-    return $this->belongsTo(Lowongan::class, 'id_lowongan');
+    return $this->belongsTo(Lowongan::class, 'lowongan_id');
 }
 
 }
