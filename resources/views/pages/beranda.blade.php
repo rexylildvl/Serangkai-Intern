@@ -246,7 +246,7 @@ use Illuminate\Support\Facades\Storage;
 
     <!-- FAQ -->
 <!-- FAQ Section -->
-<section class="py-16 md:py-20">
+<section class="bg-[#E7EFC7] py-16 md:py-20">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section Header -->
         <div class="text-center mb-12">
