@@ -15,9 +15,9 @@
 
 <body class="bg-gray-50 font-sans antialiased text-gray-900">
 
-    <div class="flex h-screen">
+    <div class="flex min-h-screen">
         {{-- Sidebar --}}
-        <aside class="w-64 bg-[#5E6E52] text-white flex flex-col justify-between">
+        <aside class="w-64 bg-[#5E6E52] text-white flex flex-col justify-between fixed top-0 left-0 h-screen z-40">
             <div>
                 <div class="flex items-center gap-3 px-6 py-6">
                     <img src="{{ asset('images/logo-ts.png') }}" alt="Logo TS" class="h-10 w-auto">
@@ -94,7 +94,7 @@
         </aside>
 
         {{-- Main Content --}}
-        <main class="flex-1 flex flex-col">
+        <main class="flex-1 flex flex-col pl-64">
             {{-- Header --}}
             <header class="flex justify-between items-center px-6 py-4 bg-white border-b">
                 <div></div> {{-- Kosong biar logo tidak tertutup --}}
@@ -127,7 +127,7 @@
             </header>
 
             {{-- Page Content --}}
-            <div class="p-6 overflow-y-auto">
+            <div class="p-6 grow overflow-y-auto">
                 @yield('content')
             </div>
 

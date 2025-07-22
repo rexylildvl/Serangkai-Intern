@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\LandingController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminPendaftarController;
 use App\Http\Controllers\AdminLowonganController;
@@ -16,6 +15,7 @@ use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\LowonganController;
 use App\Http\Controllers\CoeVideoController;
 use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\BerandaController;
 
 
@@ -23,6 +23,8 @@ Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
 Route::get('/berita/create', [BeritaController::class, 'create'])->name('berita.create');
 Route::post('/berita', [BeritaController::class, 'store'])->name('berita.store');
 Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('berita.show');
+
+Route::get('/faq', [FaqController::class, 'index'])->name('faq.index');
 
 Route::get('/lowongan', [LowonganController::class, 'index'])->name('lowongan.index');
 Route::get('/lowongan/{id}', [LowonganController::class, 'show'])->name('lowongan.show');
@@ -52,6 +54,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/pendaftar', [AdminPendaftarController::class, 'index'])->name('admin.pendaftar');
+    
     Route::get('/admin/lowongan', [AdminLowonganController::class, 'index'])->name('admin.lowongan');
     Route::get('/admin/lowongan/create', [AdminLowonganController::class, 'create'])->name('admin.lowongan.create');
     Route::get('/admin/lowongan/{id}', [AdminLowonganController::class, 'show'])->name('admin.lowongan.show');
@@ -59,6 +62,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/admin/lowongan/{id}', [AdminLowonganController::class, 'update'])->name('admin.lowongan.update');
     Route::delete('/admin/lowongan/{id}', [AdminLowonganController::class, 'destroy'])->name('admin.lowongan.destroy');
     Route::post('/admin/lowongan', [AdminLowonganController::class, 'store'])->name('admin.lowongan.store');
+    
     Route::get('/admin/berita', [AdminBeritaController::class, 'index'])->name('admin.berita.index');
     Route::get('/admin/berita/create', [AdminBeritaController::class, 'create'])->name('admin.berita.create');
     Route::post('/admin/berita', [AdminBeritaController::class, 'store'])->name('admin.berita.store');
@@ -66,6 +70,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/berita/{id}/edit', [AdminBeritaController::class, 'edit'])->name('admin.berita.edit');
     Route::put('/admin/berita/{id}', [AdminBeritaController::class, 'update'])->name('admin.berita.update');
     Route::delete('/admin/berita/{id}', [AdminBeritaController::class, 'destroy'])->name('admin.berita.destroy');
+    
     Route::get('/admin/galeri', [AdminGaleriController::class, 'index'])->name('admin.galeri');
     Route::get('/admin/galeri/create', [AdminGaleriController::class, 'create'])->name('admin.galeri.create');
     Route::post('/admin/galeri', [AdminGaleriController::class, 'store'])->name('admin.galeri.store');
@@ -73,6 +78,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/galeri/{id}/edit', [AdminGaleriController::class, 'edit'])->name('admin.galeri.edit');
     Route::put('/admin/galeri/{id}', [AdminGaleriController::class, 'update'])->name('admin.galeri.update');
     Route::delete('/admin/galeri/{id}', [AdminGaleriController::class, 'destroy'])->name('admin.galeri.destroy');
+    
     Route::get('/admin/banner', [AdminBannerController::class, 'index'])->name('admin.banner.index');
     Route::get('/admin/banner/create', [AdminBannerController::class, 'create'])->name('admin.banner.create');
     Route::post('/admin/banner', [AdminBannerController::class, 'store'])->name('admin.banner.store');
@@ -82,7 +88,13 @@ Route::middleware('auth')->group(function () {
     Route::patch('/admin/banner/{id}/toggle', [AdminBannerController::class, 'toggle'])->name('admin.banner.toggle');
 
     Route::get('/admin/faq', [AdminFaqController::class, 'index'])->name('admin.faq.index');
-    
+    Route::get('/admin/faq/create', [AdminFaqController::class, 'create'])->name('admin.faq.create');
+    Route::post('/admin/faq', [AdminFaqController::class, 'store'])->name('admin.faq.store');
+    Route::get('/admin/faq/{id}/edit', [AdminFaqController::class, 'edit'])->name('admin.faq.edit');
+    Route::put('/admin/faq/{id}', [AdminFaqController::class, 'update'])->name('admin.faq.update');
+    Route::delete('/admin/faq/{id}', [AdminFaqController::class, 'destroy'])->name('admin.faq.destroy');
+    Route::patch('/admin/faq/{id}/toggle', [AdminFaqController::class, 'toggle'])->name('admin.faq.toggle');
+
     Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran.index');
     Route::post('/pendaftaran/submit', [PendaftaranController::class, 'submit'])->name('pendaftaran.submit');
 });

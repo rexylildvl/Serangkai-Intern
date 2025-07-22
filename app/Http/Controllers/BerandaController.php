@@ -7,6 +7,7 @@ use App\Models\Lowongan;
 use App\Models\News;
 use App\Models\Galeri;
 use App\Models\Banner;
+use App\Models\Faq;
 
 class BerandaController extends Controller
 {
@@ -17,7 +18,8 @@ class BerandaController extends Controller
             $news = News::latest()->take(6)->get();
             $galeris = Galeri::latest()->take(10)->get();
             $banners = Banner::where('is_active', true)->latest()->get();
-
-            return view('pages.beranda', compact('lowongans', 'news', 'galeris', 'banners'));
+            $faqs = Faq::where('is_active', true)->take(5)->get();
+           
+            return view('pages.beranda', compact('lowongans', 'news', 'galeris', 'banners', 'faqs'));
         }  
 }

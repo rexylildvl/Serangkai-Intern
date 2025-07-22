@@ -25,11 +25,16 @@
                 <form action="{{ route('admin.banner.toggle', $banner->id) }}" method="POST">
                     @csrf
                     @method('PATCH')
-                    <label class="relative inline-flex items-center cursor-pointer mr-3">
+                    <label class="relative inline-flex items-center cursor-pointer mr-3 w-10 h-6">
                         <input type="checkbox" name="is_active" onchange="this.form.submit()" class="sr-only peer" {{ $banner->is_active ? 'checked' : '' }}>
-                        <div class="w-9 h-5 bg-gray-300 rounded-full peer peer-checked:bg-green-500 transition-all duration-300"></div>
-                        <div class="absolute left-0.5 top-0.5 bg-white w-5 h-5 rounded-full shadow-md transform peer-checked:translate-x-full transition-all duration-300"></div>
+                        
+                        {{-- Track background --}}
+                        <div class="w-full h-full bg-gray-300 rounded-full peer-checked:bg-green-500 transition-colors duration-300"></div>
+
+                        {{-- Thumb (bulatan putih) --}}
+                        <div class="absolute top-[2px] left-[2px] w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-300 peer-checked:translate-x-[1.25rem]"></div>
                     </label>
+
                 </form>
 
                 {{-- Gambar dan Judul --}}
