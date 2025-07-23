@@ -37,16 +37,16 @@
                         </svg>
                         Dashboard
                     </a>
-                    <a href="{{ route('admin.pendaftar') }}"
-                        class="flex items-center gap-2 py-2.5 px-6 hover:bg-[#6c7d5f] {{ request()->routeIs('admin.pendaftar') ? 'bg-[#6c7d5f]' : '' }}">
+                    <a href="{{ route('admin.pendaftar.index') }}"
+                        class="flex items-center gap-2 py-2.5 px-6 hover:bg-[#6c7d5f] {{ request()->routeIs('admin.pendaftar.index') ? 'bg-[#6c7d5f]' : '' }}">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                         </svg>
                         Data Pendaftar
                     </a>
-                    <a href="{{ route('admin.lowongan') }}"
-                        class="flex items-center gap-2 py-2.5 px-6 hover:bg-[#6c7d5f] {{ request()->routeIs('admin.lowongan') ? 'bg-[#6c7d5f]' : '' }}">
+                    <a href="{{ route('admin.lowongan.index') }}"
+                        class="flex items-center gap-2 py-2.5 px-6 hover:bg-[#6c7d5f] {{ request()->routeIs('admin.lowongan.index') ? 'bg-[#6c7d5f]' : '' }}">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round"

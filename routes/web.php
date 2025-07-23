@@ -53,9 +53,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
-    Route::get('/admin/pendaftar', [AdminPendaftarController::class, 'index'])->name('admin.pendaftar');
     
-    Route::get('/admin/lowongan', [AdminLowonganController::class, 'index'])->name('admin.lowongan');
+    Route::get('/admin/lowongan', [AdminLowonganController::class, 'index'])->name('admin.lowongan.index');
     Route::get('/admin/lowongan/create', [AdminLowonganController::class, 'create'])->name('admin.lowongan.create');
     Route::get('/admin/lowongan/{id}', [AdminLowonganController::class, 'show'])->name('admin.lowongan.show');
     Route::get('/admin/lowongan/{id}/edit', [AdminLowonganController::class, 'edit'])->name('admin.lowongan.edit');
@@ -98,7 +97,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran.index');
     Route::post('/pendaftaran/submit', [PendaftaranController::class, 'submit'])->name('pendaftaran.submit');
     Route::get('/pendaftaran/{id}', [PendaftaranController::class, 'show'])->name('pendaftaran.show');
-    
+
+    Route::get('/admin/pendaftar', [AdminPendaftarController::class, 'index'])->name('admin.pendaftar.index');
+    Route::get('/admin/pendaftar/{id}', [AdminPendaftarController::class, 'show'])->name('admin.pendaftar.show');
+    Route::put('/admin/pendaftar/{id}', [AdminPendaftarController::class, 'update'])->name('admin.pendaftar.update');
+    Route::delete('/admin/pendaftar/{id}', [AdminPendaftarController::class, 'destroy'])->name('admin.pendaftar.destroy');
+    Route::patch('/admin/pendaftar/{id}/status', [AdminPendaftarController::class, 'updateStatus'])->name('admin.pendaftar.updateStatus');
+    Route::get('/admin/lowongan/{id}/pendaftar', [AdminPendaftarController::class, 'byLowongan'])->name('admin.pendaftar.byLowongan');
 });
 
 require __DIR__.'/auth.php';

@@ -100,13 +100,13 @@ class AdminLowonganController extends Controller
             'benefit' => $request->benefit,
         ]);
 
-        return redirect()->route('admin.lowongan')->with('success', 'Lowongan berhasil diperbarui');
+        return redirect()->route('admin.lowongan.index')->with('success', 'Lowongan berhasil diperbarui');
     }
     public function destroy($id)
     {
         $lowongan = Lowongan::findOrFail($id);
         $lowongan->delete();
 
-        return redirect()->route('admin.lowongan')->with('success', 'Lowongan berhasil dihapus');
+        return redirect()->route('admin.lowongan.index')->with('success', 'Lowongan berhasil dihapus');
     }
 }
