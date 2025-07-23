@@ -55,5 +55,19 @@ class PendaftaranController extends Controller
         $pendaftaran = \App\Models\Pendaftaran::with('lowongan')->findOrFail($id);
         return view('pendaftaran.detail', compact('pendaftaran'));
     }
+    // Tambahkan ini ke dalam PendaftaranController
+
+    public function riwayat()
+    {
+        $userEmail = auth()->user()->email;
+
+        $pendaftarans = Pendaftaran::with('lowongan')
+            ->where('email', $userEmail)
+            ->latest()
+            ->get(); // atau ->paginate(5) jika mau pagination
+
+        return view('pendaftaran.histori', compact('pendaftarans'));
+    }
+
 
 }

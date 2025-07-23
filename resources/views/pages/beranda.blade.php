@@ -46,36 +46,75 @@ use Illuminate\Support\Facades\Storage;
                     Dikelola oleh Center of Excellent, program ini dirancang untuk mengembangkan keterampilan, kreativitas, dan profesionalisme peserta
                     dengan bimbingan mentor berpengalaman.
                 </p>
-                <a href="{{ route('lowongan.index') }}" class="inline-block bg-[#626F47] hover:bg-[#3B3B1A] text-white px-6 py-3 rounded-full transition duration-300">
-                    Daftar Sekarang
-                </a>
+                <div class="mt-0">
+                    <a href="{{ route('lowongan.index') }}">
+                    <button class="px-6 py-2 bg-[#3B3B1A] hover:bg-[#626F47] text-white text-sm font-medium rounded-md shadow hover:shadow-md transition-all duration-200 transform hover:-translate-y-0.5">
+                        Daftar Sekarang
+                    </button>
+                    </a> 
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Alur Pendaftaran -->
-    <section class="bg-[#AEC8A4] py-20">
-        <div class="max-w-4xl mx-auto px-4">
-            <h2 class="text-3xl font-bold mb-10 text-center text-[#3B3B1A]">Alur Pendaftaran</h2>
+    <section class="bg-[#AEC8A4] py-16 px-4">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-2xl md:text-3xl font-bold text-[#3B3B1A] mb-3">Proses Pendaftaran Magang</h2>
+                <p class="text-[#626F47] max-w-2xl mx-auto">Ikuti langkah-langkah berikut untuk bergabung dalam program magang kami</p>
+            </div>
+
             <div class="relative">
-                <div class="hidden md:block absolute top-8 left-0 right-0 h-1 bg-[#8A784E] mx-16"></div>
-                <div class="flex flex-col md:flex-row justify-between items-center gap-6 md:gap-0">
+                <!-- Garis penghubung -->
+                <div class="hidden md:block absolute top-8 left-20 right-20 h-[2px] bg-gradient-to-r from-transparent via-[#8A784E] to-transparent z-0"></div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-5 gap-6 sm:gap-4 relative z-10">
                     @php
                         $steps = [
-                            'Isi Formulir' => 'bg-[#E7EFC7] text-[#3B3B1A]',
-                            'Unggah Dokumen' => 'bg-[#E7EFC7] text-[#3B3B1A]',
-                            'Seleksi' => 'bg-[#E7EFC7] text-[#3B3B1A]',
-                            'Pengumuman' => 'bg-[#E7EFC7] text-[#3B3B1A]',
-                            'Mulai Magang' => 'bg-[#E7EFC7] text-[#3B3B1A]'
+                            [
+                                'title' => 'Isi Formulir',
+                                'desc' => 'Lengkapi data diri',
+                                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>'
+                            ],
+                            [
+                                'title' => 'Unggah Dokumen',
+                                'desc' => 'Upload berkas persyaratan',
+                                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>'
+                            ],
+                            [
+                                'title' => 'Seleksi',
+                                'desc' => 'Proses peninjauan',
+                                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>'
+                            ],
+                            [
+                                'title' => 'Pengumuman',
+                                'desc' => 'Hasil seleksi',
+                                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>'
+                            ],
+                            [
+                                'title' => 'Mulai Magang',
+                                'desc' => 'Onboarding program',
+                                'icon' => '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>'
+                            ]
                         ];
                     @endphp
-                    @foreach($steps as $step => $colors)
-                        <div class="flex flex-col items-center z-10">
-                            <div class="w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold {{ $colors }} shadow-md">
-                                {{ $loop->iteration }}
+
+                    @foreach($steps as $step)
+                    <div class="flex flex-col items-center group">
+                        <div class="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white flex items-center justify-center shadow-md mb-3 border-2 border-[#8A784E] group-hover:border-[#3B3B1A] group-hover:bg-[#E7EFC7] transition-colors duration-200">
+                            <div class="text-[#626F47] group-hover:text-[#3B3B1A] transition-colors duration-200">
+                                {!! $step['icon'] !!}
                             </div>
-                            <p class="mt-3 font-medium text-[#3B3B1A] text-center">{{ $step }}</p>
                         </div>
+                        <div class="text-center">
+                            <h3 class="text-sm md:text-base font-semibold text-[#3B3B1A] group-hover:text-[#2a2a12] transition-colors duration-200">{{ $step['title'] }}</h3>
+                            <p class="text-xs text-[#626F47] group-hover:text-[#3B3B1A] mt-1 transition-colors duration-200">{{ $step['desc'] }}</p>
+                            <div class="text-xs font-medium text-[#8A784E] group-hover:text-[#3B3B1A] mt-1 transition-colors duration-200">
+                                Step {{ $loop->iteration }}
+                            </div>
+                        </div>
+                    </div>
                     @endforeach
                 </div>
             </div>

@@ -23,6 +23,7 @@
 
             @include('layouts.navigation')
 
+
             <!-- Page Heading -->
             @isset($header)
                 <header class="bg-white dark:bg-gray-800 shadow">
@@ -33,9 +34,10 @@
             @endisset
 
             <!-- Page Content -->
-            <main>
+            <div class="pt-20"> <!-- kira-kira 80px untuk padding-top -->
                 {{ $slot }}
-            </main>
+            </div>
+
         </div>
 
         {{-- Footer --}}

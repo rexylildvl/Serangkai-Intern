@@ -1,4 +1,5 @@
-<nav class="bg-gradient-to-r from-[#4B6043] to-[#73815D] shadow-lg py-3">
+<nav class="fixed top-0 z-50 w-full bg-gradient-to-r from-[#4B6043] to-[#73815D] shadow-lg py-3">
+
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
             <!-- Kiri: Logo dan Navigasi -->
@@ -64,6 +65,12 @@
                             <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                                 {{ __('Profile') }}
                             </a>
+                            <a href="{{ route('pendaftaran.histori') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                {{ __('Riwayat Pendaftaran') }}
+                            </a>
+                            <a href="{{ route('logbooks.index') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                {{ __('Logbook') }}
+                            </a>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
@@ -126,6 +133,12 @@
 
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('pendaftaran.histori')">
+                    {{ __('Riwayat Pendaftaran') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('logbooks.index')">
+                    {{ __('Logbook') }}
                 </x-responsive-nav-link>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

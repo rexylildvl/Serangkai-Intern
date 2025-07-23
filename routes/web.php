@@ -17,6 +17,7 @@ use App\Http\Controllers\CoeVideoController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\BerandaController;
+use App\Http\Controllers\LogbookController;
 
 
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
@@ -98,6 +99,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran.index');
     Route::post('/pendaftaran/submit', [PendaftaranController::class, 'submit'])->name('pendaftaran.submit');
     Route::get('/pendaftaran/{id}', [PendaftaranController::class, 'show'])->name('pendaftaran.show');
+    Route::get('/histori', [PendaftaranController::class, 'riwayat'])->name('pendaftaran.histori');
+
+    Route::resource('logbooks', LogbookController::class)->except(['show', 'destroy']);
+    Route::get('/logbooks', [LogbookController::class, 'index'])->name('logbooks.index');
+    Route::get('/logbooks/create', [LogbookController::class, 'create'])->name('logbooks.create');
+    Route::post('/logbooks', [LogbookController::class, 'store'])->name('logbooks.store');
+    Route::get('/logbooks/{logbook}/edit', [LogbookController::class, 'edit'])->name('logbooks.edit');
+    Route::delete('/logbooks/{logbook}', [LogbookController::class, 'destroy'])->name('logbooks.destroy');
+    Route::put('/logbooks/{logbook}', [LogbookController::class, 'update'])->name('logbooks.update');
+
+    Route::get('/logbooks/export/excel', [LogbookController::class, 'exportExcel'])->name('logbooks.export.excel')->middleware('auth');
+    Route::get('/logbooks/export/pdf', [LogbookController::class, 'exportPdf'])->name('logbooks.export.pdf')->middleware('auth');
 
 });
 
