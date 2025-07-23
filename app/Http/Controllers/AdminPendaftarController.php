@@ -27,12 +27,6 @@ class AdminPendaftarController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nama' => 'required',
-            'email' => 'required|email',
-            
-        ]);
-
         $pendaftar = Pendaftaran::findOrFail($id);
         $pendaftar->update($request->all());
 
