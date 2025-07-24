@@ -117,6 +117,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/admin/pendaftar/{id}', [AdminPendaftarController::class, 'destroy'])->name('admin.pendaftar.destroy');
     Route::patch('/admin/pendaftar/{id}/status', [AdminPendaftarController::class, 'updateStatus'])->name('admin.pendaftar.updateStatus');
     Route::get('/admin/lowongan/{id}/pendaftar', [AdminPendaftarController::class, 'byLowongan'])->name('admin.pendaftar.byLowongan');
+    Route::get('/admin/pendaftar/{id}/export', [AdminPendaftarController::class, 'exportPdf'])->name('admin.pendaftar.exportPdf');
+
 });
 
 require __DIR__.'/auth.php';

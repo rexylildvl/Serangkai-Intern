@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pendaftaran;
 use Illuminate\Http\Request;
 use App\Models\Lowongan;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AdminPendaftarController extends Controller
 {
@@ -73,5 +74,16 @@ class AdminPendaftarController extends Controller
 
         return view('admin.pendaftar.by-lowongan', compact('lowongan', 'pendaftars'));
     }
+
+    public function exportPdf($id)
+    {
+        $pendaftar = Pendaftaran::with('lowongan')->findOrFail($id);
+
+        $pdf = Pdf::loadView('admin.pendaftar.pdf', compact('pendaftar'));
+
+        return $pdf->download('detail-pendaftar-' . $pendaftar->nama_lengkap . '.pdf');
+    }
+
+    
 
 }
