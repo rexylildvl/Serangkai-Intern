@@ -111,13 +111,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/logbooks/export/excel', [LogbookController::class, 'exportExcel'])->name('logbooks.export.excel')->middleware('auth');
     Route::get('/logbooks/export/pdf', [LogbookController::class, 'exportPdf'])->name('logbooks.export.pdf')->middleware('auth');
 
+    Route::get('/admin/pendaftar/export', [AdminPendaftarController::class, 'exportExcel'])->name('admin.pendaftar.export');
+    Route::get('/admin/pendaftar/{id}/export', [AdminPendaftarController::class, 'exportPdf'])->name('admin.pendaftar.exportPdf');
     Route::get('/admin/pendaftar', [AdminPendaftarController::class, 'index'])->name('admin.pendaftar.index');
     Route::get('/admin/pendaftar/{id}', [AdminPendaftarController::class, 'show'])->name('admin.pendaftar.show');
     Route::put('/admin/pendaftar/{id}', [AdminPendaftarController::class, 'update'])->name('admin.pendaftar.update');
     Route::delete('/admin/pendaftar/{id}', [AdminPendaftarController::class, 'destroy'])->name('admin.pendaftar.destroy');
     Route::patch('/admin/pendaftar/{id}/status', [AdminPendaftarController::class, 'updateStatus'])->name('admin.pendaftar.updateStatus');
     Route::get('/admin/lowongan/{id}/pendaftar', [AdminPendaftarController::class, 'byLowongan'])->name('admin.pendaftar.byLowongan');
-    Route::get('/admin/pendaftar/{id}/export', [AdminPendaftarController::class, 'exportPdf'])->name('admin.pendaftar.exportPdf');
 
 });
 

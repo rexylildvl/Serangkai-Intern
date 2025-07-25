@@ -32,8 +32,18 @@ class Pendaftaran extends Model
     ];
 
     public function lowongan()
-{
-    return $this->belongsTo(Lowongan::class, 'lowongan_id');
-}
+    {
+        return $this->belongsTo(Lowongan::class, 'lowongan_id');
+    }
+
+    public function scopeSearch($query, $term)
+    {
+        return $query->where(function ($query) use ($term) {
+            $query->where('nama_lengkap', 'like', "%$term%")
+                ->orWhere('email', 'like', "%$term%")
+                ->orWhere('universitas', 'like', "%$term%")
+                ->orWhere('status', 'like', "%$term%");
+        });
+    }
 
 }
