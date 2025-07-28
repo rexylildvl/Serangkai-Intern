@@ -11,6 +11,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class LogbookController extends Controller
 {
+    
     public function index()
     {
         $logbooks = Logbook::where('user_id', Auth::id())->orderBy('tanggal', 'desc')->get();

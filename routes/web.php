@@ -107,6 +107,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/logbooks/{logbook}/edit', [LogbookController::class, 'edit'])->name('logbooks.edit');
     Route::delete('/logbooks/{logbook}', [LogbookController::class, 'destroy'])->name('logbooks.destroy');
     Route::put('/logbooks/{logbook}', [LogbookController::class, 'update'])->name('logbooks.update');
+    Route::get('/logbooks/export', [LogbookController::class, 'exportExcel'])->name('logbooks.export');
 
     Route::get('/logbooks/export/excel', [LogbookController::class, 'exportExcel'])->name('logbooks.export.excel')->middleware('auth');
     Route::get('/logbooks/export/pdf', [LogbookController::class, 'exportPdf'])->name('logbooks.export.pdf')->middleware('auth');

@@ -1,23 +1,29 @@
 <?php
+
 namespace App\Exports;
 
-use App\Models\Logbook;
-use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
+use Illuminate\Contracts\View\View;
+use App\Models\Logbook;
 
 class LogbookExport implements FromView
 {
-    protected $user_id;
+    protected $userId;
 
-    public function __construct($user_id)
+    public function __construct($userId)
     {
-        $this->user_id = $user_id;
+        $this->userId = $userId;
     }
 
     public function view(): View
     {
-        return view('exports.logbooks', [
-            'logbooks' => Logbook::where('user_id', $this->user_id)->get()
+        $logbooks = Logbook::where('user_id', $this->userId)
+                        ->orderBy('tanggal', 'desc')
+                        ->get();
+
+        return view('exports.logbooks-excel', [
+            'logbooks' => $logbooks
         ]);
     }
+
 }

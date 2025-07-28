@@ -27,6 +27,10 @@
                         class="inline-flex items-center px-4 py-2.5 bg-red-700 hover:bg-red-900 text-white rounded-lg transition-all duration-200 shadow-sm hover:shadow-md">
                             Export PDF
                         </a>
+                        <a href="{{ route('logbooks.export.excel') }}"
+                        class="inline-flex items-center px-4 py-2.5 bg-blue-700 hover:bg-blue-900 text-white rounded-lg transition-all duration-200 shadow-sm hover:shadow-md">
+                            Export Excel
+                        </a>
                         <a href="{{ route('logbooks.create') }}"
                         class="inline-flex items-center px-4 py-2.5 bg-[#626F47] hover:bg-[#3B3B1A] text-white rounded-lg transition-all duration-200 shadow-sm hover:shadow-md">
                             Tambah Logbook
