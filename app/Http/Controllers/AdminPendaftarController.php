@@ -5,12 +5,26 @@ namespace App\Http\Controllers;
 use App\Models\Pendaftaran;
 use Illuminate\Http\Request;
 use App\Models\Lowongan;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Exports\PendaftarExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminPendaftarController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $pendaftars = Pendaftaran::with('lowongan')->latest()->paginate(10);
+        $search = $request->input('search');
+        
+        $pendaftars = Pendaftaran::with('lowongan')
+            ->when($search, function ($query) use ($search) {
+                $query->where('nama_lengkap', 'like', '%'.$search.'%')
+                    ->orWhere('email', 'like', '%'.$search.'%')
+                    ->orWhere('universitas', 'like', '%'.$search.'%')
+                    ->orWhere('status', 'like', '%'.$search.'%');
+            })
+            ->latest()
+            ->paginate(10);
+
         return view('admin.pendaftar.index', compact('pendaftars'));
     }
 
@@ -72,6 +86,20 @@ class AdminPendaftarController extends Controller
         $pendaftars = Pendaftaran::where('lowongan_id', $id)->latest()->get();
 
         return view('admin.pendaftar.by-lowongan', compact('lowongan', 'pendaftars'));
+    }
+
+    public function exportPdf($id)
+    {
+        $pendaftar = Pendaftaran::with('lowongan')->findOrFail($id);
+
+        $pdf = Pdf::loadView('admin.pendaftar.pdf', compact('pendaftar'));
+
+        return $pdf->download('detail-pendaftar-' . $pendaftar->nama_lengkap . '.pdf');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new PendaftarExport, 'data_pendaftar.xlsx');
     }
 
 }
