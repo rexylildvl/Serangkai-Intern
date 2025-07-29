@@ -46,13 +46,11 @@ Route::get('/galeri/create', [GaleriController::class, 'create'])->name('galeri.
 Route::post('/galeri', [GaleriController::class, 'store'])->name('galeri.store');
 Route::get('/galeri/{id}', [GaleriController::class, 'show'])->name('galeri.show');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/lowongan/create', [LowonganController::class, 'create'])->name('lowongan.create');
+Route::get('/halaman-tidak-diizinkan', function () {
+    return view('errors.tidak-diizinkan');
+})->name('not.allowed');
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
+Route::middleware(['auth', \App\Http\Middleware\AdminMiddleware::class])->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     
     Route::get('/admin/lowongan', [AdminLowonganController::class, 'index'])->name('admin.lowongan.index');
@@ -95,11 +93,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/admin/faq/{id}', [AdminFaqController::class, 'destroy'])->name('admin.faq.destroy');
     Route::patch('/admin/faq/{id}/toggle', [AdminFaqController::class, 'toggle'])->name('admin.faq.toggle');
 
-    Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran.index');
-    Route::post('/pendaftaran/submit', [PendaftaranController::class, 'submit'])->name('pendaftaran.submit');
-    Route::get('/pendaftaran/{id}', [PendaftaranController::class, 'show'])->name('pendaftaran.show');
-    Route::get('/histori', [PendaftaranController::class, 'riwayat'])->name('pendaftaran.histori');
-
+    
     Route::get('/admin/pendaftar/export', [AdminPendaftarController::class, 'exportExcel'])->name('admin.pendaftar.export');
     Route::get('/admin/pendaftar/{id}/export', [AdminPendaftarController::class, 'exportPdf'])->name('admin.pendaftar.exportPdf');
     Route::get('/admin/pendaftar', [AdminPendaftarController::class, 'index'])->name('admin.pendaftar.index');
@@ -108,6 +102,23 @@ Route::middleware('auth')->group(function () {
     Route::delete('/admin/pendaftar/{id}', [AdminPendaftarController::class, 'destroy'])->name('admin.pendaftar.destroy');
     Route::patch('/admin/pendaftar/{id}/status', [AdminPendaftarController::class, 'updateStatus'])->name('admin.pendaftar.updateStatus');
     Route::get('/admin/lowongan/{id}/pendaftar', [AdminPendaftarController::class, 'byLowongan'])->name('admin.pendaftar.byLowongan');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/lowongan/create', [LowonganController::class, 'create'])->name('lowongan.create');
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    
+
+    Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran.index');
+    Route::post('/pendaftaran/submit', [PendaftaranController::class, 'submit'])->name('pendaftaran.submit');
+    Route::get('/pendaftaran/{id}', [PendaftaranController::class, 'show'])->name('pendaftaran.show');
+    Route::get('/histori', [PendaftaranController::class, 'riwayat'])->name('pendaftaran.histori');
+
+    
 
 });
 

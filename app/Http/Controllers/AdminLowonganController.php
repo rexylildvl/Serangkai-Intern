@@ -51,7 +51,7 @@ class AdminLowonganController extends Controller
             'benefit' => $request->benefit,
         ]);
 
-        return redirect()->route('admin.lowongan')->with('success', 'Lowongan berhasil ditambahkan');
+        return redirect()->route('admin.lowongan.index')->with('success', 'Lowongan berhasil ditambahkan');
     }
 
     public function show($id)

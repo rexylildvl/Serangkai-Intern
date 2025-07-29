@@ -36,7 +36,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <h3 class="text-sm text-gray-600">Total Peserta</h3>
-                    <p class="text-2xl font-bold text-gray-800">123 orang</p>
+                    <p class="text-2xl font-bold text-gray-800">{{ $totalPendaftar }} orang</p>
                     <p class="text-sm text-gray-500">Jumlah peserta yang telah terdaftar</p>
                 </div>
                 <div class="bg-[#d9ead3] text-[#5d6f55] p-2 rounded-full">
@@ -53,7 +53,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <h3 class="text-sm text-gray-600">Total Berita</h3>
-                    <p class="text-2xl font-bold text-gray-800">5 berita</p>
+                    <p class="text-2xl font-bold text-gray-800">{{ $totalBerita }} berita</p>
                     <p class="text-sm text-gray-500">Jumlah berita yang dipublikasikan</p>
                 </div>
                 <div class="bg-[#f9e7cf] text-[#c27a38] p-2 rounded-full">
@@ -70,7 +70,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <h3 class="text-sm text-gray-600">Total Galeri</h3>
-                    <p class="text-2xl font-bold text-gray-800">12 foto</p>
+                    <p class="text-2xl font-bold text-gray-800">{{ $totalGaleri }} foto</p>
                     <p class="text-sm text-gray-500">Jumlah gambar di galeri</p>
                 </div>
                 <div class="bg-[#e6f4f1] text-[#419187] p-2 rounded-full">
@@ -87,7 +87,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <h3 class="text-sm text-gray-600">Total Lowongan</h3>
-                    <p class="text-2xl font-bold text-gray-800">8 posisi</p>
+                    <p class="text-2xl font-bold text-gray-800">{{ $totalLowongan }} posisi</p>
                     <p class="text-sm text-gray-500">Jumlah lowongan tersedia</p>
                 </div>
                 <div class="bg-[#fff3cd] text-[#b8860b] p-2 rounded-full">
@@ -111,16 +111,19 @@
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+    const labels = {!! json_encode(array_keys($statistikBidang)) !!};
+    const data = {!! json_encode(array_values($statistikBidang)) !!};
+
     const ctx = document.getElementById('pendaftarChart').getContext('2d');
     const pendaftarChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['UI/UX', 'Marketing', 'Testing', 'Web Developement', 'HRD', 'Admin', 'Content Writer'],
+            labels: labels,
             datasets: [{
                 label: 'Pendaftar',
-                data: [5, 8, 12, 6, 10, 7, 14],
-                backgroundColor: 'rgba(122, 160, 110, 0.2)', // olive soft
-                borderColor: 'rgba(122, 160, 110, 1)', // olive soft
+                data: data,
+                backgroundColor: 'rgba(122, 160, 110, 0.2)',
+                borderColor: 'rgba(122, 160, 110, 1)',
                 borderWidth: 2,
                 tension: 0.3,
                 fill: true,
@@ -134,7 +137,7 @@
                 y: {
                     beginAtZero: true,
                     ticks: {
-                        stepSize: 2
+                        stepSize: 1
                     }
                 }
             }
