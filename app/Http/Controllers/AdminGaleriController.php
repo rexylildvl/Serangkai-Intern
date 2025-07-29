@@ -23,7 +23,7 @@ class AdminGaleriController extends Controller
     {
         $request->validate([
             'judul' => 'required|string|max:255',
-            'foto' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'foto' => 'required|image|mimes:jpg,jpeg,png|max:5120',
         ]);
 
         $path = $request->file('foto')->store('galeri', 'public');
@@ -56,7 +56,7 @@ class AdminGaleriController extends Controller
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
-            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
         ]);
 
         // Jika ada gambar baru diunggah

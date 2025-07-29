@@ -22,7 +22,7 @@
 
             <div class="mb-4">
                 <label class="block text-gray-700 font-medium mb-2">Foto (biarkan kosong jika tidak diubah)</label>
-                <input type="file" name="gambar" accept="image/*">
+                <input type="file" name="foto" accept="image/*">
                 <p class="text-sm text-gray-500 mt-1">Foto saat ini:</p>
                 <img src="{{ asset('storage/' . $galeri->foto) }}" class="h-32 mt-1 rounded">
             </div>
