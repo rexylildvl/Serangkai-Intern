@@ -19,6 +19,9 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\LogbookController;
 
+Route::get('/test-magang', function() {
+    return "Middleware magang berhasil!";
+})->middleware(['auth', 'magang']);
 
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
 Route::get('/berita/create', [BeritaController::class, 'create'])->name('berita.create');
@@ -29,12 +32,7 @@ Route::get('/faq', [FaqController::class, 'index'])->name('faq.index');
 
 Route::get('/lowongan', [LowonganController::class, 'index'])->name('lowongan.index');
 Route::get('/lowongan/{id}', [LowonganController::class, 'show'])->name('lowongan.show');
-Route::get('/lowongan/create', [LowonganController::class, 'create'])->name('lowongan.create');
 Route::post('/lowongan', [LowonganController::class, 'store'])->name('lowongan.store');
-
-Route::get('/coe', [CoeVideoController::class, 'index'])->name('coe.index');
-Route::get('/coe/create', [CoeVideoController::class, 'create'])->name('coe.create');
-Route::post('/coe', [CoeVideoController::class, 'store'])->name('coe.store');
 
 Route::get('/center-of-excellence', function () {
     return view('coe.index');
@@ -49,6 +47,8 @@ Route::post('/galeri', [GaleriController::class, 'store'])->name('galeri.store')
 Route::get('/galeri/{id}', [GaleriController::class, 'show'])->name('galeri.show');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/lowongan/create', [LowonganController::class, 'create'])->name('lowongan.create');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -100,18 +100,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/pendaftaran/{id}', [PendaftaranController::class, 'show'])->name('pendaftaran.show');
     Route::get('/histori', [PendaftaranController::class, 'riwayat'])->name('pendaftaran.histori');
 
-    Route::resource('logbooks', LogbookController::class)->except(['show', 'destroy']);
-    Route::get('/logbooks', [LogbookController::class, 'index'])->name('logbooks.index');
-    Route::get('/logbooks/create', [LogbookController::class, 'create'])->name('logbooks.create');
-    Route::post('/logbooks', [LogbookController::class, 'store'])->name('logbooks.store');
-    Route::get('/logbooks/{logbook}/edit', [LogbookController::class, 'edit'])->name('logbooks.edit');
-    Route::delete('/logbooks/{logbook}', [LogbookController::class, 'destroy'])->name('logbooks.destroy');
-    Route::put('/logbooks/{logbook}', [LogbookController::class, 'update'])->name('logbooks.update');
-    Route::get('/logbooks/export', [LogbookController::class, 'exportExcel'])->name('logbooks.export');
-
-    Route::get('/logbooks/export/excel', [LogbookController::class, 'exportExcel'])->name('logbooks.export.excel')->middleware('auth');
-    Route::get('/logbooks/export/pdf', [LogbookController::class, 'exportPdf'])->name('logbooks.export.pdf')->middleware('auth');
-
     Route::get('/admin/pendaftar/export', [AdminPendaftarController::class, 'exportExcel'])->name('admin.pendaftar.export');
     Route::get('/admin/pendaftar/{id}/export', [AdminPendaftarController::class, 'exportPdf'])->name('admin.pendaftar.exportPdf');
     Route::get('/admin/pendaftar', [AdminPendaftarController::class, 'index'])->name('admin.pendaftar.index');
@@ -122,6 +110,23 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/lowongan/{id}/pendaftar', [AdminPendaftarController::class, 'byLowongan'])->name('admin.pendaftar.byLowongan');
 
 });
+
+    Route::middleware([\App\Http\Middleware\CheckMagangUser::class])->group(function () {
+        Route::resource('logbooks', LogbookController::class)->except(['show', 'destroy']);
+        Route::get('/logbooks', [LogbookController::class, 'index'])->name('logbooks.index');
+        Route::get('/logbooks/create', [LogbookController::class, 'create'])->name('logbooks.create');
+        Route::post('/logbooks', [LogbookController::class, 'store'])->name('logbooks.store');
+        Route::get('/logbooks/{logbook}/edit', [LogbookController::class, 'edit'])->name('logbooks.edit');
+        Route::delete('/logbooks/{logbook}', [LogbookController::class, 'destroy'])->name('logbooks.destroy');
+        Route::put('/logbooks/{logbook}', [LogbookController::class, 'update'])->name('logbooks.update');
+        Route::get('/logbooks/restricted', function () {
+            return view('logbooks.restricted');
+        })->name('logbooks.restricted');
+        
+        // Rute export
+        Route::get('/logbooks/export/excel', [LogbookController::class, 'exportExcel'])->name('logbooks.export.excel');
+        Route::get('/logbooks/export/pdf', [LogbookController::class, 'exportPdf'])->name('logbooks.export.pdf');
+    });
 
 require __DIR__.'/auth.php';
 

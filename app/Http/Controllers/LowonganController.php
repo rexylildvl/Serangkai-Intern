@@ -18,9 +18,16 @@ class LowonganController extends Controller
     public function show($id)
     {
         $lowongan = Lowongan::findOrFail($id);
-        return view('lowongan.show', compact('lowongan'));
+        
+        $alreadyApplied = false;
+        if (auth()->check()) {
+            $alreadyApplied = \App\Models\Pendaftaran::where('email', auth()->user()->email)
+                ->where('lowongan_id', $id)
+                ->exists();
     }
-
+    
+    return view('lowongan.show', compact('lowongan', 'alreadyApplied'));
+}
     // Menampilkan form tambah lowongan
     public function create()
     {

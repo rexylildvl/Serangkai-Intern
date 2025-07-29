@@ -74,10 +74,24 @@
                         @endforeach
                     </ul>
                 </div>
-
-                <a href="{{ route('pendaftaran.index', ['id_lowongan' => $lowongan->id]) }}" class="block w-full text-center bg-[#AEC8A4] hover:bg-[#8A9E7F] text-[#3B3B1A] font-medium py-2.5 px-4 rounded-lg transition-colors duration-300">
-                    Daftar Sekarang
-                </a>
+                <br>
+                @if(auth()->check())
+                    @if($alreadyApplied)
+                        <button class="px-6 py-3 bg-[#AEC8A4] text-[#3B3B1A] font-bold rounded-lg cursor-not-allowed opacity-90" disabled>
+                        Sudah Terdaftar
+                        </button>
+                    @else
+                        <a href="{{ route('pendaftaran.index', ['id_lowongan' => $lowongan->id]) }}" 
+                        class="px-6 py-3 bg-[#626F47] hover:bg-[#3B3B1A] text-white font-bold rounded-lg transition-colors duration-200 shadow hover:shadow-lg">
+                        Daftar Sekarang
+                        </a>
+                    @endif
+                @else
+                    <a href="{{ route('login') }}" 
+                    class="px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors duration-200">
+                        Login untuk Mendaftar
+                    </a>
+                @endif
             </div>
 
             <!-- Main Content -->
