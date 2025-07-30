@@ -28,7 +28,7 @@
                 <span class="text-sm font-medium">Data Pendaftar</span>
             </a>
 
-            <a href="{{ route('admin.lowongan') }}" class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-[#f3f4f6] hover:text-[#4B6043] transition">
+            <a href="{{ route('admin.lowongan.index') }}" class="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-[#f3f4f6] hover:text-[#4B6043] transition">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#4B6043]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6h13V7H9V1L1 9l8 8z" />
                 </svg>
