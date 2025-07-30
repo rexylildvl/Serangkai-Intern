@@ -1,4 +1,6 @@
 <x-app-layout>
+    <section class="relative bg-cover bg-center bg-no-repeat min-h-screen py-10" 
+        style="background-image: url('/images/gelap.jpg')">
     @if(session('success'))
     <div id="successPopup" class="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 bg-green-100 border border-green-400 text-green-700 px-6 py-3 rounded-lg shadow-lg flex items-center space-x-3 animate-fade-in-down">
         <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -13,15 +15,26 @@
         }, 3500);
     </script>
     @endif
-
-    <section class="bg-[#E7EFC7] min-h-screen py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-4 gap-8 items-start">
             <!-- Sidebar -->
             <div class="md:col-span-1 bg-white border border-[#E7EFC7] rounded-xl shadow-sm p-6 top-6">
                 <div class="mb-6">
-                    <h3 class="text-xl font-bold text-[#3B3B1A] mb-2 font-serif">{{ $lowongan->judul }}</h3>
+                                <h3 class="text-xl font-bold text-[#3B3B1A] mb-2 font-serif">
+                                    {{ $lowongan->judul }}
+                                </h3>
+                                @php
+                                    $isClosed = $lowongan->status === 'tutup' || \Carbon\Carbon::parse($lowongan->deadline)->isPast();
+                                @endphp
+                                <span class="inline-bloc text-xs font-semibold px-3 py-1 rounded-full 
+                                    {{ $isClosed ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700' }}">
+                                    {{ $isClosed ? 'Ditutup' : 'Buka' }}
+                                </span>
+                    
                     <span class="inline-block px-3 py-1 text-xs font-semibold text-[#8A784E] bg-[#F0F5E6] rounded-full mb-4">
                         {{ $lowongan->jurusan ?? 'Semua Jurusan' }}
+                    </span>
+                    <span class="inline-block px-3 py-1 text-xs font-semibold text-[#8A784E] bg-[#F0F5E6] rounded-full mb-4">
+                        {{ $lowongan->pendidikan ?? 'Semua Pendidikan' }}
                     </span>
                 </div>
 
@@ -75,23 +88,38 @@
                     </ul>
                 </div>
                 <br>
+                @php
+                    $isClosed = $lowongan->status === 'tutup' || \Carbon\Carbon::parse($lowongan->deadline)->isPast();
+                @endphp
+
                 @if(auth()->check())
                     @if($alreadyApplied)
                         <button class="px-6 py-3 bg-[#AEC8A4] text-[#3B3B1A] font-bold rounded-lg cursor-not-allowed opacity-90" disabled>
-                        Sudah Terdaftar
+                            Sudah Terdaftar
+                        </button>
+                    @elseif($isClosed)
+                        <button class="px-6 py-3 bg-gray-400 text-white font-bold rounded-lg cursor-not-allowed opacity-90" disabled>
+                            Lowongan Ditutup
                         </button>
                     @else
                         <a href="{{ route('pendaftaran.index', ['id_lowongan' => $lowongan->id]) }}" 
                         class="px-6 py-3 bg-[#626F47] hover:bg-[#3B3B1A] text-white font-bold rounded-lg transition-colors duration-200 shadow hover:shadow-lg">
-                        Daftar Sekarang
+                            Daftar Sekarang
                         </a>
                     @endif
                 @else
-                    <a href="{{ route('login') }}" 
-                    class="px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors duration-200">
-                        Login untuk Mendaftar
-                    </a>
+                    @if($isClosed)
+                        <button class="px-6 py-3 bg-gray-400 text-white font-medium rounded-lg cursor-not-allowed opacity-90" disabled>
+                            Lowongan Ditutup
+                        </button>
+                    @else
+                        <a href="{{ route('login') }}" 
+                        class="px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors duration-200">
+                            Login untuk Mendaftar
+                        </a>
+                    @endif
                 @endif
+
             </div>
 
             <!-- Main Content -->

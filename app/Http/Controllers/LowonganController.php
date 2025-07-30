@@ -11,8 +11,15 @@ class LowonganController extends Controller
     public function index()
     {
         $lowongans = Lowongan::latest()->paginate(9);
+
+        if ($lowongans->isEmpty()) {
+            return view('lowongan.kosong');
+        }
+
         return view('lowongan.index', compact('lowongans'));
     }
+
+
 
     // Menampilkan detail satu lowongan
     public function show($id)

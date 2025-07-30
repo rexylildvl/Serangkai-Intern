@@ -1,16 +1,20 @@
 <x-app-layout>
-    <section class="bg-[#E7EFC7] py-12 md:py-16 min-h-screen text-[#3B3B1A]">
-        <div class="max-w-5xl mx-auto px-6 lg:px-8">
-            <!-- Judul dengan ukuran yang lebih proporsional -->
+    <section class="relative bg-cover bg-center bg-no-repeat py-12 md:py-16 min-h-screen text-[#3B3B1A]" style="background-image: url('/images/wp.jpg')">
+        <!-- Overlay gelap semi-transparan -->
+        <div class="absolute inset-0 bg-black/30"></div>
+        <div class="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-0"></div>
+        <!-- Konten utama -->
+        <div class="relative z-10 max-w-5xl mx-auto px-6 lg:px-8">
+            <!-- Judul -->
             <div class="text-center mb-10">
-                <h1 class="text-3xl md:text-4xl font-bold mb-3 text-[#3B3B1A] tracking-tight">
-                    Center of Excellence <span class="text-[#626F47]">Tiga Serangkai</span>
+                <h1 class="text-3xl md:text-4xl font-bold mb-3 text-white tracking-tight drop-shadow-md">
+                    Center of Excellence <span class="text-[#AEC8A4]">Tiga Serangkai</span>
                 </h1>
                 <div class="w-20 h-1 bg-[#AEC8A4] mx-auto mb-3 rounded-full"></div>
-                <p class="text-lg text-[#626F47] font-medium italic">Kolaboratif, Inovatif, Kontributif</p>
+                <p class="text-lg text-white font-medium italic drop-shadow-sm">Kolaboratif, Inovatif, Kontributif</p>
             </div>
 
-            <!-- Kontainer konten dengan padding yang lebih rapi -->
+            <!-- Kontainer konten -->
             <div class="bg-white rounded-2xl shadow-lg p-8 md:p-10 border border-[#AEC8A4]/50 text-justify space-y-5 leading-relaxed text-[#3B3B1A]">
                 <!-- Paragraf pembuka -->
                 <div class="space-y-5">

@@ -34,7 +34,7 @@
             @endisset
 
             <!-- Page Content -->
-            <div class="pt-20"> <!-- kira-kira 80px untuk padding-top -->
+            <div class="pt-10"> <!-- kira-kira 80px untuk padding-top -->
                 {{ $slot }}
             </div>
 
