@@ -44,6 +44,7 @@ class PendaftaranController extends Controller
 
         // Default status
         $data['status'] = 'Menunggu';
+        $data['user_id'] = auth()->id(); 
 
         Pendaftaran::create($data);
 
@@ -55,7 +56,7 @@ class PendaftaranController extends Controller
         $pendaftaran = \App\Models\Pendaftaran::with('lowongan')->findOrFail($id);
         return view('pendaftaran.detail', compact('pendaftaran'));
     }
-    // Tambahkan ini ke dalam PendaftaranController
+   
 
     public function riwayat()
     {
@@ -64,7 +65,7 @@ class PendaftaranController extends Controller
         $pendaftarans = Pendaftaran::with('lowongan')
             ->where('email', $userEmail)
             ->latest()
-            ->get(); // atau ->paginate(5) jika mau pagination
+            ->get(); 
 
         return view('pendaftaran.histori', compact('pendaftarans'));
     }
