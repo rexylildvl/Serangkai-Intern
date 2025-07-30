@@ -34,6 +34,9 @@ Route::get('/faq', [FaqController::class, 'index'])->name('faq.index');
 Route::get('/lowongan', [LowonganController::class, 'index'])->name('lowongan.index');
 Route::get('/lowongan/{id}', [LowonganController::class, 'show'])->name('lowongan.show');
 Route::post('/lowongan', [LowonganController::class, 'store'])->name('lowongan.store');
+Route::get('/lowongan/kosong', function () {
+    return view('lowongan.kosong');
+})->name('lowongan.kosong');
 
 Route::get('/center-of-excellence', function () {
     return view('coe.index');

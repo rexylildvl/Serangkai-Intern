@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Storage;
 <x-app-layout>
     <!-- Hero Section with Carousel -->
     <section class="relative overflow-hidden">
-        <div class="carousel relative w-full h-[500px] overflow-hidden">
+        <div class="carousel relative w-full h-[570px] overflow-hidden">
             <div class="carousel-inner flex transition-transform duration-700 ease-in-out w-full h-full">
                 @foreach ($banners as $banner)
                     <div class="carousel-item w-full flex-shrink-0 relative">
@@ -49,7 +49,7 @@ use Illuminate\Support\Facades\Storage;
                 <div class="mt-0">
                     <a href="{{ route('lowongan.index') }}">
                     <button class="px-6 py-2 bg-[#3B3B1A] hover:bg-[#626F47] text-white text-sm font-medium rounded-md shadow hover:shadow-md transition-all duration-200 transform hover:-translate-y-0.5">
-                        Daftar Sekarang
+                        Lihat Lowongan Magang
                     </button>
                     </a> 
                 </div>
@@ -139,14 +139,39 @@ use Illuminate\Support\Facades\Storage;
                     <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-[#E7EFC7] overflow-hidden group h-full flex flex-col">
                         <!-- Job Header -->
                         <div class="p-4 sm:p-5 border-b border-[#E7EFC7]">
-                            <h3 class="text-lg font-bold text-[#3B3B1A] mb-2 font-serif group-hover:text-[#626F47] transition-colors duration-300 line-clamp-2">
-                                {{ $job->judul }}
-                            </h3>
-                            <span class="inline-block px-2.5 py-0.5 text-xs font-medium text-[#8A784E] bg-[#F0F5E6] rounded-full">
-                                {{ $job->jurusan ?? 'Semua Jurusan' }}
-                            </span>
+                            <div class="flex items-start justify-between mb-3 gap-2">
+                                <h3 class="text-lg font-bold text-[#3B3B1A] font-serif group-hover:text-[#626F47] transition-colors duration-300 line-clamp-2 flex-1">
+                                    {{ $job->judul }}
+                                </h3>
+                                @php
+                                    $isClosed = $job->status === 'tutup' || \Carbon\Carbon::parse($job->deadline)->isPast();
+                                @endphp
+                                <span class="text-xs font-semibold px-2 py-1 rounded-full whitespace-nowrap
+                                    {{ $isClosed ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700' }}">
+                                    {{ $isClosed ? 'Ditutup' : 'Buka' }}
+                                </span>
+                            </div>
+    
+                            <!-- Pendidikan & Jurusan Container -->
+                            <div class="flex flex-wrap items-center gap-2 mt-2">
+                                <!-- Pendidikan -->
+                                <div class="flex items-center text-sm text-[#3B3B1A]">
+                                    <svg class="w-4 h-4 mr-1 text-[#8A784E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                                    </svg>
+                                    {{ $job->pendidikan ?? 'Semua Pendidikan' }}
+                                </div>
+                                <!-- Jurusan -->
+                                <div class="flex items-center">
+                                    <svg class="w-4 h-4 mr-1 text-[#8A784E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                                    </svg>
+                                    <span class="text-sm text-[#8A784E] bg-[#F0F5E6] px-2.5 py-0.5 rounded-full">
+                                        {{ $job->jurusan ?? 'Semua Jurusan' }}
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-
                         <!-- Job Details -->
                         <div class="p-4 sm:p-5 flex-grow">
                             <ul class="space-y-2 mb-4">

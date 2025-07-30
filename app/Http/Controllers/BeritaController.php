@@ -8,6 +8,20 @@ use Illuminate\Support\Facades\Storage;
 
 class BeritaController extends Controller
 {
+        public function index(Request $request)
+            {
+                $query = News::query();
+
+                if ($request->has('search')) {
+                    $query->where('judul', 'like', '%' . $request->search . '%');
+                }
+
+                $allNews = $query->latest()->get();
+
+                return view('berita.index', compact('allNews'));
+            }
+
+
     // Menampilkan form tambah berita
     public function create()
     {
@@ -46,11 +60,11 @@ class BeritaController extends Controller
     }
 
     // Menampilkan semua berita
-    public function index()
-    {
-        $allNews = News::latest()->get();
-        return view('berita.index', compact('allNews'));
-    }
+    // public function index()
+    // {
+    //     $allNews = News::latest()->get();
+    //     return view('berita.index', compact('allNews'));
+    // }
 
     // Menampilkan detail satu berita
     public function show($id)
