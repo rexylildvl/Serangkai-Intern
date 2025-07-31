@@ -15,11 +15,12 @@ class CheckMagangUser
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user()->kategori !== 'magang') {
+        if (!auth()->check() || auth()->user()->kategori !== 'magang') {
             return response()->view('logbooks.restricted', [], 403);
         }
 
         // Jika magang, lanjutkan request
         return $next($request);
     }
+
 }
