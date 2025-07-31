@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminBeritaController;
 use App\Http\Controllers\AdminGaleriController;
 use App\Http\Controllers\AdminFaqController;
 use App\Http\Controllers\AdminBannerController;
+use App\Http\Controllers\AdminLogbookController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\BeritaController;
@@ -105,6 +106,12 @@ Route::middleware(['auth', \App\Http\Middleware\AdminMiddleware::class])->group(
     Route::delete('/admin/pendaftar/{id}', [AdminPendaftarController::class, 'destroy'])->name('admin.pendaftar.destroy');
     Route::patch('/admin/pendaftar/{id}/status', [AdminPendaftarController::class, 'updateStatus'])->name('admin.pendaftar.updateStatus');
     Route::get('/admin/lowongan/{id}/pendaftar', [AdminPendaftarController::class, 'byLowongan'])->name('admin.pendaftar.byLowongan');
+
+    Route::get('/admin/logbooks', [AdminLogbookController::class, 'index'])->name('admin.logbooks.index');
+    Route::get('/admin/logbooks/{id}', [AdminLogbookController::class, 'show'])->name('admin.logbooks.show');
+
+    Route::get('/admin/logbooks/{id}/export', [AdminLogbookController::class, 'export'])->name('admin.logbooks.export');
+
 });
 
 Route::middleware('auth')->group(function () {

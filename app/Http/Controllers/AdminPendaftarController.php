@@ -66,6 +66,15 @@ class AdminPendaftarController extends Controller
             $pendaftar->status = $request->status;
             $pendaftar->save();
 
+            // Cek jika status berubah ke "Diterima" dan user_id tidak null
+            if ($request->status === 'Diterima' && $pendaftar->user_id) {
+                $user = \App\Models\User::find($pendaftar->user_id);
+                if ($user) {
+                    $user->kategori = 'magang';
+                    $user->save();
+                }
+            }
+
             $message = sprintf(
                 'Status pendaftar %s berhasil diubah dari %s menjadi %s',
                 $pendaftar->nama_lengkap,
@@ -74,11 +83,12 @@ class AdminPendaftarController extends Controller
             );
 
             return back()->with('success', $message);
-            
+
         } catch (\Exception $e) {
             return back()->with('error', 'Gagal memperbarui status: ' . $e->getMessage());
         }
     }
+
 
     public function byLowongan($id)
     {
