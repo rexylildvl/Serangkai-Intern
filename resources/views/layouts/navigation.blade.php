@@ -114,7 +114,7 @@
     </div>
 
     <!-- Enhanced Mobile Navigation -->
-    <div id="mobile-menu" class="hidden lg:hidden bg-[#3B3B1A]/95 backdrop-blur-lg border-t border-[#AEC8A4]/20 shadow-2xl">
+    <div id="mobile-menu" class="hidden lg:hidden bg-[#3B3B1A]/95 backdrop-blur-lg border-t border-[#AEC8A4]/20 shadow-2xl overflow-y-auto" style="max-height: 80vh;">
         <div class="px-4 py-6 space-y-1">
             <!-- Navigation Links -->
             <div class="space-y-1 mb-6">
@@ -247,6 +247,13 @@
         /* Mobile menu animation */
         #mobile-menu {
             transition: all 0.3s ease-in-out;
+            overflow-y: auto; 
+            -webkit-overflow-scrolling: touch; 
+        }
+        .mobile-menu-open {
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
         }
 
         #mobile-menu.show {
@@ -325,27 +332,21 @@
         const closeIcon = document.getElementById('close-icon');
         
         // Toggle mobile menu with animation
-        mobileMenuButton.addEventListener('click', function() {
-            const isHidden = mobileMenu.classList.contains('hidden');
-            
-            if (isHidden) {
-                mobileMenu.classList.remove('hidden');
-                mobileMenu.classList.add('show');
-                menuIcon.classList.add('hidden');
-                closeIcon.classList.remove('hidden');
-                
-                // Prevent body scroll when menu is open
-                document.body.style.overflow = 'hidden';
-            } else {
-                mobileMenu.classList.add('hidden');
-                mobileMenu.classList.remove('show');
-                menuIcon.classList.remove('hidden');
-                closeIcon.classList.add('hidden');
-                
-                // Restore body scroll
-                document.body.style.overflow = '';
-            }
-        });
+mobileMenuButton.addEventListener('click', function() {
+    const isHidden = mobileMenu.classList.contains('hidden');
+    
+    if (isHidden) {
+        mobileMenu.classList.remove('hidden');
+        menuIcon.classList.add('hidden');
+        closeIcon.classList.remove('hidden');
+        document.body.classList.add('mobile-menu-open'); // Gunakan class instead of inline style
+    } else {
+        mobileMenu.classList.add('hidden');
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+        document.body.classList.remove('mobile-menu-open');
+    }
+});
         
         // Enhanced dropdown functionality
         const dropdownToggles = document.querySelectorAll('.dropdown-toggle');

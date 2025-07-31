@@ -1,5 +1,5 @@
 <x-app-layout>
-    <section class="relative bg-cover bg-center bg-no-repeat min-h-screen py-10" 
+    <section class="relative bg-cover bg-center bg-no-repeat min-h-screen py-20" 
         style="background-image: url('/images/gelap.jpg')">
     @if(session('success'))
     <div id="successPopup" class="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 bg-green-100 border border-green-400 text-green-700 px-6 py-3 rounded-lg shadow-lg flex items-center space-x-3 animate-fade-in-down">

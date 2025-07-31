@@ -1,12 +1,15 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight" style="color: #2C3E50;">
-            Akses Dibatasi
-        </h2>
-    </x-slot>
+    <div class="min-h-screen flex items-center justify-center relative bg-cover bg-center bg-no-repeat min-h-screen py-20" 
+        style="background-image: url('/images/gelap.jpg')">
+        <div class="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-sm z-0"></div>
+        <!-- Professional gradient overlay -->
+        <div class="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-slate-800/40 to-slate-900/60"></div>
+        <div class="absolute inset-0 bg-[#3B3B1A]/10"></div>
 
-    <div class="py-8">
-        <div class="max-w-md mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="relative z-10 max-w-6xl mx-auto px-6">
+
+        <!-- Konten utama -->
+        <div class="relative z-10 max-w-md mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
                 <div class="p-6 text-center">
                     <div class="flex flex-col items-center">
@@ -33,5 +36,6 @@
                 </div>
             </div>
         </div>
+</div>
     </div>
 </x-app-layout>
