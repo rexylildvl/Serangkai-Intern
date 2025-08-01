@@ -11,13 +11,71 @@
 
     <!-- Alpine.js for dropdown -->
     <script src="//unpkg.com/alpinejs" defer></script>
+    
+    <style>
+        /* Mobile sidebar overlay */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 30;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Sidebar animation */
+        .sidebar {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        
+        @media (min-width: 1024px) {
+            .sidebar {
+                transform: translateX(0);
+            }
+        }
+        
+        .sidebar.open {
+            transform: translateX(0);
+        }
+        
+        /* Main content adjustment */
+        .main-content {
+            margin-left: 0;
+            transition: margin-left 0.3s ease;
+        }
+        
+        @media (min-width: 1024px) {
+            .main-content {
+                margin-left: 16rem; /* 64 * 0.25rem = 16rem */
+            }
+        }
+        
+        /* Responsive tables */
+        .responsive-table {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
 </head>
 
 <body class="bg-gray-50 font-sans antialiased text-gray-900">
-
-    <div class="flex min-h-screen">
+    <div class="flex min-h-screen relative">
+        {{-- Mobile Sidebar Overlay --}}
+        <div id="sidebar-overlay" class="sidebar-overlay lg:hidden"></div>
+        
         {{-- Sidebar --}}
-        <aside class="w-64 bg-[#5E6E52] text-white flex flex-col justify-between fixed top-0 left-0 h-screen z-40">
+        <aside id="sidebar" class="sidebar w-64 bg-[#5E6E52] text-white flex flex-col justify-between fixed top-0 left-0 h-screen z-40">
             <div>
                 <div class="flex items-center gap-3 px-6 py-6">
                     <img src="{{ asset('images/logo-ts.png') }}" alt="Logo TS" class="h-10 w-auto">
@@ -112,16 +170,24 @@
         </aside>
 
         {{-- Main Content --}}
-        <main class="flex-1 flex flex-col pl-64">
+        <main class="main-content flex-1 flex flex-col">
             {{-- Header --}}
-            <header class="flex justify-between items-center px-6 py-4 bg-white border-b">
-                <div></div> {{-- Kosong biar logo tidak tertutup --}}
+            <header class="flex justify-between items-center px-4 sm:px-6 py-4 bg-white border-b">
+                {{-- Mobile menu button --}}
+                <button id="mobile-menu-toggle" class="lg:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                
+                <div class="lg:flex-1"></div> {{-- Spacer for desktop --}}
+                
                 <div x-data="{ open: false }" class="relative">
                     <button @click="open = !open" class="flex items-center gap-2 focus:outline-none">
                         <div class="w-9 h-9 bg-green-600 text-white flex items-center justify-center rounded-full">
                             {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                         </div>
-                        <span class="text-sm font-semibold">{{ auth()->user()->name }}</span>
+                        <span class="hidden sm:inline text-sm font-semibold">{{ auth()->user()->name }}</span>
                         <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" stroke-width="2"
                              viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
@@ -129,7 +195,7 @@
                     </button>
 
                     {{-- Dropdown --}}
-                    <div x-show="open" @click.away="open = false"
+                    <div x-show="open" @click.away="open = false" x-transition
                          class="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg z-50">
                         <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm hover:bg-gray-100">
                             Profil
@@ -145,12 +211,54 @@
             </header>
 
             {{-- Page Content --}}
-            <div class="p-6 grow overflow-y-auto">
+            <div class="p-4 sm:p-6 grow overflow-y-auto">
                 @yield('content')
             </div>
 
             @stack('scripts')
         </main>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebar-overlay');
+            
+            // Toggle sidebar on mobile
+            mobileMenuToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('open');
+                sidebarOverlay.classList.toggle('active');
+                document.body.classList.toggle('overflow-hidden');
+            });
+            
+            // Close sidebar when clicking overlay
+            sidebarOverlay.addEventListener('click', function() {
+                sidebar.classList.remove('open');
+                sidebarOverlay.classList.remove('active');
+                document.body.classList.remove('overflow-hidden');
+            });
+            
+            // Close sidebar when clicking a link (for mobile)
+            document.querySelectorAll('#sidebar a').forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth < 1024) {
+                        sidebar.classList.remove('open');
+                        sidebarOverlay.classList.remove('active');
+                        document.body.classList.remove('overflow-hidden');
+                    }
+                });
+            });
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 1024) {
+                    sidebar.classList.remove('open');
+                    sidebarOverlay.classList.remove('active');
+                    document.body.classList.remove('overflow-hidden');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
