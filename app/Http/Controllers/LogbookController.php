@@ -11,10 +11,22 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class LogbookController extends Controller
 {
-    
-    public function index()
+    public function index(Request $request)
     {
-        $logbooks = Logbook::where('user_id', Auth::id())->orderBy('tanggal', 'desc')->get();
+        $query = Logbook::where('user_id', Auth::id())->orderBy('tanggal', 'desc');
+        
+        // Add search functionality
+        if ($request->has('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('aktivitas', 'like', '%'.$search.'%')
+                  ->orWhere('kendala', 'like', '%'.$search.'%')
+                  ->orWhere('status', 'like', '%'.$search.'%');
+            });
+        }
+
+        $logbooks = $query->paginate(10); // Changed from get() to paginate()
+        
         return view('logbooks.index', compact('logbooks'));
     }
 
@@ -47,9 +59,7 @@ class LogbookController extends Controller
 
     public function edit(Logbook $logbook)
     {
-        // Cegah edit logbook milik orang lain
         $this->authorizeLogbook($logbook);
-
         return view('logbooks.edit', compact('logbook'));
     }
 
@@ -76,26 +86,35 @@ class LogbookController extends Controller
             abort(403, 'Akses ditolak.');
         }
     }
+
     public function destroy(Logbook $logbook)
     {
         $this->authorizeLogbook($logbook);
-
         $logbook->delete();
-
         return redirect()->route('logbooks.index')->with('success', 'Logbook berhasil dihapus.');
     }
 
-    public function exportExcel()
+    public function exportExcel(Request $request)
     {
-        return Excel::download(new LogbookExport(Auth::id()), 'logbook.xlsx');
+        $search = $request->search;
+        return Excel::download(new LogbookExport(Auth::id(), $search), 'logbook.xlsx');
     }
     
-    public function exportPdf()
+    public function exportPdf(Request $request)
     {
-        $logbooks = Logbook::where('user_id', Auth::id())->get();
+        $query = Logbook::where('user_id', Auth::id());
+        
+        if ($request->has('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('aktivitas', 'like', '%'.$search.'%')
+                  ->orWhere('kendala', 'like', '%'.$search.'%')
+                  ->orWhere('status', 'like', '%'.$search.'%');
+            });
+        }
+        
+        $logbooks = $query->get();
         $pdf = Pdf::loadView('exports.logbooks-pdf', compact('logbooks'));
         return $pdf->download('logbook.pdf');
     }
-
-
 }

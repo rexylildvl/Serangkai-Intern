@@ -1,18 +1,33 @@
 <x-app-layout>
-    <div class="py-8 min-h-screen">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="relative bg-cover bg-center bg-no-repeat min-h-screen py-10" 
+        style="background-image: url('/images/gelap.jpg')">
+        <div class="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-sm z-0"></div>
+        <!-- Professional gradient overlay -->
+        <div class="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-slate-800/40 to-slate-900/60"></div>
+        <div class="absolute inset-0 bg-[#3B3B1A]/10"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Header Section -->
-            <div class="mb-8">
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                    <div>
-                        <h1 class="text-2xl font-bold text-[#3B3B1A]">Riwayat Pendaftaran Magang</h1>
-                        <p class="mt-1 text-sm text-[#626F47]">Daftar lengkap lowongan magang yang telah Anda daftar</p>
-                    </div>
-                </div>
-            </div>
-
+<div class="mb-10">
+    <div class="flex flex-col">
+        <!-- Professional left-aligned header with subtle decoration -->
+        <div class="flex items-center mb-3">
+            <div class="w-8 h-0.5 bg-[#AEC8A4] mr-3"></div>
+            <span class="text-[#AEC8A4] text-xs font-medium tracking-wider uppercase">Program Magang Mahasiswa Profesional</span>
+        </div>
+        
+        <h1 class="text-2xl md:text-3xl font-bold text-white mb-2 leading-tight">
+            Riwayat Pendaftaran Magang
+        </h1>
+        
+        <p class="text-gray-300 text-base font-light max-w-2xl leading-relaxed">
+            Daftar lengkap seluruh lowongan magang yang pernah Anda daftar
+            di PT Tiga Serangkai Pustaka Mandiri
+        </p>
+    </div>
+</div>
             <!-- Main Content -->
-            <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-[#AEC8A4]/50">
+            <div class="bg-white/90 rounded-xl shadow-sm overflow-hidden backdrop-blur-sm">
                 @php
                     $pendaftarans = \App\Models\Pendaftaran::with('lowongan')
                         ->where('email', auth()->user()->email)
@@ -33,7 +48,7 @@
                                     <th scope="col" class="px-6 py-3 text-right text-xs font-semibold text-white uppercase tracking-wider">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-[#AEC8A4]/30">
+                            <tbody class="bg-white/80 divide-y divide-[#AEC8A4]/30">
                                 @foreach($pendaftarans as $p)
                                 <tr class="hover:bg-[#F5F9E8] transition duration-150">
                                     <td class="px-6 py-4 whitespace-nowrap">
@@ -86,7 +101,7 @@
                     </div>
 
                     <!-- Pagination -->
-                    <div class="px-6 py-4 bg-[#F8FAF0] border-t border-[#AEC8A4]/30 flex items-center justify-between">
+                    <div class="px-6 py-4 bg-[#F8FAF0]/80 border-t border-[#AEC8A4]/30 flex items-center justify-between">
                         <div class="text-sm text-[#626F47]">
                             Menampilkan <span class="font-medium">{{ $pendaftarans->firstItem() }}</span> sampai <span class="font-medium">{{ $pendaftarans->lastItem() }}</span> dari <span class="font-medium">{{ $pendaftarans->total() }}</span> pendaftaran
                         </div>
@@ -114,5 +129,5 @@
                 @endif
             </div>
         </div>
-    </div>
+    </section>
 </x-app-layout>
