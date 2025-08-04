@@ -12,7 +12,14 @@ return new class extends Migration
     public function up()
     {
         Schema::table('pendaftarans', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            // Tambahkan kolom dengan nilai default jika diperlukan
+            $table->unsignedBigInteger('user_id')->nullable();
+            
+            // Tambahkan foreign key constraint
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 

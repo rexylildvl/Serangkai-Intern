@@ -468,7 +468,7 @@ use Illuminate\Support\Facades\Storage;
                 <!-- FAQ Items -->
                 <div class="space-y-4">
                     @forelse($faqs as $faq)
-                    <div x-data="{ open: {{ $loop->first ? 'true' : 'false' }} }" class="border border-[#8A784E] rounded-xl overflow-hidden bg-white/95 backdrop-blur-sm">
+                    <div x-data="{ open: false }" class="border border-[#8A784E] rounded-xl overflow-hidden bg-white/95 backdrop-blur-sm">
                         <button
                             @click="open = !open"
                             class="w-full px-6 py-5 text-left font-medium text-lg text-[#3B3B1A] hover:bg-[#F5F9E8] focus:outline-none transition duration-200 flex justify-between items-center"
@@ -486,21 +486,6 @@ use Illuminate\Support\Facades\Storage;
                         <p class="text-gray-200 text-center">Belum ada pertanyaan yang ditambahkan.</p>
                     @endforelse
                 </div>
-
-                @if ($faqs->count() > 4)
-                    <div class="mt-12 flex justify-center">
-                        <a href="{{ route('faq.index') }}" class="group relative bg-gradient-to-r from-[#AEC8A4] to-[#8A9E7F] hover:from-[#8A9E7F] hover:to-[#626F47] text-[#3B3B1A] hover:text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 font-semibold tracking-wide transform hover:-translate-y-1 overflow-hidden">
-                            <span class="relative z-10 flex items-center">
-                                Lihat Semua Pertanyaan
-                                <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                                </svg>
-                            </span>
-                            <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        </a>
-                    </div>
-                @endif
-            </div>
         </section>
     </div>
 
