@@ -46,7 +46,7 @@
 
         <!-- Detail Informasi -->
         <div class="p-6 space-y-6">
-            @if($lowongan->durasi || $lowongan->pendidikan)
+            @if($lowongan->durasi || $lowongan->pendidikan || $lowongan->jurusan)
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 @if($lowongan->durasi)
                 <div>
@@ -59,6 +59,13 @@
                 <div>
                     <h4 class="text-sm font-medium text-gray-500">Pendidikan Minimal</h4>
                     <p class="mt-1 text-gray-800">{{ $lowongan->pendidikan }}</p>
+                </div>
+                @endif
+
+                @if($lowongan->jurusan)
+                <div>
+                    <h4 class="text-sm font-medium text-gray-500">Jurusan yang Dibutuhkan</h4>
+                    <p class="mt-1 text-gray-800">{{ $lowongan->jurusan }}</p>
                 </div>
                 @endif
             </div>

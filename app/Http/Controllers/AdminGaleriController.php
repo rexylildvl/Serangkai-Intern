@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Galeri;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class AdminGaleriController extends Controller
 {
     public function index()
     {
-        $galeri = Galeri::latest()->get(); 
+        $galeri = Galeri::latest()->paginate(12); 
         return view('admin.galeri.index', compact('galeri'));
     }
 
@@ -32,6 +33,7 @@ class AdminGaleriController extends Controller
             'judul' => $request->judul,
             'deskripsi' => $request->deskripsi,
             'foto' => $path,
+            'tanggal_upload' => Carbon::now(),
         ]);
 
         return redirect()->route('admin.galeri')->with('success', 'Gambar berhasil ditambahkan');
