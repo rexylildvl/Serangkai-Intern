@@ -85,6 +85,16 @@
                         class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
                 </div>
 
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Status Lowongan <span class="text-red-500">*</span></label>
+                    <select name="status" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+                        <option value="buka" {{ old('status') == 'buka' ? 'selected' : '' }}>Buka</option>
+                        <option value="tutup" {{ old('status') == 'tutup' ? 'selected' : '' }}>Tutup</option>
+                    </select>
+                </div>
+
+
             </div>
         </div>
 

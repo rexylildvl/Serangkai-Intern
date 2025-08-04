@@ -26,6 +26,7 @@ class Lowongan extends Model
         'tanggung_jawab',
         'benefit',
         'deskripsi',
+        'status',
     ];
 
     // Field yang bertipe array / json

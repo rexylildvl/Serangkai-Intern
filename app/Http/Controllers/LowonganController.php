@@ -16,6 +16,12 @@ class LowonganController extends Controller
             return view('lowongan.kosong');
         }
 
+        foreach ($lowongans as $lowongan) {
+            if (now()->greaterThan(\Carbon\Carbon::parse($lowongan->deadline)) && $lowongan->status !== 'tutup') {
+                $lowongan->update(['status' => 'tutup']);
+            }
+        }
+
         return view('lowongan.index', compact('lowongans'));
     }
 

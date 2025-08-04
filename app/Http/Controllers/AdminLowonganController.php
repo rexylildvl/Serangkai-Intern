@@ -35,6 +35,7 @@ class AdminLowonganController extends Controller
             'tanggung_jawab' => 'nullable|array',
             'benefit' => 'nullable|array',
             'deskripsi' => 'nullable|string',
+            'status' => 'required|in:buka,tutup',
         ]);
 
         Lowongan::create([
@@ -51,6 +52,7 @@ class AdminLowonganController extends Controller
             'skill' => $request->skill,
             'tanggung_jawab' => $request->tanggung_jawab,
             'benefit' => $request->benefit,
+            'status' => $request->status,
         ]);
 
         return redirect()->route('admin.lowongan.index')->with('success', 'Lowongan berhasil ditambahkan');
@@ -85,6 +87,7 @@ class AdminLowonganController extends Controller
             'tanggung_jawab' => 'nullable|array',
             'benefit' => 'nullable|array',
             'deskripsi' => 'nullable|string',
+            'status' => 'required|in:buka,tutup',
         ]);
 
         $lowongan->update([
@@ -101,6 +104,7 @@ class AdminLowonganController extends Controller
             'skill' => $request->skill,
             'tanggung_jawab' => $request->tanggung_jawab,
             'benefit' => $request->benefit,
+            'status' => $request->status,
         ]);
 
         return redirect()->route('admin.lowongan.index')->with('success', 'Lowongan berhasil diperbarui');
@@ -112,4 +116,16 @@ class AdminLowonganController extends Controller
 
         return redirect()->route('admin.lowongan.index')->with('success', 'Lowongan berhasil dihapus');
     }
+
+    public function toggleStatus($id)
+    {
+        $lowongan = Lowongan::findOrFail($id);
+        
+        $lowongan->status = $lowongan->status === 'buka' ? 'tutup' : 'buka';
+        $lowongan->save();
+
+        return back()->with('success', 'Status lowongan berhasil diperbarui.');
+    }
+    
+
 }

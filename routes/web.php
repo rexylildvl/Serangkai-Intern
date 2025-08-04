@@ -112,6 +112,8 @@ Route::middleware(['auth', \App\Http\Middleware\AdminMiddleware::class])->group(
 
     Route::get('/admin/logbooks/{id}/export', [AdminLogbookController::class, 'export'])->name('admin.logbooks.export');
 
+    Route::patch('admin/lowongan/{id}/toggle', [AdminLowonganController::class, 'toggleStatus'])->name('admin.lowongan.toggle');
+
 });
 
 Route::middleware('auth')->group(function () {
