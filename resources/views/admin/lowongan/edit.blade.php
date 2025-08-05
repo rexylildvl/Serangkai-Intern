@@ -82,11 +82,25 @@
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Jurusan</label>
-                    <input type="text" name="jurusan" value="{{ old('jurusan') }}" 
+                    <input type="text" name="jurusan" value="{{ old('jurusan', $lowongan->jurusan) }}" 
                         class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
                 </div>
 
             </div>
+        </div>
+
+        <div class="bg-{{ $lowongan->status === 'buka' ? 'green' : 'red' }}-50 p-5 rounded-lg mb-6"> <!-- Warna dinamis -->
+            <div class="flex items-center gap-2 mb-2">
+                <svg class="w-5 h-5 text-{{ $lowongan->status === 'buka' ? 'green' : 'red' }}-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+                <label class="block text-sm font-medium text-gray-700">Status Pendaftaran <span class="text-red-500">*</span></label>
+            </div>
+            <select name="status" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+                <option value="">-- Pilih Status --</option>
+                <option value="buka" {{ old('status', $lowongan->status) === 'buka' ? 'selected' : '' }}>Buka</option>
+                <option value="tutup" {{ old('status', $lowongan->status) === 'tutup' ? 'selected' : '' }}>Tutup</option>
+            </select>
         </div>
 
         <!-- Deskripsi -->
