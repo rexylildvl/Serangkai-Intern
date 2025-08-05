@@ -45,16 +45,16 @@
             </div>
             
             <div class="flex space-x-4 mt-6">
-                <a href="#" class="text-[#E7EFC7] hover:text-[#AEC8A4] transition-colors duration-300" aria-label="LinkedIn">
+                <a href="https://www.linkedin.com/company/pt-tiga-serangkai-pustaka-mandiri/" class="text-[#E7EFC7] hover:text-[#AEC8A4] transition-colors duration-300" aria-label="LinkedIn">
                     <i class="fab fa-linkedin fa-lg"></i>
                 </a>
-                <a href="#" class="text-[#E7EFC7] hover:text-[#AEC8A4] transition-colors duration-300" aria-label="Instagram">
+                <a href="https://www.instagram.com/tigaserangkai?igsh=MXkxYnVzczJ0cXRqMA==" class="text-[#E7EFC7] hover:text-[#AEC8A4] transition-colors duration-300" aria-label="Instagram">
                     <i class="fab fa-instagram fa-lg"></i>
                 </a>
-                <a href="#" class="text-[#E7EFC7] hover:text-[#AEC8A4] transition-colors duration-300" aria-label="Website">
+                <a href="https://www.tigaserangkai.com/" class="text-[#E7EFC7] hover:text-[#AEC8A4] transition-colors duration-300" aria-label="Website">
                     <i class="fas fa-globe fa-lg"></i>
                 </a>
-                <a href="#" class="text-[#E7EFC7] hover:text-[#AEC8A4] transition-colors duration-300" aria-label="TikTok">
+                <a href="https://www.tiktok.com/@magangts?_t=ZS-8yc9qJaAgcR&_r=1" class="text-[#E7EFC7] hover:text-[#AEC8A4] transition-colors duration-300" aria-label="TikTok">
                     <i class="fab fa-tiktok fa-lg"></i>
                 </a>
             </div>

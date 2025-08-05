@@ -1,8 +1,15 @@
 <x-app-layout>
-    <div class="py-10 bg-[#E7EFC7] min-h-screen">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white shadow-md rounded-xl border border-[#AEC8A4] overflow-hidden">
-                <!-- Header Section -->
+    <section class="relative bg-cover bg-center bg-no-repeat min-h-screen py-20" style="background-image: url('/images/gelap.jpg')">
+        <!-- Background Overlays -->
+        <div class="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-sm z-0"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-slate-800/40 to-slate-900/60"></div>
+        <div class="absolute inset-0 bg-[#3B3B1A]/10"></div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Content Container -->
+            <div class="bg-white/90 rounded-xl shadow-sm overflow-hidden backdrop-blur-sm">
+                <!-- Content Header -->
                 <div class="bg-[#626F47] px-6 py-4">
                     <h3 class="text-lg font-bold text-white">Detail Pendaftaran Magang</h3>
                     <p class="text-sm text-gray-300 mt-1">Informasi lengkap pendaftaran magang Anda</p>
@@ -193,12 +200,12 @@
 
                     <!-- Back Button -->
                     <div class="mt-8 pt-5 border-t border-[#AEC8A4]/30 flex justify-end">
-                        <a href="{{ url()->previous() }}" class="inline-flex items-center px-4 py-2 bg-[#E7EFC7] text-[#3B3B1A] border border-[#AEC8A4] rounded-lg text-sm hover:bg-[#AEC8A4]/50 transition-colors duration-200">
+                        <a href="{{ url()->previous() }}" class="inline-flex items-center px-4 py-2 bg-[#626F47] text-white rounded-lg text-sm hover:bg-[#3B3B1A] transition-colors duration-200">
                             Kembali
                         </a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </x-app-layout>

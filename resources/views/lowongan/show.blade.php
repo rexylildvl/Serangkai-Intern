@@ -1,35 +1,41 @@
 <x-app-layout>
     <section class="relative bg-cover bg-center bg-no-repeat min-h-screen py-20" 
         style="background-image: url('/images/gelap.jpg')">
-    @if(session('success'))
-    <div id="successPopup" class="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 bg-green-100 border border-green-400 text-green-700 px-6 py-3 rounded-lg shadow-lg flex items-center space-x-3 animate-fade-in-down">
-        <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-        </svg>
-        <span class="font-medium">{{ session('success') }}</span>
-    </div>
-    <script>
-        setTimeout(function() {
-            const popup = document.getElementById('successPopup');
-            if (popup) popup.style.display = 'none';
-        }, 3500);
-    </script>
-    @endif
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-4 gap-8 items-start">
+        <!-- Background Overlays - Enhanced blur and darkening -->
+        <div class="absolute inset-0 bg-black bg-opacity-80 backdrop-blur-sm z-0"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-slate-900/70 via-slate-800/50 to-slate-900/70 z-0"></div>
+        <div class="absolute inset-0 bg-[#3B3B1A]/20 z-0"></div>
+
+        @if(session('success'))
+        <div id="successPopup" class="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 bg-green-100 border border-green-400 text-green-700 px-6 py-3 rounded-lg shadow-lg flex items-center space-x-3 animate-fade-in-down">
+            <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+            </svg>
+            <span class="font-medium">{{ session('success') }}</span>
+        </div>
+        <script>
+            setTimeout(function() {
+                const popup = document.getElementById('successPopup');
+                if (popup) popup.style.display = 'none';
+            }, 3500);
+        </script>
+        @endif
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-4 gap-8 items-start">
             <!-- Sidebar -->
-            <div class="md:col-span-1 bg-white border border-[#E7EFC7] rounded-xl shadow-sm p-6 top-6">
+            <div class="md:col-span-1 bg-white/95 backdrop-blur-sm border border-[#E7EFC7] rounded-xl shadow-sm p-6 top-6">
                 <div class="mb-6">
-                                <h3 class="text-xl font-bold text-[#3B3B1A] mb-2 font-serif">
-                                    {{ $lowongan->judul }}
-                                </h3>
-                                @php
-                                    $isClosed = $lowongan->status === 'tutup' || \Carbon\Carbon::parse($lowongan->deadline)->isPast();
-                                @endphp
-                                <span class="inline-bloc text-xs font-semibold px-3 py-1 rounded-full 
-                                    {{ $isClosed ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700' }}">
-                                    {{ $isClosed ? 'Ditutup' : 'Buka' }}
-                                </span>
-                    
+                    <h3 class="text-xl font-bold text-[#3B3B1A] mb-2 font-serif">
+                        {{ $lowongan->judul }}
+                    </h3>
+                    @php
+                        $isClosed = $lowongan->status === 'tutup' || \Carbon\Carbon::parse($lowongan->deadline)->isPast();
+                    @endphp
+                    <span class="inline-bloc text-xs font-semibold px-3 py-1 rounded-full 
+                        {{ $isClosed ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700' }}">
+                        {{ $isClosed ? 'Ditutup' : 'Buka' }}
+                    </span>
+        
                     <span class="inline-block px-3 py-1 text-xs font-semibold text-[#8A784E] bg-[#F0F5E6] rounded-full mb-4">
                         {{ $lowongan->jurusan ?? 'Semua Jurusan' }}
                     </span>
@@ -119,11 +125,10 @@
                         </a>
                     @endif
                 @endif
-
             </div>
 
             <!-- Main Content -->
-            <div class="md:col-span-3 bg-white border border-[#E7EFC7] rounded-xl shadow-sm p-8">
+            <div class="md:col-span-3 bg-white/95 backdrop-blur-sm border border-[#E7EFC7] rounded-xl shadow-sm p-8">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
                     <div class="mb-4 sm:mb-0">
                         <h1 class="text-2xl sm:text-3xl font-bold text-[#3B3B1A] font-serif">{{ $lowongan->judul }}</h1>
@@ -147,9 +152,8 @@
                         </button>
                     </div>
 
-
-                <!-- Deskripsi Content -->
-                   <div class="tab-content active" id="deskripsi-content">
+                    <!-- Deskripsi Content -->
+                    <div class="tab-content active" id="deskripsi-content">
                         @if($lowongan->deskripsi)
                         <div class="mb-8"><br>
                             <h2 class="text-s font-semibold text-[#3B3B1A] mb-3">Deskripsi Pekerjaan</h2>
@@ -157,88 +161,89 @@
                         </div>
                         @endif
 
-                    @if($lowongan->persyaratan_dokumen)
-                    <div class="mb-8">
-                        <h2 class="text-s font-semibold text-[#3B3B1A] mb-3">Persyaratan Dokumen</h2>
-                        @php
-                            $documents = is_array($lowongan->persyaratan_dokumen) 
-                                ? $lowongan->persyaratan_dokumen 
-                                : explode(';', $lowongan->persyaratan_dokumen);
-                        @endphp
-                        <ul class="space-y-2">
-                            @foreach($documents as $item)
-                            <li class="flex items-start">
-                                <svg class="w-4 h-4 mr-2 mt-0.5 text-[#8A784E]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
-                                </svg>
-                                <span>{{ $item }}</span>
-                            </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
-
-                    @if($lowongan->skill)
-                    <div class="mb-8">
-                        <h2 class="text-s font-semibold text-[#3B3B1A] mb-3">Skill yang Diutamakan</h2>
-                        @php
-                            $skills = is_array($lowongan->skill) ? $lowongan->skill : explode(';', $lowongan->skill);
-                        @endphp
-                        <div class="flex flex-wrap gap-2">
-                            @foreach($skills as $skill)
-                            <span class="bg-[#F0F5E6] text-[#8A784E] text-xs font-medium px-3 py-1 rounded-full">
-                                {{ $skill }}
-                            </span>
-                            @endforeach
-                        </div>
-                    </div>
-                    @endif
-                </div>
-
-                <div class="tab-content hidden" id="benefit-content">
-                    @if($lowongan->benefit)
-                    <div class="mb-8"><br>
-                        <h2 class="text-s font-semibold text-[#3B3B1A] mb-3">Benefit Magang</h2>
-                        <ul class="space-y-2">
+                        @if($lowongan->persyaratan_dokumen)
+                        <div class="mb-8">
+                            <h2 class="text-s font-semibold text-[#3B3B1A] mb-3">Persyaratan Dokumen</h2>
                             @php
-                                // Handle both array and string cases
-                                $benefits = is_array($lowongan->benefit) ? $lowongan->benefit : explode(';', $lowongan->benefit);
+                                $documents = is_array($lowongan->persyaratan_dokumen) 
+                                    ? $lowongan->persyaratan_dokumen 
+                                    : explode(';', $lowongan->persyaratan_dokumen);
                             @endphp
-                            @foreach($benefits as $item)
-                            <li class="flex items-start">
-                                <svg class="w-4 h-4 mr-2 mt-0.5 text-[#8A784E]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
-                                </svg>
-                                <span>{{ $item }}</span>
-                            </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
+                            <ul class="space-y-2">
+                                @foreach($documents as $item)
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 mr-2 mt-0.5 text-[#8A784E]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                                    </svg>
+                                    <span>{{ $item }}</span>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
 
-                    @if($lowongan->tanggung_jawab)
-                    <div class="mb-8">
-                        <h2 class="text-s font-semibold text-[#3B3B1A] mb-3">Tanggung Jawab</h2>
-                        @php
-                            $tanggungJawab = is_array($lowongan->tanggung_jawab) ? $lowongan->tanggung_jawab : explode(';', $lowongan->tanggung_jawab);
-                        @endphp
-                        <ul class="space-y-2">
-                            @foreach($tanggungJawab as $item)
-                            <li class="flex items-start">
-                                <svg class="w-4 h-4 mr-2 mt-0.5 text-[#8A784E] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                                </svg>
-                                <span>{{ $item }}</span>
-                            </li>
-                            @endforeach
-                        </ul>
+                        @if($lowongan->skill)
+                        <div class="mb-8">
+                            <h2 class="text-s font-semibold text-[#3B3B1A] mb-3">Skill yang Diutamakan</h2>
+                            @php
+                                $skills = is_array($lowongan->skill) ? $lowongan->skill : explode(';', $lowongan->skill);
+                            @endphp
+                            <div class="flex flex-wrap gap-2">
+                                @foreach($skills as $skill)
+                                <span class="bg-[#F0F5E6] text-[#8A784E] text-xs font-medium px-3 py-1 rounded-full">
+                                    {{ $skill }}
+                                </span>
+                                @endforeach
+                            </div>
+                        </div>
+                        @endif
                     </div>
-                    @endif
+
+                    <div class="tab-content hidden" id="benefit-content">
+                        @if($lowongan->benefit)
+                        <div class="mb-8"><br>
+                            <h2 class="text-s font-semibold text-[#3B3B1A] mb-3">Benefit Magang</h2>
+                            <ul class="space-y-2">
+                                @php
+                                    $benefits = is_array($lowongan->benefit) ? $lowongan->benefit : explode(';', $lowongan->benefit);
+                                @endphp
+                                @foreach($benefits as $item)
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 mr-2 mt-0.5 text-[#8A784E]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                                    </svg>
+                                    <span>{{ $item }}</span>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+
+                        @if($lowongan->tanggung_jawab)
+                        <div class="mb-8">
+                            <h2 class="text-s font-semibold text-[#3B3B1A] mb-3">Tanggung Jawab</h2>
+                            @php
+                                $tanggungJawab = is_array($lowongan->tanggung_jawab) ? $lowongan->tanggung_jawab : explode(';', $lowongan->tanggung_jawab);
+                            @endphp
+                            <ul class="space-y-2">
+                                @foreach($tanggungJawab as $item)
+                                <li class="flex items-start">
+                                    <svg class="w-4 h-4 mr-2 mt-0.5 text-[#8A784E] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                    </svg>
+                                    <span>{{ $item }}</span>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-        <style>
+
+    <style>
         /* Style untuk tabs */
         .tab-content {
             display: none;
@@ -260,22 +265,11 @@
     </style>
 
     <script>
-        // Inisialisasi tabs
         document.addEventListener('DOMContentLoaded', function() {
-            // Tangani success popup
-            const successPopup = document.getElementById('successPopup');
-            if (successPopup) {
-                setTimeout(() => {
-                    successPopup.style.display = 'none';
-                }, 3500);
-            }
-
-            // Fungsi untuk tabs
             const tabButtons = document.querySelectorAll('.tab-button');
             
             tabButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    // Hapus class active dari semua button dan content
                     document.querySelectorAll('.tab-button').forEach(btn => {
                         btn.classList.remove('active');
                         btn.classList.add('text-[#626F47]');
@@ -289,14 +283,12 @@
                         content.classList.add('hidden');
                     });
 
-                    // Tambah class active ke button yang diklik
                     this.classList.add('active');
                     this.classList.remove('text-[#626F47]');
                     this.classList.add('text-[#3B3B1A]');
                     this.classList.add('border-b-2');
                     this.classList.add('border-[#3B3B1A]');
 
-                    // Tampilkan content yang sesuai
                     const tabId = this.getAttribute('data-tab');
                     const content = document.getElementById(`${tabId}-content`);
                     content.classList.remove('hidden');
