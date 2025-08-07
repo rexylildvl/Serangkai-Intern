@@ -66,7 +66,7 @@ class AdminPendaftarController extends Controller
             $pendaftar->status = $request->status;
             $pendaftar->save();
 
-            // Cek jika status berubah ke "Diterima" dan user_id tidak null
+            
             if ($request->status === 'Diterima' && $pendaftar->user_id) {
                 $user = \App\Models\User::find($pendaftar->user_id);
                 if ($user) {

@@ -266,7 +266,7 @@
                 <div class="text-center py-4">
                     <p class="text-gray-700 text-lg mb-6">${@json(session('success'))}</p>
                     <button class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg shadow-md transition duration-200" onclick="Swal.close()">
-                        Mengerti
+                        OK
                     </button>
                 </div>
             `,
