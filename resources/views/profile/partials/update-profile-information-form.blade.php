@@ -1,101 +1,81 @@
 <section class="max-w-2xl mx-auto">
-    <header class="mb-8 text-center">
-        <div class="inline-flex items-center justify-center w-16 h-16 mb-4 bg-[#E7EFC7] rounded-full">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-[#626F47]" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-            </svg>
+    <!-- Tampilan Read Only -->
+    <div id="profileDisplay" class="space-y-6">
+        <div class="flex flex-col md:flex-row gap-6">
+            <div class="flex-1">
+                <label class="block text-[#626F47] text-sm font-semibold mb-1">Nama</label>
+                <div class="flex items-center bg-[#F5F9E8] border border-[#AEC8A4]/50 rounded-xl px-4 py-3 text-[#3B3B1A] font-semibold shadow-sm">
+                    <svg class="w-5 h-5 mr-2 text-[#8A784E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 15c2.5 0 4.847.655 6.879 1.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    {{ $user->name }}
+                </div>
+            </div>
+            <div class="flex-1">
+                <label class="block text-[#626F47] text-sm font-semibold mb-1">Email</label>
+                <div class="flex items-center bg-[#F5F9E8] border border-[#AEC8A4]/50 rounded-xl px-4 py-3 text-[#3B3B1A] font-semibold shadow-sm">
+                    <svg class="w-5 h-5 mr-2 text-[#8A784E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H8m8 0a4 4 0 11-8 0 4 4 0 018 0zm0 0v1a4 4 0 01-8 0v-1" />
+                    </svg>
+                    {{ $user->email }}
+                </div>
+            </div>
         </div>
-        <h2 class="text-2xl font-bold text-[#3B3B1A]">Update Profil</h2>
-        <p class="mt-2 text-[#626F47]">
-            {{ __("Perbarui informasi profil dan alamat email akun Anda.") }}
-        </p>
-    </header>
+        <!-- Tambahkan field lain sesuai kebutuhan -->
+        <div>
+            <button type="button" onclick="toggleProfileEdit(true)" class="mt-4 px-6 py-3 rounded-xl bg-gradient-to-r from-[#626F47] to-[#4f6b45] text-white font-semibold shadow hover:from-[#3B3B1A] hover:to-[#8A784E] transition-all duration-200">
+                Edit Profil
+            </button>
+        </div>
+    </div>
 
-    <form id="send-verification" method="post" action="{{ route('verification.send') }}">
-        @csrf
-    </form>
-
-    <form method="post" action="{{ route('profile.update') }}" class="space-y-6">
+    <!-- Form Edit -->
+    <form id="profileEditForm" method="post" action="{{ route('profile.update') }}" class="space-y-6 hidden animate-fade-in">
         @csrf
         @method('patch')
-
-        <!-- Input Nama dengan Floating Label -->
-        <div class="relative">
-            <input id="name" name="name" type="text" 
-                   class="w-full px-4 py-3 border border-[#AEC8A4] rounded-lg focus:ring-2 focus:ring-[#626F47] focus:border-[#626F47] transition duration-200 peer"
-                   value="{{ old('name', $user->name) }}" required autofocus autocomplete="name" placeholder=" ">
-            <label for="name" 
-                   class="absolute left-4 -top-2.5 bg-white px-2 text-sm font-medium text-[#3B3B1A] peer-focus:text-[#626F47] transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-placeholder-shown:left-4 peer-focus:-top-2.5 peer-focus:text-sm peer-focus:px-2 peer-focus:bg-white">
-                {{ __('Nama') }}
-            </label>
-            @error('name')
-                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-            @enderror
-        </div>
-
-        <!-- Input Email dengan Floating Label -->
-        <div class="relative">
-            <input id="email" name="email" type="email" 
-                   class="w-full px-4 py-3 border border-[#AEC8A4] rounded-lg focus:ring-2 focus:ring-[#626F47] focus:border-[#626F47] transition duration-200 peer"
-                   value="{{ old('email', $user->email) }}" required autocomplete="username" placeholder=" ">
-            <label for="email" 
-                   class="absolute left-4 -top-2.5 bg-white px-2 text-sm font-medium text-[#3B3B1A] peer-focus:text-[#626F47] transition-all duration-200 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-placeholder-shown:left-4 peer-focus:-top-2.5 peer-focus:text-sm peer-focus:px-2 peer-focus:bg-white">
-                {{ __('Email') }}
-            </label>
-            @error('email')
-                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-            @enderror
-
-            @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
-                <div class="mt-4 p-4 bg-[#F5F9E8] rounded-lg border border-[#AEC8A4] flex items-start">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mt-0.5 mr-2 text-[#626F47]" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-                    </svg>
-                    <div>
-                        <p class="text-sm text-[#3B3B1A]">
-                            {{ __('Email belum diverifikasi.') }}
-                            <button form="send-verification" class="ml-1 font-medium text-[#626F47] hover:text-[#3B3B1A] underline transition-colors">
-                                {{ __('Kirim ulang verifikasi') }}
-                            </button>
-                        </p>
-
-                        @if (session('status') === 'verification-link-sent')
-                            <p class="mt-2 text-sm font-medium text-green-600">
-                                {{ __('Link verifikasi baru telah dikirim ke email Anda.') }}
-                            </p>
-                        @endif
-                    </div>
+        <div class="flex flex-col md:flex-row gap-6">
+            <div class="flex-1">
+                <label for="name" class="block text-[#626F47] text-sm font-semibold mb-1">Nama</label>
+                <div class="relative">
+                    <input id="name" name="name" type="text"
+                        class="w-full border border-[#AEC8A4] rounded-xl px-4 py-3 text-[#3B3B1A] bg-[#F8FAF0] placeholder-gray-400 focus:ring-2 focus:ring-[#AEC8A4] focus:border-[#626F47] transition"
+                        value="{{ old('name', $user->name) }}" required autofocus autocomplete="name" placeholder="Nama Lengkap" />
                 </div>
-            @endif
+            </div>
+            <div class="flex-1">
+                <label for="email" class="block text-[#626F47] text-sm font-semibold mb-1">Email</label>
+                <div class="relative">
+                    <input id="email" name="email" type="email"
+                        class="w-full border border-[#AEC8A4] rounded-xl px-4 py-3 text-[#3B3B1A] bg-[#F8FAF0] placeholder-gray-400 focus:ring-2 focus:ring-[#AEC8A4] focus:border-[#626F47] transition"
+                        value="{{ old('email', $user->email) }}" required autocomplete="email" placeholder="Alamat Email" />
+                </div>
+            </div>
         </div>
-
-        <div class="flex items-center gap-4 pt-4">
-            <button type="submit" 
-                    class="px-6 py-3 bg-[#626F47] hover:bg-[#3B3B1A] text-white font-medium rounded-lg transition-all duration-200 shadow-sm hover:shadow-md flex items-center justify-center gap-2">
-                {{ __('Simpan Perubahan') }}
+        <!-- Tambahkan field lain sesuai kebutuhan -->
+        <div class="flex gap-3 mt-4">
+            <button type="submit" class="flex-1 px-6 py-3 rounded-xl bg-gradient-to-r from-[#626F47] to-[#4f6b45] text-white font-semibold shadow hover:from-[#3B3B1A] hover:to-[#8A784E] transition-all duration-200">
+                Simpan
             </button>
-
-            @if (session('status') === 'profile-updated')
-                <div x-data="{ show: true }"
-                     x-show="show"
-                     x-transition
-                     x-init="setTimeout(() => show = false, 3000)"
-                     class="flex items-center text-sm text-green-600 font-medium">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                    </svg>
-                    {{ __('Perubahan berhasil disimpan!') }}
-                </div>
-            @endif
+            <button type="button" onclick="toggleProfileEdit(false)" class="flex-1 px-6 py-3 rounded-xl bg-gray-200 text-[#3B3B1A] font-semibold shadow hover:bg-gray-300 transition-all duration-200">
+                Batal
+            </button>
         </div>
     </form>
 </section>
 
+<script>
+function toggleProfileEdit(editMode) {
+    document.getElementById('profileDisplay').classList.toggle('hidden', editMode);
+    document.getElementById('profileEditForm').classList.toggle('hidden', !editMode);
+}
+</script>
+
 <style>
-    /* Animasi untuk floating label */
-    input:focus ~ label,
-    input:not(:placeholder-shown) ~ label {
-        transform: translateY(-0.5rem) scale(0.85);
-        color: #626F47;
-    }
+@keyframes fade-in {
+    from { opacity: 0; transform: translateY(16px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+.animate-fade-in {
+    animation: fade-in 0.4s cubic-bezier(.4,0,.2,1);
+}
 </style>

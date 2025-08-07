@@ -62,6 +62,6 @@
     </div>
 
     <div class="text-center text-[#AEC8A4] text-xs mt-12 pt-4 border-t border-[#AEC8A4]/20">
-        © 2025 PT Tiga Serangkai Pustaka Mandiri. All rights reserved.
+        © 2025 PT Tiga Serangkai. All rights reserved.
     </div>
 </footer>

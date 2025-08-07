@@ -19,10 +19,15 @@ use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\LogbookController;
+use App\Http\Controllers\Auth\GoogleController;
 
-Route::get('/test-magang', function() {
-    return "Middleware magang berhasil!";
-})->middleware(['auth', 'magang']);
+Route::get('/auth/redirect/google', [GoogleController::class, 'redirectToGoogle']);
+Route::get('/auth/callback/google', [GoogleController::class, 'handleGoogleCallback']);
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
 
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
 Route::get('/berita/create', [BeritaController::class, 'create'])->name('berita.create');
@@ -116,7 +121,7 @@ Route::middleware(['auth', \App\Http\Middleware\AdminMiddleware::class])->group(
 
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'verified')->group(function () {
     Route::get('/lowongan/create', [LowonganController::class, 'create'])->name('lowongan.create');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

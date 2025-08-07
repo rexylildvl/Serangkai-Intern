@@ -1,10 +1,9 @@
 <section class="space-y-6">
-    <header class="bg-[#F5F9E8] p-4 rounded-lg border border-[#AEC8A4]">
-        <h2 class="text-lg font-medium text-[#3B3B1A]">
+    <header class="bg-[#F5F9E8] p-6 rounded-2xl border border-[#AEC8A4]/60 shadow mb-2">
+        <h2 class="text-lg font-bold text-[#3B3B1A] font-serif flex items-center gap-2">
             {{ __('Hapus Akun') }}
         </h2>
-
-        <p class="mt-1 text-sm text-[#626F47]">
+        <p class="mt-2 text-sm text-[#626F47]">
             {{ __('Setelah akun Anda dihapus, semua data dan sumber daya akan dihapus secara permanen. Sebelum menghapus akun, harap unduh semua data atau informasi yang ingin Anda simpan.') }}
         </p>
     </header>
@@ -12,77 +11,73 @@
     <button
         x-data=""
         x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
-        class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors duration-200 shadow-sm"
+        class="px-6 py-3 bg-gradient-to-r from-red-600 to-[#8A4E4E] hover:from-red-700 hover:to-[#8A4E4E] text-white font-semibold rounded-xl shadow-md transition-all duration-200"
     >
         {{ __('Hapus Akun') }}
     </button>
 
+    <!-- Modal -->
     <div x-data="{ show: false }" 
          x-show="show"
-         x-on:open-modal.window="show = true"
+         x-on:open-modal.window="if ($event.detail === 'confirm-user-deletion') show = true"
          x-on:close.window="show = false"
          x-transition
-         class="fixed inset-0 z-50 overflow-y-auto"
+         class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm"
          style="display: none;">
-        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div x-on:click="show = false" class="fixed inset-0 transition-opacity" aria-hidden="true">
-                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-            </div>
+        <div class="bg-white/95 rounded-2xl shadow-2xl max-w-md w-full p-8 relative">
+            <button type="button" x-on:click="show = false" class="absolute top-4 right-4 text-[#8A784E] hover:text-red-500 bg-white/70 rounded-full p-2 shadow transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+            <form method="post" action="{{ route('profile.destroy') }}">
+                @csrf
+                @method('delete')
 
-            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-
-            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                <form method="post" action="{{ route('profile.destroy') }}" class="p-6">
-                    @csrf
-                    @method('delete')
-
-                    <h2 class="text-lg font-medium text-[#3B3B1A]">
+                <div class="text-center mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <h2 class="text-xl font-bold text-[#3B3B1A] mt-4 font-serif">
                         {{ __('Apakah Anda yakin ingin menghapus akun?') }}
                     </h2>
-
-                    <p class="mt-2 text-sm text-[#626F47]">
+                    <p class="mt-2 text-[#626F47] text-sm">
                         {{ __('Setelah akun Anda dihapus, semua data akan dihapus secara permanen. Masukkan password Anda untuk mengonfirmasi penghapusan akun.') }}
                     </p>
+                </div>
 
-                    <div class="mt-4">
-                        <label for="password" class="block text-sm font-medium text-[#3B3B1A] sr-only">
-                            {{ __('Password') }}
-                        </label>
-                        
-                        <input
-                            id="password"
-                            name="password"
-                            type="password"
-                            class="w-full px-4 py-2 border border-[#AEC8A4] rounded-lg focus:ring-2 focus:ring-[#626F47] focus:border-[#626F47] transition duration-200"
-                            placeholder="{{ __('Password') }}"
-                            required
-                        />
+                <div class="mb-6">
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        class="w-full px-4 py-3 border border-[#AEC8A4] rounded-xl focus:ring-2 focus:ring-[#626F47] focus:border-[#626F47] transition duration-200 bg-[#F8FAF0] text-[#3B3B1A] placeholder-gray-400"
+                        placeholder="{{ __('Password') }}"
+                        required
+                    />
+                    @if ($errors->userDeletion->get('password'))
+                        <p class="mt-2 text-sm text-red-600">
+                            {{ $errors->userDeletion->first('password') }}
+                        </p>
+                    @endif
+                </div>
 
-                        @if ($errors->userDeletion->get('password'))
-                            <p class="mt-2 text-sm text-red-600">
-                                {{ $errors->userDeletion->first('password') }}
-                            </p>
-                        @endif
-                    </div>
-
-                    <div class="mt-6 flex justify-end space-x-3">
-                        <button 
-                            type="button"
-                            x-on:click="show = false"
-                            class="px-4 py-2 border border-[#AEC8A4] text-[#3B3B1A] font-medium rounded-lg hover:bg-[#E7EFC7] transition-colors duration-200"
-                        >
-                            {{ __('Batal') }}
-                        </button>
-
-                        <button 
-                            type="submit"
-                            class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors duration-200 shadow-sm"
-                        >
-                            {{ __('Hapus Akun') }}
-                        </button>
-                    </div>
-                </form>
-            </div>
+                <div class="flex justify-end gap-3">
+                    <button 
+                        type="button"
+                        x-on:click="show = false"
+                        class="px-5 py-2 border border-[#AEC8A4] text-[#3B3B1A] font-semibold rounded-xl hover:bg-[#E7EFC7] transition-colors duration-200"
+                    >
+                        {{ __('Batal') }}
+                    </button>
+                    <button 
+                        type="submit"
+                        class="px-5 py-2 bg-gradient-to-r from-red-600 to-[#8A4E4E] hover:from-red-700 hover:to-[#8A4E4E] text-white font-semibold rounded-xl shadow-md transition-all duration-200"
+                    >
+                        {{ __('Hapus Akun') }}
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </section>

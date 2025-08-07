@@ -1,31 +1,62 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-        {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification - Serangkai Intern</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body class="min-h-screen bg-cover bg-center flex items-center justify-center" style="background-image: url('{{ asset('images/ts.jpg') }}'); background-blend-mode: overlay; background-color: rgba(0,0,0,0.3);">
 
-    @if (session('status') == 'verification-link-sent')
-        <div class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
-            {{ __('A new verification link has been sent to the email address you provided during registration.') }}
+    <div class="bg-[#3B3B1A]/90 backdrop-blur-sm rounded-2xl shadow-2xl w-full max-w-md p-8 mx-4 border border-[#626F47]">
+        <!-- Logo -->
+        <div class="flex justify-center mb-6">
+            <img src="{{ asset('images/logo-ts.png') }}" alt="Logo TS" class="h-14 transition-transform duration-300 hover:scale-105">
         </div>
-    @endif
 
-    <div class="mt-4 flex items-center justify-between">
-        <form method="POST" action="{{ route('verification.send') }}">
-            @csrf
+        <!-- Header -->
+        <div class="text-center mb-6">
+            <h2 class="text-2xl font-bold text-[#E7EFC7] font-serif">{{ __('Verify Your Email') }}</h2>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-[#AEC8A4] mt-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+        </div>
 
-            <div>
-                <x-primary-button>
-                    {{ __('Resend Verification Email') }}
-                </x-primary-button>
+        <!-- Message -->
+        <div class="mb-6 text-center text-[#E7EFC7] text-sm">
+            {{ __('Thanks for signing up! Before getting started, please verify your email address by clicking the link we emailed to you.') }}
+        </div>
+
+        @if (session('status') == 'verification-link-sent')
+            <div class="mb-6 p-3 bg-[#AEC8A4]/20 text-[#E7EFC7] text-sm rounded-lg text-center border border-[#AEC8A4]">
+                {{ __('A new verification link has been sent to your email address.') }}
             </div>
-        </form>
+        @endif
 
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
+        <!-- Actions -->
+        <div class="flex flex-col gap-4 mt-6">
+            <form method="POST" action="{{ route('verification.send') }}" class="w-full">
+                @csrf
+                <button type="submit" class="w-full py-3 bg-[#8A784E] hover:bg-[#AEC8A4] text-[#E7EFC7] font-medium rounded-lg shadow-sm transition-colors duration-300 flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    {{ __('Resend Verification Email') }}
+                </button>
+            </form>
 
-            <button type="submit" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
-                {{ __('Log Out') }}
-            </button>
-        </form>
+            <form method="POST" action="{{ route('logout') }}" class="w-full">
+                @csrf
+                <button type="submit" class="w-full py-3 text-center text-sm text-[#E7EFC7] hover:text-[#AEC8A4] font-medium transition-colors duration-200">
+                    {{ __('Sign Out') }}
+                </button>
+            </form>
+        </div>
+
+        <!-- Additional Help -->
+        <div class="mt-6 pt-4 border-t border-[#626F47]/50 text-center text-xs text-[#AEC8A4]">
+            {{ __("Didn't receive the email? Check your spam folder or contact support.") }}
+        </div>
     </div>
-</x-guest-layout>
+</body>
+</html>
