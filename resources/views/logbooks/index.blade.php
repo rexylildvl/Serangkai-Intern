@@ -147,14 +147,16 @@
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                                 </svg>
                                             </a>
-                                            <form action="{{ route('logbooks.destroy', $logbook->id) }}" method="POST" class="inline">
+                                            <form action="{{ route('logbooks.destroy', $logbook->id) }}" method="POST" class="inline delete-logbook-form">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button
-                                                    type="submit"
-                                                    onclick="return confirm('Apakah Anda yakin ingin menghapus logbook ini?')"
+                                                    type="button"
                                                     class="p-1.5 text-red-500 hover:text-red-700 rounded-md hover:bg-red-50 transition-colors duration-200"
-                                                    title="Hapus">
+                                                    title="Hapus"
+                                                    onclick="showDeleteLogbookModal(this)"
+                                                    data-action="{{ route('logbooks.destroy', $logbook->id) }}"
+                                                >
                                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                                     </svg>
@@ -200,3 +202,34 @@
         </div>
     </section>
 </x-app-layout>
+
+<!-- Modal Konfirmasi Hapus Logbook -->
+<div id="deleteLogbookModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden">
+    <div class="bg-white rounded-xl shadow-lg border border-[#AEC8A4] max-w-sm w-full p-6">
+        <div class="flex items-center gap-3 mb-4">
+            <span class="text-lg font-bold text-[#3B3B1A]">Konfirmasi Hapus</span>
+        </div>
+        <p class="text-[#626F47] mb-6">Apakah Anda yakin ingin menghapus logbook ini? Tindakan ini tidak dapat dibatalkan.</p>
+        <div class="flex justify-end gap-3">
+            <button id="cancelDeleteBtn" type="button" class="px-4 py-2 rounded-md bg-[#E7EFC7] text-[#3B3B1A] font-semibold hover:bg-[#AEC8A4] transition">Batal</button>
+            <form id="deleteLogbookForm" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="px-4 py-2 rounded-md bg-red-600 text-white font-semibold hover:bg-red-800 transition">Hapus</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+function showDeleteLogbookModal(button) {
+    const modal = document.getElementById('deleteLogbookModal');
+    const form = document.getElementById('deleteLogbookForm');
+    form.action = button.getAttribute('data-action');
+    modal.classList.remove('hidden');
+}
+
+document.getElementById('cancelDeleteBtn').onclick = function() {
+    document.getElementById('deleteLogbookModal').classList.add('hidden');
+};
+</script>

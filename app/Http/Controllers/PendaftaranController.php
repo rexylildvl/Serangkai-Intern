@@ -24,7 +24,8 @@ class PendaftaranController extends Controller
             'no_hp'           => 'required',
             'email'           => 'required|email',
             'cv'              => 'required|file|mimes:pdf|max:5120',
-            'portofolio'      => 'nullable|file|mimes:pdf|max:5120',
+            'portofolio_file' => 'nullable|file|mimes:pdf|max:5120',
+            'portofolio_link' => 'nullable|url',
             'universitas'     => 'required',
             'jurusan'         => 'required',
             'jenjang'         => 'required',
@@ -34,13 +35,21 @@ class PendaftaranController extends Controller
             'tujuan'          => 'required',
             'keahlian'        => 'required',
             'lowongan_id'     => 'required|integer|exists:lowongan_magangs,id',
+            'surat_pengantar' => 'required|file|mimes:pdf|max:5120',
         ]);
 
         // Simpan file
         $data['cv'] = $request->file('cv')->store('cv', 'public');
-        if ($request->hasFile('portofolio')) {
-            $data['portofolio'] = $request->file('portofolio')->store('portofolio', 'public');
+        // Simpan file portofolio jika ada
+        if ($request->hasFile('portofolio_file')) {
+            $data['portofolio'] = $request->file('portofolio_file')->store('portofolio', 'public');
         }
+
+        // Simpan link portofolio (langsung dari input)
+        $data['portofolio_link'] = $request->portofolio_link;
+
+        // Simpan file surat pengantar
+        $data['surat_pengantar'] = $request->file('surat_pengantar')->store('surat_pengantar', 'public');
 
         // Default status
         $data['status'] = 'Menunggu';

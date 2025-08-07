@@ -19,19 +19,19 @@
 
             <!-- Desktop Navigation - Hidden on mobile/tablet -->
             <div class="hidden lg:flex items-center space-x-1">
-                <x-nav-link :href="route('beranda')" :active="request()->routeIs('beranda')" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-[#E7EFC7] hover:text-white hover:bg-[#3B3B1A]/80 transition-all duration-300">
+                <x-nav-link :href="route('beranda')" :active="request()->routeIs('beranda')" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-white hover:text-[#E7EFC7] hover:bg-[#3B3B1A]/80 transition-all duration-300">
                     {{ __('Beranda') }}
                 </x-nav-link>
-                <x-nav-link :href="route('coe.index')" :active="request()->routeIs('coe.index')" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-[#E7EFC7] hover:text-white hover:bg-[#3B3B1A]/80 transition-all duration-300">
+                <x-nav-link :href="route('coe.index')" :active="request()->routeIs('coe.index')" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-white hover:text-[#E7EFC7] hover:bg-[#3B3B1A]/80 transition-all duration-300">
                     {{ __('Center of Excellence') }}
                 </x-nav-link>
-                <x-nav-link :href="route('berita.index')" :active="request()->routeIs('berita.index')" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-[#E7EFC7] hover:text-white hover:bg-[#3B3B1A]/80 transition-all duration-300">
+                <x-nav-link :href="route('berita.index')" :active="request()->routeIs('berita.index')" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-white hover:text-[#E7EFC7] hover:bg-[#3B3B1A]/80 transition-all duration-300">
                     {{ __('Berita') }}
                 </x-nav-link>
-                <x-nav-link :href="route('lowongan.index')" :active="request()->routeIs('lowongan.index')" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-[#E7EFC7] hover:text-white hover:bg-[#3B3B1A]/80 transition-all duration-300">
+                <x-nav-link :href="route('lowongan.index')" :active="request()->routeIs('lowongan.index')" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-white hover:text-[#E7EFC7] hover:bg-[#3B3B1A]/80 transition-all duration-300">
                     {{ __('Lowongan Magang') }}
                 </x-nav-link>
-                <x-nav-link :href="route('galeri.index')" :active="request()->routeIs('galeri.index')" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-[#E7EFC7] hover:text-white hover:bg-[#3B3B1A]/80 transition-all duration-300">
+                <x-nav-link :href="route('galeri.index')" :active="request()->routeIs('galeri.index')" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-white hover:text-[#E7EFC7] hover:bg-[#3B3B1A]/80 transition-all duration-300">
                     {{ __('Galeri') }}
                 </x-nav-link>
             </div>

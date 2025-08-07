@@ -19,6 +19,7 @@ class Pendaftaran extends Model
         'email',
         'cv',
         'portofolio',
+        'portofolio_link',
         'universitas',
         'jurusan',
         'jenjang',
@@ -30,6 +31,7 @@ class Pendaftaran extends Model
         'keahlian',
         'lowongan_id',
         'user_id',
+        'surat_pengantar',
     ];
 
     public function lowongan()

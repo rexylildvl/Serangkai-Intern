@@ -65,7 +65,14 @@
                             <!-- Form Fields -->
                             <div class="space-y-2">
                                 <label class="block text-[#3B3B1A] font-medium mb-1">Nama Lengkap</label>
-                                <input type="text" name="nama_lengkap" class="w-full border border-[#AEC8A4] rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-[#626F47] focus:border-transparent transition" required>
+                                <input 
+                                    type="text" 
+                                    name="nama_lengkap" 
+                                    value="{{ auth()->user()->name }}" 
+                                    readonly 
+                                    class="w-full border border-[#AEC8A4] rounded-lg px-4 py-2.5 bg-gray-100 cursor-not-allowed focus:ring-2 focus:ring-[#626F47] focus:border-transparent transition" 
+                                    required
+                                >
                             </div>
 
                             <div class="space-y-2">
@@ -123,15 +130,22 @@
 
                             <!-- Portofolio -->
                             <div class="space-y-2">
-                                <label class="block text-[#3B3B1A] font-medium mb-1">Upload Portofolio (Opsional)</label>
-                                <div class="relative group">
-                                    <input type="file" name="portofolio" accept="application/pdf" class="w-full opacity-0 absolute inset-0 cursor-pointer" id="portofolioInput">
-                                    <div class="border border-[#AEC8A4] rounded-lg px-4 py-2.5 bg-white flex justify-between items-center group-hover:border-[#626F47] transition">
-                                        <span id="portofolioFileName" class="text-gray-500 truncate">Pilih file PDF</span>
-                                        <span class="bg-[#E7EFC7] text-[#3B3B1A] px-3 py-1 rounded text-sm">Pilih File</span>
+                                <label class="block text-[#3B3B1A] font-medium mb-1">Portofolio (Opsional)</label>
+                                <div class="flex flex-col gap-2">
+                                    <!-- Input Link -->
+                                    <input type="url" name="portofolio_link" placeholder="Link portofolio (misal: Google Drive, Behance, dsb)" 
+                                        class="w-full border border-[#AEC8A4] rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-[#626F47] focus:border-transparent transition">
+                                    <span class="text-xs text-gray-500">Atau upload file PDF di bawah ini</span>
+                                    <!-- Input File -->
+                                    <div class="relative group">
+                                        <input type="file" name="portofolio_file" accept="application/pdf" class="w-full opacity-0 absolute inset-0 cursor-pointer" id="portofolioInput">
+                                        <div class="border border-[#AEC8A4] rounded-lg px-4 py-2.5 bg-white flex justify-between items-center group-hover:border-[#626F47] transition">
+                                            <span id="portofolioFileName" class="text-gray-500 truncate">Pilih file PDF</span>
+                                            <span class="bg-[#E7EFC7] text-[#3B3B1A] px-3 py-1 rounded text-sm">Pilih File</span>
+                                        </div>
                                     </div>
+                                    <p class="text-xs text-gray-500 mt-1">Format: PDF (Maks. 5MB)</p>
                                 </div>
-                                <p class="text-xs text-gray-500 mt-1">Format: PDF (Maks. 5MB)</p>
                             </div>
                         </div>
 
@@ -175,13 +189,24 @@
                                 <input type="number" min="4" name="semester" value="{{ old('semester') }}"
                                     class="w-full border @error('semester') border-red-500 bg-red-50 @else border-[#AEC8A4] @enderror rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-[#626F47] focus:border-transparent transition" required>
                                     <p class="text-xs text-gray-500 mt-1">Minimal semester 4 untuk mendaftar magang.</p>
-                                <p id="semesterError" class="text-sm text-red-600 mt-1 hidden">
-                                    Semester minimal 4 untuk mendaftar magang.
-                                </p>
+
 
                                 @error('semester')
                                     <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                                 @enderror
+                            </div>
+                            
+                            <!-- Surat Pengantar Magang -->
+                            <div class="space-y-2">
+                                <label class="block text-[#3B3B1A] font-medium mb-1">Surat Pengantar Magang (PDF, Maks. 5MB)</label>
+                                <div class="relative group">
+                                    <input type="file" name="surat_pengantar" accept="application/pdf" class="w-full opacity-0 absolute inset-0 cursor-pointer" id="suratPengantarInput" required>
+                                    <div class="border border-[#AEC8A4] rounded-lg px-4 py-2.5 bg-white flex justify-between items-center group-hover:border-[#626F47] transition">
+                                        <span id="suratPengantarFileName" class="text-gray-500 truncate">Pilih file PDF</span>
+                                        <span class="bg-[#E7EFC7] text-[#3B3B1A] px-3 py-1 rounded text-sm">Pilih File</span>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-1">Format: PDF (Maks. 5MB)</p>
                             </div>
                         </div>
 
@@ -238,43 +263,108 @@
                             <button type="button" onclick="prevStep(2)" class="px-6 py-2.5 rounded-lg border border-[#AEC8A4] text-[#3B3B1A] hover:bg-[#E7EFC7] transition">
                                 Kembali
                             </button>
-                            <button type="submit" class="bg-[#626F47] hover:bg-[#3B3B1A] text-white px-6 py-2.5 rounded-lg shadow transition flex items-center">
+                            <button type="submit" onclick="submitForm()" class="bg-[#626F47] hover:bg-[#3B3B1A] text-white px-6 py-2.5 rounded-lg shadow transition flex items-center">
                                 Kirim
                             </button>
                         </div>
                     </div>
                 </form>
+
+                <!-- Alert for form errors -->
+                <div id="formAlert" class="hidden mb-6 px-4 py-3 rounded-lg border border-red-300 bg-red-50 text-red-700 font-semibold"></div>
             </div>
         </div>
     </section>
 
     <script>
+        function submitForm() {
+    let form = document.getElementById('pendaftaranForm');
+    let valid = true;
+    let messages = [];
+    let semesterField = form.querySelector('[name="semester"]');
+    let semesterValue = parseInt(semesterField.value);
+
+    // Reset alert
+    const alertBox = document.getElementById('formAlert');
+    alertBox.classList.add('hidden');
+    alertBox.textContent = '';
+
+    // Validasi semua field required
+    form.querySelectorAll('[required]').forEach(function(field) {
+        if (!field.value.trim()) {
+            field.classList.add('border-red-500', 'bg-red-50');
+            valid = false;
+            messages.push(field.name.replace('_', ' ') + ' wajib diisi.');
+        } else {
+            field.classList.remove('border-red-500', 'bg-red-50');
+        }
+    });
+
+    // Validasi khusus semester
+    if (semesterField && semesterValue < 4) {
+        semesterField.classList.add('border-red-500', 'bg-red-50');
+        valid = false;
+        messages.push('Semester minimal 4 untuk mendaftar magang.');
+    }
+
+    if (!valid) {
+        alertBox.textContent = messages.join(' ');
+        alertBox.classList.remove('hidden');
+        alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+    }
+
+    form.submit();
+}
         // Navigasi antar step
         function nextStep(step) {
-            // Validasi semua input required di step saat ini
             let currentStep = document.getElementById('step' + (step - 1));
             let valid = true;
+            let messages = [];
+            const alertBox = document.getElementById('formAlert');
+            alertBox.classList.add('hidden');
+            alertBox.textContent = '';
+
             currentStep.querySelectorAll('[required]').forEach(function(field) {
                 if (!field.value.trim()) {
                     field.classList.add('border-red-500', 'bg-red-50');
                     valid = false;
+                    messages.push(field.name.replace('_', ' ') + ' wajib diisi.');
                 } else {
                     field.classList.remove('border-red-500', 'bg-red-50');
                 }
             });
+
+            // Validasi khusus semester di step 2
+            if (step === 3) {
+                let semesterField = document.querySelector('[name="semester"]');
+                let semesterValue = parseInt(semesterField.value);
+                if (semesterField && semesterValue < 4) {
+                    semesterField.classList.add('border-red-500', 'bg-red-50');
+                    valid = false;
+                    messages.push('Semester minimal 4 untuk mendaftar magang.');
+                }
+            }
+
             if (!valid) {
-                alert('Harap isi semua data yang wajib di step ini.');
+                alertBox.textContent = messages.join(' ');
+                alertBox.classList.remove('hidden');
+                alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 return;
             }
-            // Jika valid, lanjut ke step berikutnya
+
             currentStep.classList.add('hidden');
             document.getElementById('step' + step).classList.remove('hidden');
             updateProgressIndicators(step);
         }
 
         function prevStep(step) {
-            document.getElementById('step' + (step + 1)).classList.add('hidden');
-            document.getElementById('step' + step).classlist.remove('hidden');
+            // Sembunyikan semua step
+            document.querySelectorAll('[id^="step"]').forEach(function(el) {
+                el.classList.add('hidden');
+            });
+            // Tampilkan step yang diinginkan
+            document.getElementById('step' + step).classList.remove('hidden');
             updateProgressIndicators(step);
         }
 
@@ -300,19 +390,40 @@
 
         // Validasi sebelum submit (optional, bisa tambahkan sesuai kebutuhan)
         document.getElementById('pendaftaranForm').addEventListener('submit', function(event) {
-            // Validasi semua field required
             let valid = true;
+            let messages = [];
+            let semesterField = this.querySelector('[name="semester"]');
+            let semesterValue = parseInt(semesterField.value);
+
+            // Reset alert
+            const alertBox = document.getElementById('formAlert');
+            alertBox.classList.add('hidden');
+            alertBox.textContent = '';
+
+            // Validasi semua field required
             this.querySelectorAll('[required]').forEach(function(field) {
                 if (!field.value.trim()) {
                     field.classList.add('border-red-500', 'bg-red-50');
                     valid = false;
+                    messages.push(field.name.replace('_', ' ') + ' wajib diisi.');
                 } else {
                     field.classList.remove('border-red-500', 'bg-red-50');
                 }
             });
+
+            // Validasi khusus semester
+            if (semesterField && semesterValue < 4) {
+                semesterField.classList.add('border-red-500', 'bg-red-50');
+                valid = false;
+                messages.push('Semester minimal 4 untuk mendaftar magang.');
+            }
+
             if (!valid) {
                 event.preventDefault();
-                alert('Harap isi semua data yang wajib.');
+                alertBox.textContent = messages.join(' ');
+                alertBox.classList.remove('hidden');
+                // Scroll ke atas form agar alert terlihat
+                alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         });
 
@@ -322,5 +433,8 @@
         document.getElementById('portofolioInput').addEventListener('change', function(e) {
             document.getElementById('portofolioFileName').textContent = e.target.files[0]?.name || 'Pilih file PDF';
         });
+        document.getElementById('suratPengantarInput').addEventListener('change', function(e) {
+    document.getElementById('suratPengantarFileName').textContent = e.target.files[0]?.name || 'Pilih file PDF';
+});
     </script>
 </x-app-layout>

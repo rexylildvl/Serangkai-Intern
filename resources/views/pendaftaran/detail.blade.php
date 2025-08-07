@@ -171,13 +171,26 @@
                                     <div>
                                         <p class="font-medium text-[#3B3B1A]">Portofolio</p>
                                         <div class="mt-1">
+                                            @if($pendaftaran->portofolio_link)
+                                                <div class="flex items-center gap-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#626F47]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                                                    </svg>
+                                                    <a href="{{ $pendaftaran->portofolio_link }}" target="_blank" class="text-[#626F47] hover:text-[#3B3B1A] hover:underline flex items-center gap-1">
+                                                        Lihat Portofolio (Link) &nbsp;
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                            @endif
                                             @if ($pendaftaran->portofolio)
                                                 <div class="flex items-center gap-2">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#626F47]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                                                     </svg>
                                                     <a href="{{ asset('storage/' . $pendaftaran->portofolio) }}" target="_blank" class="text-[#626F47] hover:text-[#3B3B1A] hover:underline flex items-center gap-1">
-                                                        Lihat Portofolio &nbsp;
+                                                        Lihat Portofolio (PDF) &nbsp;
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                                                         </svg>
@@ -188,7 +201,32 @@
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
                                                     </svg>
-                                                    Tidak tersedia
+                                                    Tidak ada File Portofolio
+                                                </p>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <!-- Surat Pengantar Magang -->
+                                    <div>
+                                        <p class="font-medium text-[#3B3B1A]">Surat Pengantar Magang</p>
+                                        <div class="mt-1 flex items-center gap-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#626F47]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                            </svg>
+                                            @if($pendaftaran->surat_pengantar)
+                                                <a href="{{ asset('storage/' . $pendaftaran->surat_pengantar) }}" target="_blank" class="text-[#626F47] hover:text-[#3B3B1A] hover:underline flex items-center gap-1">
+                                                    Lihat Surat Pengantar &nbsp;
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                                    </svg>
+                                                </a>
+                                            @else
+                                                <p class="text-[#8A784E]/70 italic flex items-center gap-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                                                    </svg>
+                                                    Tidak ada Surat Pengantar
                                                 </p>
                                             @endif
                                         </div>
