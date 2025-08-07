@@ -68,15 +68,27 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Durasi Magang</label>
-                    <input type="text" name="durasi" value="{{ old('durasi') }}" 
-                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+                    <label for="durasi" class="block text-sm font-medium text-gray-700 mb-1">Durasi Magang</label>
+                    <select id="durasi" name="durasi"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+                        <option value="">Pilih Durasi</option>
+                        <option value="4 bulan" {{ old('durasi') == '2 bulan' ? 'selected' : '' }}>2 Bulan</option>
+                        <option value="4 bulan" {{ old('durasi') == '3 bulan' ? 'selected' : '' }}>3 Bulan</option>
+                        <option value="4 bulan" {{ old('durasi') == '4 bulan' ? 'selected' : '' }}>4 Bulan</option>
+                        <option value="5 bulan" {{ old('durasi') == '5 bulan' ? 'selected' : '' }}>5 Bulan</option>
+                        <option value="6 bulan" {{ old('durasi') == '6 bulan' ? 'selected' : '' }}>6 Bulan</option>
+                    </select>
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Pendidikan Minimal</label>
-                    <input type="text" name="pendidikan" value="{{ old('pendidikan') }}" 
-                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+                    <label for="pendidikan" class="block text-sm font-medium text-gray-700 mb-1">Pendidikan Minimal</label>
+                    <select id="pendidikan" name="pendidikan"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+                        <option value="">Pilih Pendidikan</option>
+                        <option value="D3" {{ old('pendidikan') == 'D3' ? 'selected' : '' }}>D3</option>
+                        <option value="S1" {{ old('pendidikan') == 'S1' ? 'selected' : '' }}>S1</option>
+                        <option value="S2" {{ old('pendidikan') == 'S2' ? 'selected' : '' }}>S2</option>
+                    </select>
                 </div>
 
                 <div>
