@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Storage;
 <x-app-layout>
     <!-- Hero Section with Carousel -->
     <section class="relative overflow-hidden">
-        <div class="carousel relative w-full h-[570px] overflow-hidden">
+        <div class="carousel relative w-full h-[600px] overflow-hidden">
             <div class="carousel-inner flex transition-transform duration-700 ease-in-out w-full h-full">
                 @foreach ($banners as $banner)
                     <div class="carousel-item w-full flex-shrink-0 relative">
@@ -143,9 +143,6 @@ use Illuminate\Support\Facades\Storage;
                         <h2 class="text-4xl font-bold text-white font-serif tracking-tight mb-3">Lowongan Magang Terbaru</h2>
                         <div class="w-20 h-1 bg-[#AEC8A4] rounded-full"></div>
                     </div>
-                    <a href="{{ route('lowongan.index') }}" class="group text-white hover:text-[#AEC8A4] font-semibold flex items-center px-6 py-3 rounded-xl border-2 border-[#AEC8A4] hover:border-white transition-all duration-300 hover:shadow-lg">
-                        Semua Lowongan
-                    </a>
                 </div>
 
                 <!-- Job Listings Grid with matching lowongan.index style -->
@@ -258,6 +255,14 @@ use Illuminate\Support\Facades\Storage;
                         </article>
                     @endforeach
                 </div>
+                    <div class="mt-10 flex justify-center">
+                        <a href="{{ route('lowongan.index') }}" class="group relative bg-gradient-to-r from-[#AEC8A4] to-[#8A9E7F] hover:from-[#8A9E7F] hover:to-[#626F47] text-[#3B3B1A] hover:text-white px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 font-semibold tracking-wide transform hover:-translate-y-1 overflow-hidden">
+                            <span class="relative z-10 flex items-center">
+                                Lihat Semua Lowongan Magang
+                            </span>
+                            <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </a>
+                    </div>
             </div>
         </section>
 
@@ -269,9 +274,6 @@ use Illuminate\Support\Facades\Storage;
                         <h2 class="text-4xl font-bold text-white font-serif tracking-tight mb-3">Berita Terkini</h2>
                         <div class="w-20 h-1 bg-[#AEC8A4] rounded-full"></div>
                     </div>
-                    <a href="{{ route('berita.index') }}" class="group text-white hover:text-[#AEC8A4] font-semibold flex items-center px-6 py-3 rounded-xl border-2 border-[#AEC8A4] hover:border-white transition-all duration-300 hover:shadow-lg">
-                        Semua Berita
-                    </a>
                 </div>
                 
                 <!-- Professional news grid -->
@@ -326,6 +328,14 @@ use Illuminate\Support\Facades\Storage;
                     </article>
                     @endforeach
                 </div>
+                    <div class="mt-10 flex justify-center">
+                        <a href="{{ route('berita.index') }}" class="group relative bg-gradient-to-r from-[#AEC8A4] to-[#8A9E7F] hover:from-[#8A9E7F] hover:to-[#626F47] text-[#3B3B1A] hover:text-white px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 font-semibold tracking-wide transform hover:-translate-y-1 overflow-hidden">
+                            <span class="relative z-10 flex items-center">
+                                Lihat Semua Berita
+                            </span>
+                            <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </a>
+                    </div>
             </div>
         </section>
 
@@ -391,8 +401,8 @@ use Illuminate\Support\Facades\Storage;
                 </div>
 
                 <!-- Enhanced View All Button -->
-                <div class="mt-16 text-center">
-                    <a href="{{ route('galeri.index') }}" class="group relative inline-flex items-center bg-gradient-to-r from-[#AEC8A4] to-[#8A9E7F] hover:from-[#8A9E7F] hover:to-[#626F47] text-[#3B3B1A] hover:text-white font-semibold px-10 py-4 rounded-full text-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden">
+                <div class="mt-10 flex justify-center">
+                    <a href="{{ route('galeri.index') }}" class="group relative bg-gradient-to-r from-[#AEC8A4] to-[#8A9E7F] hover:from-[#8A9E7F] hover:to-[#626F47] text-[#3B3B1A] hover:text-white px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 font-semibold tracking-wide transform hover:-translate-y-1 overflow-hidden">
                         <span class="relative z-10 flex items-center">
                             Lihat Semua Foto
                         </span>
@@ -488,13 +498,10 @@ use Illuminate\Support\Facades\Storage;
                     </div>
 
                 @if ($faqs->count() > 4)
-                    <div class="mt-12 flex justify-center">
-                        <a href="{{ route('faq.index') }}" class="group relative bg-gradient-to-r from-[#AEC8A4] to-[#8A9E7F] hover:from-[#8A9E7F] hover:to-[#626F47] text-[#3B3B1A] hover:text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 font-semibold tracking-wide transform hover:-translate-y-1 overflow-hidden">
+                    <div class="mt-10 flex justify-center">
+                        <a href="{{ route('faq.index') }}" class="group relative bg-gradient-to-r from-[#AEC8A4] to-[#8A9E7F] hover:from-[#8A9E7F] hover:to-[#626F47] text-[#3B3B1A] hover:text-white px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 font-semibold tracking-wide transform hover:-translate-y-1 overflow-hidden">
                             <span class="relative z-10 flex items-center">
                                 Lihat Semua Pertanyaan
-                                <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                                </svg>
                             </span>
                             <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         </a>

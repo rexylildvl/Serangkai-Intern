@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Serangkai Intern</title>
+    <title>Register - MagangTS</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen bg-cover bg-center flex items-center justify-center" style="background-image: url('{{ asset('images/ts.jpg') }}'); background-blend-mode: overlay; background-color: rgba(0,0,0,0.3);">
@@ -46,6 +46,7 @@
                                 type="text" 
                                 name="name" 
                                 required 
+                                value="{{ old('name') }}"
                                 class="w-full px-3 py-2 bg-[#3B3B1A] border border-[#626F47] rounded-md text-[#E7EFC7] placeholder-[#AEC8A4]/70 focus:border-[#AEC8A4] focus:ring-1 focus:ring-[#AEC8A4]/50"
                                 placeholder="Enter your full name"
                             >
@@ -62,6 +63,7 @@
                                 type="email" 
                                 name="email" 
                                 required
+                                value="{{ old('email') }}"
                                 class="w-full px-3 py-2 bg-[#3B3B1A] border border-[#626F47] rounded-md text-[#E7EFC7] placeholder-[#AEC8A4]/70 focus:border-[#AEC8A4] focus:ring-1 focus:ring-[#AEC8A4]/50"
                                 placeholder="Enter your email"
                             >

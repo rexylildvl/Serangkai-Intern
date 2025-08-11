@@ -70,9 +70,12 @@
             </div>
 
             <!-- Back Button -->
-            <div class="mt-16 text-center">
-                <a href="{{ route('beranda') }}" class="inline-flex items-center bg-[#AEC8A4] hover:bg-[#8A9E7F] text-[#3B3B1A] font-medium px-8 py-3 rounded-full text-lg shadow-sm hover:shadow-md transition-all duration-300">
-                    Kembali ke Beranda
+            <div class="mt-10 flex justify-center">
+                <a href="{{ route('beranda') }}" class="group relative bg-gradient-to-r from-[#AEC8A4] to-[#8A9E7F] hover:from-[#8A9E7F] hover:to-[#626F47] text-[#3B3B1A] hover:text-white px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 font-semibold tracking-wide transform hover:-translate-y-1 overflow-hidden">
+                    <span class="relative z-10 flex items-center">
+                        Kembali ke Beranda
+                    </span>
+                    <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </a>
             </div>
         </div>

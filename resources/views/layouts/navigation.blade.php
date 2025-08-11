@@ -34,6 +34,9 @@
                 <x-nav-link :href="route('galeri.index')" :active="request()->routeIs('galeri.index')" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-white hover:text-[#E7EFC7] hover:bg-[#3B3B1A]/80 transition-all duration-300">
                     {{ __('Galeri') }}
                 </x-nav-link>
+                <x-nav-link :href="route('faq.index')" :active="request()->routeIs('faq.index')" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-white hover:text-[#E7EFC7] hover:bg-[#3B3B1A]/80 transition-all duration-300">
+                    {{ __('FAQ') }}
+                </x-nav-link>
             </div>
 
             <!-- Right Section - User/Login + Mobile Menu -->
@@ -147,6 +150,12 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                     </svg>
                     {{ __('Galeri') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('faq.index')" :active="request()->routeIs('faq.index')" class="block px-4 py-3 rounded-lg text-[#E7EFC7] hover:bg-[#626F47]/50 transition-all duration-300 font-medium">
+                    <svg class="w-5 h-5 inline mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    {{ __('FAQ') }}
                 </x-responsive-nav-link>
             </div>
 

@@ -22,11 +22,12 @@
         <div class="mt-4 md:mt-0">
             <h2 class="font-serif font-bold text-lg mb-4">Navigasi</h2>
             <ul class="space-y-3">
-                <li><a href="#" class="text-[#E7EFC7] hover:text-white hover:underline underline-offset-4 decoration-[#AEC8A4] transition-colors duration-300 text-sm">Panduan</a></li>
+                <li><a href="{{ route('beranda') }}" class="text-[#E7EFC7] hover:text-white hover:underline underline-offset-4 decoration-[#AEC8A4] transition-colors duration-300 text-sm">Beranda</a></li>
+                <li><a href="{{ route('coe.index') }}" class="text-[#E7EFC7] hover:text-white hover:underline underline-offset-4 decoration-[#AEC8A4] transition-colors duration-300 text-sm">Center of Excellence</a></li>
+                <li><a href="{{ route('berita.index') }}" class="text-[#E7EFC7] hover:text-white hover:underline underline-offset-4 decoration-[#AEC8A4] transition-colors duration-300 text-sm">Berita</a></li>
                 <li><a href="{{ route('lowongan.index') }}" class="text-[#E7EFC7] hover:text-white hover:underline underline-offset-4 decoration-[#AEC8A4] transition-colors duration-300 text-sm">Lowongan Magang</a></li>
-                <li><a href="#" class="text-[#E7EFC7] hover:text-white hover:underline underline-offset-4 decoration-[#AEC8A4] transition-colors duration-300 text-sm">Pusat Informasi</a></li>
-                <li><a href="#" class="text-[#E7EFC7] hover:text-white hover:underline underline-offset-4 decoration-[#AEC8A4] transition-colors duration-300 text-sm">Tentang Kami</a></li>
                 <li><a href="{{ route('galeri.index') }}" class="text-[#E7EFC7] hover:text-white hover:underline underline-offset-4 decoration-[#AEC8A4] transition-colors duration-300 text-sm">Galeri</a></li>
+                <li><a href="{{ route('faq.index') }}" class="text-[#E7EFC7] hover:text-white hover:underline underline-offset-4 decoration-[#AEC8A4] transition-colors duration-300 text-sm">Pusat Informasi</a></li>
             </ul>
         </div>
 
