@@ -33,5 +33,10 @@ class AdminDashboardController extends Controller
             'totalLowongan',
             'statistikBidang'
         ));
+
+    // Hitung jumlah pendaftar baru
+    $pendaftarBaru = Pendaftaran::where('status', 'pending')->count();
+
+    return view('admin.dashboard', compact('pendaftarBaru'));
     }
 }

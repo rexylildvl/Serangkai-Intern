@@ -12,8 +12,8 @@
         <div class="flex items-center gap-3">
             <a href="{{ route('admin.pendaftar.export') }}"
                 class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-md shadow">
-                    Export Excel
-                </a>
+                Export Excel
+            </a>
 
             <form action="{{ route('admin.pendaftar.index') }}" method="GET">
                 <div class="relative">
@@ -58,14 +58,17 @@
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @foreach($pendaftars as $item)
-                    <tr class="hover:bg-gray-50">
+                    <tr class="hover:bg-gray-50 {{ !$item->is_viewed ? 'bg-yellow-50' : '' }}">
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0 h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
                                     <span class="text-green-600 font-medium">{{ strtoupper(substr($item->nama_lengkap, 0, 1)) }}</span>
                                 </div>
-                                <div class="ml-4">
-                                    <div class="text-sm font-medium text-gray-900">{{ $item->nama_lengkap }}</div>
+                                <div class="ml-4 flex items-center">
+                                    <div class="text-sm font-medium text-gray-900">
+                                        {{ $item->nama_lengkap }}
+                                    </div>
+                                   
                                 </div>
                             </div>
                         </td>
@@ -93,11 +96,8 @@
                 </tbody>
             </table>
         </div>
-        <div class="bg-gray-50 px-6 py-3 border-t border-gray-200">
-            {{ $pendaftars->links() }}
-        </div>
-
-        <div class="mt-4">
+        
+    <div class="bg-gray-50 px-6 py-3 border-t border-gray-200">
             {{ $pendaftars->appends(['search' => request('search')])->links() }}
         </div>
     </div>

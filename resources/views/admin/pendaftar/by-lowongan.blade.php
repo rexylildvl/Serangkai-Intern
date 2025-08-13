@@ -89,7 +89,7 @@
                     </tbody>
                 </table>
             </div>
-            <!-- Check if pagination exists before displaying -->
+         
             @if(method_exists($pendaftars, 'links'))
                 <div class="bg-gray-50 px-6 py-3 border-t border-gray-200">
                     {{ $pendaftars->links() }}
