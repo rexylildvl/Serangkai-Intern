@@ -75,16 +75,6 @@
             @enderror
         </div>
 
-        <!-- Tanggal Posting -->
-        <div class="bg-white shadow-sm rounded-lg p-5">
-            <label for="tanggal_posting" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Posting <span class="text-red-500">*</span></label>
-            <input type="date" name="tanggal_posting" id="tanggal_posting" required value="{{ old('tanggal_posting', now()->format('Y-m-d')) }}"
-                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm">
-            @error('tanggal_posting')
-                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-            @enderror
-        </div>
-
         <!-- Tombol Aksi -->
         <div class="flex justify-end gap-4 pt-6">
             <a href="{{ route('admin.berita.index') }}" 
