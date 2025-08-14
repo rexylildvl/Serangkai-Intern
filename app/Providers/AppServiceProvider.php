@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\View;
+use App\Models\Pendaftaran;
+use Carbon\Carbon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,8 +22,11 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      */
 
-    public function boot()
+   public function boot()
     {
-        Paginator::useTailwind();
+        View::composer('layouts.admin', function ($view) {
+            $newPendaftar = Pendaftaran::whereDate('created_at', Carbon::today())->count();
+            $view->with('newPendaftar', $newPendaftar);
+        });
     }
 }

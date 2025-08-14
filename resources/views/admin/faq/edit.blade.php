@@ -12,7 +12,9 @@
 
         <div class="mb-4">
             <label for="pertanyaan" class="block font-medium text-gray-700">Pertanyaan</label>
-            <input type="text" name="pertanyaan" id="pertanyaan" value="{{ old('pertanyaan', $faq->pertanyaan) }}" class="w-full border px-3 py-2 rounded @error('pertanyaan') border-red-500 @enderror">
+            <input type="text" name="pertanyaan" id="pertanyaan" 
+                   value="{{ old('pertanyaan', $faq->pertanyaan) }}" 
+                   class="w-full border px-3 py-2 rounded @error('pertanyaan') border-red-500 @enderror">
             @error('pertanyaan')
                 <div class="text-red-500 text-sm">{{ $message }}</div>
             @enderror
@@ -20,7 +22,8 @@
 
         <div class="mb-4">
             <label for="jawaban" class="block font-medium text-gray-700">Jawaban</label>
-            <textarea name="jawaban" id="jawaban" rows="6" class="w-full border px-3 py-2 rounded @error('jawaban') border-red-500 @enderror">{{ old('jawaban', $faq->jawaban) }}</textarea>
+            <textarea name="jawaban" id="jawaban" rows="6" 
+                      class="w-full border px-3 py-2 rounded @error('jawaban') border-red-500 @enderror">{{ old('jawaban', $faq->jawaban) }}</textarea>
             @error('jawaban')
                 <div class="text-red-500 text-sm">{{ $message }}</div>
             @enderror
@@ -30,10 +33,21 @@
         <a href="{{ route('admin.faq.index') }}" class="ml-2 text-gray-600 hover:underline">Batal</a>
     </form>
 </div>
+
+<style>
+    ol {
+        list-style-type: decimal !important;
+        margin-left: 1.5rem;
+    }
+    ul {
+        list-style-type: disc !important;
+        margin-left: 1.5rem;
+    }
+</style>
 @endsection
 
 @push('scripts')
-<!-- CKEditor CDN -->
+<!-- CKEditor 5 CDN -->
 <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 <script>
     ClassicEditor
@@ -47,6 +61,6 @@
     .catch(error => {
         console.error(error);
     });
-
+    
 </script>
 @endpush

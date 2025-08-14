@@ -12,8 +12,8 @@
         <div class="flex items-center gap-3">
             <a href="{{ route('admin.pendaftar.export') }}"
                 class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-md shadow">
-                    Export Excel
-                </a>
+                Export Excel
+            </a>
 
             <form action="{{ route('admin.pendaftar.index') }}" method="GET">
                 <div class="relative">
@@ -53,19 +53,22 @@
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Instansi</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lowongan</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
+                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Detail</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @foreach($pendaftars as $item)
-                    <tr class="hover:bg-gray-50">
+                    <tr class="hover:bg-gray-50 {{ !$item->is_viewed ? 'bg-yellow-50' : '' }}">
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0 h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
                                     <span class="text-green-600 font-medium">{{ strtoupper(substr($item->nama_lengkap, 0, 1)) }}</span>
                                 </div>
-                                <div class="ml-4">
-                                    <div class="text-sm font-medium text-gray-900">{{ $item->nama_lengkap }}</div>
+                                <div class="ml-4 flex items-center">
+                                    <div class="text-sm font-medium text-gray-900">
+                                        {{ $item->nama_lengkap }}
+                                    </div>
+                                   
                                 </div>
                             </div>
                         </td>
@@ -86,18 +89,24 @@
                             </span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <a href="{{ route('admin.pendaftar.show', $item->id) }}" class="text-green-600 hover:text-green-900">Detail</a>
-                        </td>
+                                <div class="flex justify-end items-center gap-3">
+                                    <a href="{{ route('admin.pendaftar.show', $item->id) }}" 
+                                       class="text-green-600 hover:text-green-900" title="Detail">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                    </a>
+                                
+                                </div>
+                            </td>
+
                     </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
-        <div class="bg-gray-50 px-6 py-3 border-t border-gray-200">
-            {{ $pendaftars->links() }}
-        </div>
-
-        <div class="mt-4">
+        
+    <div class="bg-gray-50 px-6 py-3 border-t border-gray-200">
             {{ $pendaftars->appends(['search' => request('search')])->links() }}
         </div>
     </div>

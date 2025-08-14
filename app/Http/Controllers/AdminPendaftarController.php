@@ -31,6 +31,13 @@ class AdminPendaftarController extends Controller
     public function show($id)
     {
         $pendaftar = Pendaftaran::with('lowongan')->findOrFail($id);
+
+        // Tandai sebagai sudah dilihat
+        if (!$pendaftar->is_viewed) {
+            $pendaftar->is_viewed = true;
+            $pendaftar->save();
+        }
+
         return view('admin.pendaftar.show', compact('pendaftar'));
     }
 
@@ -46,13 +53,7 @@ class AdminPendaftarController extends Controller
         $pendaftar->update($request->all());
         return redirect()->route('admin.pendaftar.index')->with('success', 'Data pendaftar diperbarui.');
     }
-
-    public function destroy($id)
-    {
-        $pendaftar = Pendaftaran::findOrFail($id);
-        $pendaftar->delete();
-        return back()->with('success', 'Data pendaftar dihapus.');
-    }
+    
 
     public function updateStatus(Request $request, $id)
     {
