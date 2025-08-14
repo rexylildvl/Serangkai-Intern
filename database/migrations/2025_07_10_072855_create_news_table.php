@@ -13,7 +13,7 @@ class CreateNewsTable extends Migration
             $table->string('judul');
             $table->string('foto'); // simpan path ke file gambar
             $table->text('berita');
-            $table->string('hari_posting'); // Senin, Selasa, dst.
+            $table->string('hari_posting');
             $table->date('tanggal_posting');
             $table->timestamps();
         });

@@ -35,16 +35,15 @@
         <div class="mt-4 md:mt-0">
             <h2 class="font-serif font-bold text-lg mb-4">Kontak</h2>
             <div class="space-y-3 text-sm">
-                <p class="flex items-start gap-2 text-[#E7EFC7]">
+                <!-- <p class="flex items-start gap-2 text-[#E7EFC7]">
                     <i class="fas fa-phone-alt mt-0.5 w-4"></i>
                     <span><span class="font-semibold">Telepon</span>: (0271) 714344</span>
-                </p>
+                </p> -->
                 <p class="flex items-start gap-2 text-[#E7EFC7]">
                     <i class="fas fa-envelope mt-0.5 w-4"></i>
-                    <span><span class="font-semibold">Email</span>: tsi-recruitment@tigaserangkai.co.id</span>
+                    <span><span class="font-semibold">Email</span>: hspratita@tigaserangkai.co.id</span>
                 </p>
             </div>
-            
             <div class="flex space-x-4 mt-6">
                 <a href="https://www.linkedin.com/company/pt-tiga-serangkai-pustaka-mandiri/" class="text-[#E7EFC7] hover:text-[#AEC8A4] transition-colors duration-300" aria-label="LinkedIn">
                     <i class="fab fa-linkedin fa-lg"></i>

@@ -16,7 +16,6 @@ class Galeri extends Model
         'tanggal_upload'
     ];
 
-    // Jika ingin tanggal_upload otomatis diisi saat create
     public $timestamps = false;
 
     protected $casts = [

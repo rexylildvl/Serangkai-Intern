@@ -3,20 +3,14 @@ use Illuminate\Support\Facades\Storage;
 @endphp
 
 <x-app-layout>
-    <!-- Hero Section with Carousel -->
     <section class="relative overflow-hidden">
         <div class="carousel relative w-full h-[600px] overflow-hidden">
             <div class="carousel-inner flex transition-transform duration-700 ease-in-out w-full h-full">
                 @foreach ($banners as $banner)
                     <div class="carousel-item w-full flex-shrink-0 relative">
-                        <!-- Gambar -->
                         <img src="{{ Storage::url($banner->gambar) }}" alt="Banner" class="object-cover w-full h-full">
-                        
-                        <!-- Enhanced overlay with multiple layers -->
                         <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/70"></div>
                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30"></div>
-                        
-                        <!-- Overlay teks judul dan deskripsi -->
                         <div class="absolute inset-0 flex flex-col justify-center items-center text-center text-white px-4">
                             <h1 class="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-white to-gray-100 bg-clip-text text-transparent drop-shadow-2xl tracking-tight">{{ $banner->judul }}</h1>
                             @if ($banner->deskripsi)
@@ -26,8 +20,6 @@ use Illuminate\Support\Facades\Storage;
                     </div>
                 @endforeach
             </div>
-
-            <!-- Enhanced Carousel Indicators -->
             <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3 z-10">
                 @foreach ($banners as $index => $banner)
                     <button class="carousel-indicator w-4 h-4 rounded-full bg-white/60 hover:bg-white border-2 border-white/30 transition-all duration-300 hover:scale-110" data-index="{{ $index }}"></button>
@@ -36,17 +28,15 @@ use Illuminate\Support\Facades\Storage;
         </div>
     </section>
 
-    <!-- Tentang Program -->
     <section class="bg-[#E7EFC7] py-20">
         <div class="max-w-6xl mx-auto px-4 md:flex items-center gap-10">
             <div class="md:w-1/2 bg-[#AEC8A4] h-64 rounded-lg flex items-center justify-center">
                 <img src="{{ asset('images/magang.jpg') }}" alt="Program Magang" class="object-cover w-full h-full rounded-lg">
-                <!-- <p class="text-[#3B3B1A] font-medium">Gambar ilustrasi program magang</p> -->
             </div>
             <div class="md:w-1/2 mt-8 md:mt-0">
                 <h2 class="text-4xl font-bold mb-6 text-[#3B3B1A] font-serif tracking-tight">Tentang Program Magang Kami</h2>
                 <p class="text-[#626F47] mb-8 leading-relaxed text-lg">
-                    Program Magang Mahasiswa Profesional di PT Tiga Serangkai merupakan wadah pembelajaran bagi mahasiswa untuk merasakan pengalaman kerja nyata di dunia industri.
+                    <b>Program Magang Mahasiswa Profesional</b> di PT Tiga Serangkai merupakan wadah pembelajaran bagi mahasiswa untuk merasakan pengalaman kerja nyata di dunia industri.
                     Dikelola oleh Center of Excellent, program ini dirancang untuk mengembangkan keterampilan, kreativitas, dan profesionalisme peserta
                     dengan bimbingan mentor berpengalaman.
                 </p>
@@ -71,11 +61,8 @@ use Illuminate\Support\Facades\Storage;
                 <h2 class="text-2xl md:text-3xl font-bold text-[#3B3B1A] mb-3">Proses Pendaftaran Magang</h2>
                 <p class="text-[#626F47] max-w-2xl mx-auto">Ikuti langkah-langkah berikut untuk bergabung dalam program magang kami</p>
             </div>
-
             <div class="relative">
-                <!-- Garis penghubung -->
                 <div class="hidden md:block absolute top-8 left-20 right-20 h-[2px] bg-gradient-to-r from-transparent via-[#8A784E] to-transparent z-0"></div>
-                
                 <div class="grid grid-cols-1 sm:grid-cols-5 gap-6 sm:gap-4 relative z-10">
                     @php
                         $steps = [
@@ -128,10 +115,8 @@ use Illuminate\Support\Facades\Storage;
         </div>
     </section>
 
-    <!-- Background starts from here -->
     <div class="relative bg-cover bg-center bg-no-repeat" style="background-image: url('/images/gelap.jpg')">
         <div class="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-sm"></div>
-        <!-- Professional gradient overlay -->
         <div class="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-slate-800/40 to-slate-900/60"></div>
         <div class="absolute inset-0 bg-[#3B3B1A]/10"></div>
 
@@ -144,13 +129,10 @@ use Illuminate\Support\Facades\Storage;
                         <div class="w-20 h-1 bg-[#AEC8A4] rounded-full"></div>
                     </div>
                 </div>
-
-                <!-- Job Listings Grid with matching lowongan.index style -->
                 <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
                     @foreach($lowongans as $job)
                         <article class="group cursor-pointer flex flex-col h-full">
                             <div class="bg-white/95 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex flex-col h-full">
-                                <!-- Job Header -->
                                 <div class="p-6 border-b border-[#E7EFC7]/50">
                                     <div class="flex items-start justify-between mb-3 gap-2">
                                         <h3 class="text-lg font-bold text-[#3B3B1A] font-serif group-hover:text-[#626F47] transition-colors duration-300 line-clamp-2 flex-1">
@@ -164,21 +146,14 @@ use Illuminate\Support\Facades\Storage;
                                             {{ $isClosed ? 'Tertutup' : 'Terbuka' }}
                                         </span>
                                     </div>
-                                    
-                                    <!-- Pendidikan & Jurusan Container -->
                                     <div class="flex flex-wrap items-center gap-3 mt-2">
-                                        <!-- Pendidikan -->
                                         <div class="flex items-center text-sm text-[#3B3B1A]">
                                             <svg class="w-4 h-4 mr-1.5 text-[#8A784E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                                             </svg>
                                             <span>{{ $job->pendidikan ?? 'Semua Pendidikan' }}</span>
                                         </div>
-                                        
-                                        <!-- Separator -->
                                         <span class="text-[#AEC8A4]">•</span>
-                                        
-                                        <!-- Jurusan -->
                                         <div class="flex items-center">
                                             <svg class="w-4 h-4 mr-1.5 text-[#8A784E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
@@ -190,7 +165,7 @@ use Illuminate\Support\Facades\Storage;
                                     </div>
                                 </div>
                                 
-                                <!-- Job Details -->
+                                <!-- Detail Lowongan -->
                                 <div class="p-6 flex-grow">
                                     <ul class="space-y-3 mb-4">
                                         <li class="flex items-start">
@@ -223,7 +198,7 @@ use Illuminate\Support\Facades\Storage;
                                         </li>
                                     </ul>
 
-                                    <!-- Qualifications -->
+                                    <!-- Kualifikasi -->
                                     <div class="mb-4">
                                         <h4 class="text-sm font-semibold text-[#3B3B1A] mb-2 flex items-center">
                                             <svg class="w-3.5 h-3.5 mr-1.5 text-[#8A784E]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -243,8 +218,6 @@ use Illuminate\Support\Facades\Storage;
                                         </ul>
                                     </div>
                                 </div>
-
-                                <!-- Apply Button -->
                                 <div class="p-6 pt-0">
                                     <a href="{{ route('lowongan.show', $job->id) }}" 
                                     class="block w-full text-center bg-[#AEC8A4] hover:bg-[#8A9E7F] text-[#3B3B1A] font-medium py-2 px-4 rounded-md transition-all duration-300 text-sm shadow-md hover:shadow-lg">
@@ -275,48 +248,33 @@ use Illuminate\Support\Facades\Storage;
                         <div class="w-20 h-1 bg-[#AEC8A4] rounded-full"></div>
                     </div>
                 </div>
-                
-                <!-- Professional news grid -->
                 <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
                     @foreach ($news as $item)
                     <article class="group cursor-pointer flex flex-col h-full">
                         <div class="bg-white/95 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex flex-col h-full">
-                                        
-                            <!-- Image section -->
                             <div class="relative h-48 overflow-hidden">
                                 <img src="{{ asset('storage/' . $item->foto) }}" 
                                     alt="{{ $item->judul }}" 
                                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                                
-                                <!-- Subtle overlay -->
                                 <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors duration-300"></div>
                             </div>
-
-                            <!-- Content section -->
                             <div class="p-6">
-                                <!-- Date badge -->
                                 <div class="mb-4">
                                     <div class="inline-flex items-center text-xs font-medium text-[#626F47] bg-[#AEC8A4]/10 px-3 py-1.5 rounded-full">
                                         <svg class="w-3 h-3 mr-2 text-[#AEC8A4]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                         </svg>
-                                        {{ \Carbon\Carbon::parse($item->tanggal)->locale('id')->translatedFormat('d F Y') }}
+                                        {{ $item->created_at->locale('id')->translatedFormat('l, d F Y') }}
                                     </div>
                                 </div>
-
-                                <!-- Title - with line clamp to prevent card stretching -->
                                 <h2 class="text-lg font-bold text-[#3B3B1A] mb-4 leading-tight font-serif group-hover:text-[#626F47] transition-colors duration-300 line-clamp-2">
                                     {{ $item->judul }}
                                 </h2>
-
-                                <!-- Excerpt if available -->
                                 @if(isset($item->excerpt))
                                 <p class="text-[#626F47] text-sm mb-5 leading-relaxed line-clamp-3">
                                     {{ $item->excerpt }}
                                 </p>
                                 @endif
-
-                                <!-- Read more link -->
                                 <div class="pt-2 border-t border-[#E7EFC7]/50">
                                     <a href="{{ route('berita.show', $item->id) }}" 
                                     class="inline-flex items-center text-sm font-medium text-[#626F47] hover:text-[#3B3B1A] transition-colors duration-300 group/link">
@@ -349,7 +307,6 @@ use Illuminate\Support\Facades\Storage;
             }
         }">
             <div class="max-w-6xl mx-auto px-4">
-                <!-- Elegant header section -->
                 <div class="text-center mb-12">
                     <h2 class="text-4xl font-serif font-bold text-white mb-4 tracking-tight">
                         Dokumentasi Kegiatan
@@ -361,8 +318,6 @@ use Illuminate\Support\Facades\Storage;
                         Dokumentasi kegiatan magang mahasiswa di PT Tiga Serangkai
                     </p>
                 </div>
-
-                <!-- Gallery Grid with matching style -->
                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
                     @forelse($galeris as $galeri)
                     <article 
@@ -399,8 +354,6 @@ use Illuminate\Support\Facades\Storage;
                     </div>
                     @endforelse
                 </div>
-
-                <!-- Enhanced View All Button -->
                 <div class="mt-10 flex justify-center">
                     <a href="{{ route('galeri.index') }}" class="group relative bg-gradient-to-r from-[#AEC8A4] to-[#8A9E7F] hover:from-[#8A9E7F] hover:to-[#626F47] text-[#3B3B1A] hover:text-white px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 font-semibold tracking-wide transform hover:-translate-y-1 overflow-hidden">
                         <span class="relative z-10 flex items-center">
@@ -463,10 +416,9 @@ use Illuminate\Support\Facades\Storage;
             </template>
         </section>
 
-        <!-- FAQ Section -->
+        <!-- FAQ -->
         <section class="relative z-10 py-16 md:py-20">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <!-- Enhanced Section Header -->
                 <div class="text-center mb-16">
                     <h2 class="text-4xl md:text-5xl font-bold text-white font-serif mb-6 tracking-tight">Pertanyaan yang Sering Ditanyakan</h2>
                     <div class="w-24 h-1 bg-gradient-to-r from-[#AEC8A4] to-[#8A784E] mx-auto rounded-full mb-6"></div>
@@ -475,7 +427,6 @@ use Illuminate\Support\Facades\Storage;
                     </p>
                 </div>
 
-                <!-- FAQ Items -->
                 <div class="space-y-4">
                     @forelse($faqs as $faq)
                     <div x-data="{ open: false }" class="border border-[#8A784E] rounded-xl overflow-hidden bg-white/95 backdrop-blur-sm">

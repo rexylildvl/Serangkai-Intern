@@ -194,7 +194,7 @@
                             Menampilkan <span class="font-medium">{{ $logbooks->firstItem() }}</span> sampai <span class="font-medium">{{ $logbooks->lastItem() }}</span> dari <span class="font-medium">{{ $logbooks->total() }}</span> logbook
                         </div>
                         <div class="flex space-x-2">
-                            {{ $logbooks->links() }}
+                            {{ $logbooks->links('pagination::simple-tailwind') }}
                         </div>
                     </div>
                 @endif

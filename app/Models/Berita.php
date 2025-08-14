@@ -9,7 +9,7 @@ class Berita extends Model
 {
     use HasFactory;
 
-    protected $table = 'news'; // karena nama model Berita, tapi nama tabel di database adalah 'news'
+    protected $table = 'news'; 
 
     protected $fillable = [
         'judul',
@@ -19,5 +19,5 @@ class Berita extends Model
         'tanggal_posting',
     ];
 
-    protected $dates = ['tanggal_posting']; // biar bisa pakai Carbon untuk format tanggal
+    protected $dates = ['tanggal_posting'];
 }

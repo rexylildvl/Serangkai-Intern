@@ -18,7 +18,6 @@ class Logbook extends Model
         'status',
     ];
 
-    // Relasi ke User
     public function user()
     {
         return $this->belongsTo(User::class);
