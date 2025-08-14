@@ -29,6 +29,18 @@
         <a href="{{ route('admin.faq.index') }}" class="ml-2 text-gray-600 hover:underline">Batal</a>
     </form>
 </div>
+
+{{-- Tambahkan style khusus list agar nomor muncul --}}
+<style>
+    ol {
+        list-style-type: decimal !important;
+        margin-left: 1.5rem;
+    }
+    ul {
+        list-style-type: disc !important;
+        margin-left: 1.5rem;
+    }
+</style>
 @endsection
 
 @push('scripts')
@@ -46,6 +58,6 @@
     .catch(error => {
         console.error(error);
     });
-
+    
 </script>
 @endpush
