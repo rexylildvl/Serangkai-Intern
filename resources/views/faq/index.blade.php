@@ -55,7 +55,7 @@
                         >
                             <div class="pr-4 pt-2 space-y-3">
                                 <div class="flex items-start">
-                                    <div class="ml-3 prose prose-sm max-w-none text-[#626F47]">
+                                    <div class="prose faq-content max-w-none text-gray-700">
                                         {!! $faq->jawaban !!}
                                     </div>
                                 </div>
