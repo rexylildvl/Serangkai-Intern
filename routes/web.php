@@ -28,6 +28,19 @@ Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
 
+// routes/web.php
+Route::patch('/profile/update-email', [ProfileController::class, 'updateEmail'])
+    ->name('profile.update-email');
+
+Route::get('/profile/verify-email/{id}/{hash}', [ProfileController::class, 'verifyEmail'])
+    ->middleware(['signed', 'throttle:6,1'])
+    ->name('profile.verify-email');
+// routes/web.php
+Route::post('/profile/validate-password', [ProfileController::class, 'validatePassword'])
+    ->name('profile.validate-password');
+// routes/web.php
+Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
+
 
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
 Route::get('/berita/create', [BeritaController::class, 'create'])->name('berita.create');
@@ -127,8 +140,9 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    
+    Route::put('/profile/password', [ProfileController::class, 'updatePassword'])
+    ->middleware('auth')
+    ->name('profile.password.update');
 
     Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran.index');
     Route::post('/pendaftaran/submit', [PendaftaranController::class, 'submit'])->name('pendaftaran.submit');

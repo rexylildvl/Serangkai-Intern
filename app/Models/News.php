@@ -19,7 +19,6 @@ class News extends Model
         'tanggal',
     ];
 
-    // Optional: Jika kamu ingin memformat tanggal otomatis
     protected $casts = [
         'tanggal' => 'date',
     ];
