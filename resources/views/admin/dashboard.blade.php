@@ -4,7 +4,7 @@
 
 @section('content')
     {{-- Header Welcome --}}
-    <div class="bg-gradient-to-r from-[#5d6f55] to-[#7aa06e] text-white rounded-xl px-8 py-6 shadow-lg mb-8">
+    <div class="bg-gradient-to-r from-[#7a885d] to-[#3B3B1A] text-white rounded-xl px-8 py-6 shadow-lg mb-8">
         <div class="flex items-center">
             <div class="mr-4">
                 <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -22,8 +22,8 @@
 
     {{-- Quick Actions --}}
     <div class="flex flex-wrap gap-4 mb-8">
-        <a href="{{ route('admin.lowongan.create') }}"
-            class="inline-flex items-center px-5 py-3 bg-gradient-to-r from-[#7aa06e] to-[#8bb07e] hover:from-[#678a5c] hover:to-[#7aa06e] text-white text-sm font-semibold rounded-lg shadow-md transition-all duration-200 transform hover:-translate-y-0.5">
+        <a href="{{ route('admin.lowongan.create') }}" 
+            class="inline-flex items-center px-5 py-3 bg-gradient-to-r from-[#7a885d] to-[#3B3B1A] hover:from-[#678a5c] hover:to-[#7aa06e] text-white text-sm font-semibold rounded-lg shadow-md transition-all duration-200 transform hover:-translate-y-0.5">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
             </svg>
