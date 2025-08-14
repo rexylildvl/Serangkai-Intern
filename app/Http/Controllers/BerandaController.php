@@ -14,7 +14,7 @@ class BerandaController extends Controller
  
         public function index()
         {
-            $lowongans = Lowongan::latest()->take(6)->get();
+            $lowongans = Lowongan::latest()->take(3)->get();
             $news = News::latest()->take(6)->get();
             $galeris = Galeri::latest()->take(10)->get();
             $banners = Banner::where('is_active', true)->latest()->get();

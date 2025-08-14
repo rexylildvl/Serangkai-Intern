@@ -58,9 +58,14 @@ public function updatePassword(Request $request)
         'password' => Hash::make($request->password),
     ]);
 
+    Auth::logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
     return response()->json([
         'success' => true,
-        'message' => 'Password updated successfully'
+        'message' => 'Password berhasil diupdate. Silakan login kembali.',
+        'redirect' => route('login')
     ]);
 }
 

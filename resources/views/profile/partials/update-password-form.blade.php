@@ -1,230 +1,219 @@
-<head>
-    <script src="//unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-</head>
-<section id="passwordFormContainer" class="max-w-lg mx-auto p-8 bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl border border-[#AEC8A4]/60 w-full">
-    <header class="mb-8 flex items-center gap-4">
-        <script src="//unpkg.com/alpinejs" defer></script>
-        <div class="p-3 rounded-full bg-[#E7EFC7] text-[#626F47] shadow">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-            </svg>
-        </div>
-        <div>
-            <h2 class="text-2xl font-bold text-[#3B3B1A] font-serif">Update Password</h2>
-            <p class="text-[#626F47] text-sm mt-1">Gunakan password acak dan panjang untuk keamanan akun Anda.</p>
-        </div>
+<section class="space-y-6">
+    <!-- Header di luar form -->
+    <header class="bg-[#F5F9E8] p-6 rounded-2xl border border-[#AEC8A4]/60 shadow mb-2">
+        <h2 class="text-lg font-bold text-[#3B3B1A] font-serif flex items-center gap-2">
+            {{ __('Ubah Password') }}
+        </h2>
+        <p class="mt-2 text-sm text-[#626F47]">
+            {{ __('Anda dapat mengubah password akun Anda di sini.') }}
+        </p>
     </header>
 
-    <div x-data>
-        <form id="passwordUpdateForm" method="post" action="{{ route('profile.password.update') }}" class="space-y-7"
-              @submit.prevent="window.dispatchEvent(new CustomEvent('show-password-confirmation'))">
+    <!-- Form -->
+    <form method="post" action="{{ route('profile.password.update') }}" class="space-y-6" id="passwordUpdateForm">
+        @csrf
+        @method('put')
 
-            @csrf
-            @method('put')
+        <!-- Status Messages -->
+        <div id="passwordUpdateMessage" class="hidden p-4 mb-4 rounded-xl border"></div>
 
-            <!-- Password Saat Ini -->
-            <div>
-                <label for="update_password_current_password" class="block text-sm font-semibold text-[#3B3B1A] mb-2">
-                    Password Saat Ini
-                </label>
-                <input id="update_password_current_password" name="current_password" type="password"
-                       class="w-full px-4 py-3 border border-[#AEC8A4] rounded-xl focus:ring-2 
-                              focus:ring-[#626F47] focus:border-[#626F47] transition duration-200 
-                              bg-[#F8FAF0] text-[#3B3B1A] placeholder-gray-400 shadow-sm"
-                       autocomplete="current-password" required placeholder="Masukkan password lama">
-                @error('current_password', 'updatePassword')
-                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <!-- Password Baru -->
-            <div>
-                <label for="update_password_password" class="block text-sm font-semibold text-[#3B3B1A] mb-2">
-                    Password Baru
-                </label>
-                <input id="update_password_password" name="password" type="password"
-                       class="w-full px-4 py-3 border border-[#AEC8A4] rounded-xl focus:ring-2 
-                              focus:ring-[#626F47] focus:border-[#626F47] transition duration-200 
-                              bg-[#F8FAF0] text-[#3B3B1A] placeholder-gray-400 shadow-sm"
-                       autocomplete="new-password" required placeholder="Password baru">
-                @error('password', 'updatePassword')
-                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <!-- Konfirmasi Password Baru -->
-            <div>
-                <label for="update_password_password_confirmation" class="block text-sm font-semibold text-[#3B3B1A] mb-2">
-                    Konfirmasi Password Baru
-                </label>
-                <input id="update_password_password_confirmation" name="password_confirmation" type="password"
-                       class="w-full px-4 py-3 border border-[#AEC8A4] rounded-xl focus:ring-2 
-                              focus:ring-[#626F47] focus:border-[#626F47] transition duration-200 
-                              bg-[#F8FAF0] text-[#3B3B1A] placeholder-gray-400 shadow-sm"
-                       autocomplete="new-password" required placeholder="Ulangi password baru">
-                @error('password_confirmation', 'updatePassword')
-                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <!-- Tombol Aksi -->
-            <div class="pt-4 flex gap-4">
-                <button type="submit"
-                        class="flex-1 py-3 px-6 bg-gradient-to-r from-[#626F47] to-[#4f6b45] hover:from-[#3B3B1A] 
-                               hover:to-[#8A784E] text-white font-semibold rounded-xl shadow-md flex 
-                               items-center justify-center gap-2 transition-all duration-200">
-                    {{ __('Update Password') }}
-                </button>
-                <button type="button" id="cancelPasswordBtn"
-                        class="flex-1 py-3 px-6 bg-gray-200 hover:bg-gray-300 text-[#3B3B1A] font-semibold 
-                               rounded-xl shadow-md transition-all duration-200">
-                    Batal
+        <!-- Current Password -->
+        <div class="relative">
+            <label for="current_password" class="block text-[#626F47] text-sm font-semibold mb-1">
+                Password Saat Ini
+            </label>
+            <div class="relative">
+                <input id="current_password" name="current_password" type="password"
+                    class="w-full border border-[#AEC8A4] rounded-xl px-4 py-3 text-[#3B3B1A] bg-[#F8FAF0] 
+                        placeholder-gray-400 focus:ring-2 focus:ring-[#AEC8A4] focus:border-[#626F47] transition pr-12"
+                    autocomplete="current-password" required placeholder="Masukkan password lama">
+                <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center text-[#626F47] hover:text-[#3B3B1A] transition-colors" onclick="togglePasswordVisibility('current_password', this)">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
                 </button>
             </div>
-        </form>
-    </div>
+            <p id="current_password_error" class="mt-1 text-sm text-red-600 hidden"></p>
+        </div>
+
+        <!-- New Password -->
+        <div class="relative">
+            <label for="password" class="block text-[#626F47] text-sm font-semibold mb-1">
+                Password Baru
+            </label>
+            <div class="relative">
+                <input id="password" name="password" type="password"
+                    class="w-full border border-[#AEC8A4] rounded-xl px-4 py-3 text-[#3B3B1A] bg-[#F8FAF0] 
+                           placeholder-gray-400 focus:ring-2 focus:ring-[#AEC8A4] focus:border-[#626F47] transition pr-12"
+                    autocomplete="new-password" required placeholder="Password baru">
+                <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center text-[#626F47] hover:text-[#3B3B1A] transition-colors" onclick="togglePasswordVisibility('password', this)">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                </button>
+            </div>
+            <p id="password_error" class="mt-1 text-sm text-red-600 hidden"></p>
+            <p class="mt-1 text-xs text-[#626F47]">
+                Minimal 8 karakter dengan kombinasi huruf besar, huruf kecil, angka, dan simbol.
+            </p>
+        </div>
+
+        <!-- Confirm New Password -->
+        <div class="relative">
+            <label for="password_confirmation" class="block text-[#626F47] text-sm font-semibold mb-1">
+                Konfirmasi Password Baru
+            </label>
+            <div class="relative">
+                <input id="password_confirmation" name="password_confirmation" type="password"
+                    class="w-full border border-[#AEC8A4] rounded-xl px-4 py-3 text-[#3B3B1A] bg-[#F8FAF0] 
+                           placeholder-gray-400 focus:ring-2 focus:ring-[#AEC8A4] focus:border-[#626F47] transition pr-12"
+                    autocomplete="new-password" required placeholder="Ulangi password baru">
+                <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center text-[#626F47] hover:text-[#3B3B1A] transition-colors" onclick="togglePasswordVisibility('password_confirmation', this)">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                </button>
+            </div>
+            <p id="password_confirmation_error" class="mt-1 text-sm text-red-600 hidden"></p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex gap-3 pt-4">
+            <button type="submit" id="submitButton" 
+                class="flex-1 px-6 py-3 rounded-xl bg-gradient-to-r from-[#626F47] to-[#4f6b45] text-white 
+                       font-semibold shadow hover:from-[#3B3B1A] hover:to-[#8A784E] transition-all duration-200">
+                Update Password
+            </button>
+            <button type="button" onclick="window.location.href='{{ route('profile.edit') }}'" 
+                class="flex-1 px-6 py-3 rounded-xl bg-gray-200 text-[#3B3B1A] font-semibold 
+                       shadow hover:bg-gray-300 transition-all duration-200">
+                Batal
+            </button>
+        </div>
+    </form>
 </section>
 
-<!-- Modal Konfirmasi (Perbaikan Utama) -->
-<div x-data="{ showModal: false }"
-     x-show="showModal"
-     x-transition
-     x-cloak
-     @keydown.escape.window="showModal = false"
-     class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
-     x-init="
-        window.addEventListener('show-password-confirmation', () => {
-            showModal = true;
-        });
-     ">
-    
-    <div class="bg-white/95 rounded-2xl shadow-2xl max-w-md w-full p-8 relative">
-        <div class="text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-[#626F47]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
-            </svg>
-            <h3 class="text-xl font-bold text-[#3B3B1A] mt-4 font-serif">Konfirmasi Ubah Password</h3>
-            <p class="text-[#626F47] mt-2">Apakah Anda yakin ingin mengubah password?</p>
-            <div class="mt-6 flex justify-center gap-4">
-                <button @click="showModal = false" type="button" class="px-6 py-2 border border-[#AEC8A4] text-[#3B3B1A] rounded-xl hover:bg-gray-50 transition-colors">
-                    Batal
-                </button>
-                <button @click="
-                    showModal = false;
-                    window.submitPasswordForm();
-                " type="button" class="px-6 py-2 bg-gradient-to-r from-[#626F47] to-[#AEC8A4] text-white rounded-xl hover:from-[#3B3B1A] hover:to-[#8A784E] transition-colors">
-                    Konfirmasi
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Error Notification Modal -->
-<div x-data="{ 
-        ...Alpine.store('showError'),
-        init() {
-            this.$watch('show', (value) => {
-                if (value) setTimeout(() => this.show = false, 5000);
-            });
-        }
-     }" 
-     x-show="show" x-transition x-cloak>
-    
-    <div class="bg-white/95 rounded-2xl shadow-2xl max-w-md w-full p-8 relative">
-        <div class="text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-red-500" fill="none" 
-                 viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4
-                         c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-            </svg>
-            <h3 class="text-xl font-bold text-[#3B3B1A] mt-4 font-serif">Gagal Mengubah Password</h3>
-            <p x-text="errorMessage" class="text-red-500 mt-2"></p>
-            <div class="mt-6 flex justify-center">
-                <button @click="showErrorModal = false" type="button" 
-                        class="px-6 py-2 bg-gradient-to-r from-[#626F47] to-[#AEC8A4] text-white rounded-xl 
-                               hover:from-[#3B3B1A] hover:to-[#8A784E] transition-colors">
-                    Tutup
-                </button>
-            </div>
-        </div>
-    </div>
-    <p x-text="message"></p>
-</div>
-
-<!-- Success Notification -->
-@if (session('status') === 'password-updated')
-    <div x-data="{ show: true }"
-         x-show="show"
-         x-transition
-         x-init="setTimeout(() => show = false, 3000)"
-         class="fixed bottom-4 right-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-xl 
-                shadow-lg flex items-start gap-3 max-w-xs"
-         x-cloak>
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500" fill="none" 
-             viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-        </svg>
-        <div>
-            <p class="font-bold">Berhasil!</p>
-            <p class="text-sm">Password Anda berhasil diubah.</p>
-        </div>
-        <button @click="show = false" class="ml-auto text-green-700 hover:text-green-900">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" 
-                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 
-                         0 111.414 1.414L11.414 10l4.293 4.293a1 1 
-                         0 01-1.414 1.414L10 11.414l-4.293 4.293a1 
-                         1 0 01-1.414-1.414L8.586 10 4.293 
-                         5.707a1 1 0 010-1.414z" 
-                      clip-rule="evenodd" />
-            </svg>
-        </button>
-    </div>
-@endif
-
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Single source of truth untuk submit
-    window.submitPasswordForm = async function() {
-        try {
-            const form = document.getElementById('passwordUpdateForm');
-            const formData = new FormData(form);
-            
-            const response = await fetch(form.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'Accept': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+function togglePasswordVisibility(inputId, button) {
+    const input = document.getElementById(inputId);
+    const isPassword = input.type === 'password';
+    
+    input.type = isPassword ? 'text' : 'password';
+    
+    // Update icon
+    const eyeIcon = button.querySelector('svg');
+    if (isPassword) {
+        eyeIcon.innerHTML = `
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+        `;
+    } else {
+        eyeIcon.innerHTML = `
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        `;
+    }
+}
+
+document.getElementById('passwordUpdateForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const form = e.target;
+    const formData = new FormData(form);
+    const messageDiv = document.getElementById('passwordUpdateMessage');
+    const submitBtn = document.getElementById('submitButton');
+    
+    // Reset UI
+    document.querySelectorAll('[id$="_error"]').forEach(el => {
+        el.classList.add('hidden');
+        el.textContent = '';
+    });
+    messageDiv.classList.add('hidden');
+    messageDiv.innerHTML = '';
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `
+        <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        Memproses...
+    `;
+    
+    fetch(form.action, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.errors) {
+            // Handle validation errors
+            Object.keys(data.errors).forEach(field => {
+                const errorElement = document.getElementById(`${field}_error`);
+                if (errorElement) {
+                    errorElement.textContent = data.errors[field][0];
+                    errorElement.classList.remove('hidden');
                 }
             });
-
-            const data = await response.json();
             
-            if (!response.ok) {
-                const errors = Object.values(data.errors).flat();
-                throw new Error(errors.join('. '));
-            }
-
-            window.location.reload();
-        } catch (error) {
-            console.error('Submission error:', error);
-            Alpine.store('showError', {
-                message: error.message || 'Terjadi kesalahan sistem'
-            });
+            // Show error message
+            messageDiv.innerHTML = `
+                <div class="flex items-center gap-2 text-red-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                    </svg>
+                    <span>Gagal mengupdate password. Silakan periksa form kembali.</span>
+                </div>
+            `;
+            messageDiv.classList.remove('hidden');
+            messageDiv.classList.add('bg-red-50', 'border-red-200');
+            messageDiv.classList.remove('bg-green-50', 'border-green-200');
+        } else if (data.success) {
+            // Show success message and redirect
+            messageDiv.innerHTML = `
+                <div class="flex items-center gap-2 text-green-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                    </svg>
+                    <span>${data.message}</span>
+                </div>
+            `;
+            messageDiv.classList.remove('hidden');
+            messageDiv.classList.add('bg-green-50', 'border-green-200');
+            messageDiv.classList.remove('bg-red-50', 'border-red-200');
+            
+            // Reset form
+            form.reset();
+            
+            // Redirect to login page after 2 seconds
+            setTimeout(() => {
+                window.location.href = data.redirect;
+            }, 2000);
         }
-    };
-
-    // Inisialisasi Alpine store
-    document.addEventListener('alpine:init', () => {
-        Alpine.store('showError', {
-            message: '',
-            show: false
-        });
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        messageDiv.innerHTML = `
+            <div class="flex items-center gap-2 text-red-800">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                </svg>
+                <span>Terjadi kesalahan saat memproses permintaan.</span>
+            </div>
+        `;
+        messageDiv.classList.remove('hidden');
+        messageDiv.classList.add('bg-red-50', 'border-red-200');
+        messageDiv.classList.remove('bg-green-50', 'border-green-200');
+    })
+    .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Update Password';
     });
 });
 </script>

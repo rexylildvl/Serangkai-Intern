@@ -19,6 +19,7 @@ use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\LogbookController;
+use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\Auth\GoogleController;
 
 Route::get('/auth/redirect/google', [GoogleController::class, 'redirectToGoogle']);
@@ -38,9 +39,8 @@ Route::get('/profile/verify-email/{id}/{hash}', [ProfileController::class, 'veri
 // routes/web.php
 Route::post('/profile/validate-password', [ProfileController::class, 'validatePassword'])
     ->name('profile.validate-password');
-// routes/web.php
-Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
-
+Route::put('/profile/password', [ProfileController::class, 'updatePassword'])
+    ->name('profile.password.update');
 
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
 Route::get('/berita/create', [BeritaController::class, 'create'])->name('berita.create');
@@ -135,6 +135,12 @@ Route::middleware(['auth', \App\Http\Middleware\AdminMiddleware::class])->group(
 });
 
 Route::middleware('auth', 'verified')->group(function () {
+    Route::get('/profile/password', [PasswordController::class, 'showChangePasswordForm'])
+         ->name('profile.password.show');
+         
+    // Route untuk memproses perubahan password
+    Route::put('/profile/password', [PasswordController::class, 'update'])
+         ->name('profile.password.update');
     Route::get('/lowongan/create', [LowonganController::class, 'create'])->name('lowongan.create');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
